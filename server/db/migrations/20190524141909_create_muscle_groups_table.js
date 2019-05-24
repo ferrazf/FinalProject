@@ -1,5 +1,5 @@
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable("muscle_group", function(table) {
+  return knex.schema.createTable("muscle_groups", function(table) {
     table
       .increments("id")
       .unsigned()
@@ -9,5 +9,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable("muscle_group");
+  return knex.schema.dropTable("muscle_groups");
 };
