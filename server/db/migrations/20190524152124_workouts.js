@@ -10,7 +10,10 @@ exports.up = function(knex, Promise) {
       .unsigned()
       .notNullable()
       .index();
-    table.boolean("completed").defaultTo(false);
+    table
+      .boolean("completed")
+      .notNullable()
+      .defaultTo(false);
     table
       .date("last_updated")
       .notNullable()
