@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-//import { Box, Button as GrommetButton, Grommet } from 'grommet';
+import { Box, Button as GrommetButton, Grommet } from 'grommet';
 
 function App() {
   return (
