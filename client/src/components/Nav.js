@@ -6,7 +6,6 @@ import Home from "../containers/home.js";
 import Profile from "../containers/profile.js";
 
 function Nav(props) {
-    console.log(props);
     return (
         <Router>
             <Box fill= "horizontal">
