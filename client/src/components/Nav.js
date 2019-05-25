@@ -1,20 +1,23 @@
 import React from 'react';
-import { Box, Button, Heading} from 'grommet';
-import { Notification } from 'grommet-icons';
+import { Box, Heading, Text} from 'grommet';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Home from "../../containers/home.js";
 
-function Nav() {
+import Home from "../containers/home.js";
+import Profile from "../containers/profile.js";
+
+function Nav(props) {
+    console.log(props);
     return (
         <Router>
             <Box fill= "horizontal">
                 <AppBar >
-                <Link to="/">Pocket Spotter</Link>
-                    <Heading level='3' margin='none'>   My App!</Heading>
-                <Button icon={<Notification />} onClick={() => {}} />
+                <Link to="/" justify='start'>Pocket Spotter</Link>
+                <Link to="/profile"><Heading level='3' margin='none'> Profile</Heading></Link>
+                <Text>{props.name}</Text> 
                 </AppBar>
             </Box>
             <Route exact path="/" component={Home} />
+            <Route path="/profile" component={Profile} />
         </Router>
     );
 }
@@ -24,7 +27,7 @@ const AppBar = (props) => (
         tag='header'
         direction='row'
         align='center'
-        justify='start'
+        justify='center'
         background='brand'
         pad={{ left: 'medium', right: 'small', vertical: 'small' }}
         elevation='medium'
