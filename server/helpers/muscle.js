@@ -3,18 +3,40 @@
 const express     = require('express');
 const jwt         = require('jsonwebtoken');
 
+const muscles = [
+    {
+      id: 1,
+      name: 'leg'
+    },
+    {
+      id: 2,
+      name: 'biceps'
+    },
+    {
+      id:3,
+      name: 'triceps'
+    }
+  ];
+
 module.exports = (knex) => {
 
   return{
-    getExercises: (req, res, next) => {
+    // getMuscles: (req, res, next) => {
+    //   res.json(muscles);
+    // // knex
+    // //   .select("*")
+    // //   .from("users")
+    // //   .then((results) => {
+    // //     res.json(results);
+    // // });
+    // },
 
+    // getMuscle: (req,res,next) =>{
 
-    },
-    createExercise: (req, res, next) => {
+    // },
 
-      res.status(200).json(req.body)
+    // createMuscle: (req,res,next) => {
 
-    }
+    // }
   }
 }
-

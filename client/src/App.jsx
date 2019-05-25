@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { Box, Button as GrommetButton, Grommet } from 'grommet';
+import { Grommet } from 'grommet';
+import Nav from "./components/Nav.js";
 import Exercise from './components/Exercise.jsx';
 import Message from './components/Message.jsx';
 
@@ -13,15 +14,14 @@ export default class App extends Component {
   constructor(props){
     super();
 
-    this.state = {
-      // message:{}
-    }
+    this.state = {}
 
     this.handleExerciseFormSubmit = this.handleExerciseFormSubmit.bind(this);
   }
 
   handleExerciseFormSubmit = async (evt) => {
     evt.preventDefault();
+
     const exercise ={
       muscle: evt.target.muscle.value,
       name: evt.target.name.value,
@@ -52,15 +52,14 @@ export default class App extends Component {
     const message = this.state.message && <Message message={this.state.message}/>
 
     return (
-      <div className="App">
-        <h1>Hello</h1>
-
+      <Grommet plain>
+        <Nav />
+        {message}
         <Router>
           <Link to="/exercises/new">+ Exercise</Link>
           <Route path="/exercises/new" component={() => <Exercise handleFormSubmit={this.handleExerciseFormSubmit}/>} />
         </Router>
-        {message}
-      </div>
+      </Grommet>
     );
   }
 }
