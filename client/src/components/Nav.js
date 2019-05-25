@@ -1,16 +1,21 @@
 import React from 'react';
-import { Box, Button, Heading, Grommet } from 'grommet';
+import { Box, Button, Heading} from 'grommet';
 import { Notification } from 'grommet-icons';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Home from "../../containers/home.js";
 
 function Nav() {
     return (
-        <Box fill= "horizontal">
-            <AppBar >
-                Pocket Spotter
-                <Heading level='3' margin='none'>   My App!</Heading>
-               <Button icon={<Notification />} onClick={() => {}} />
-            </AppBar>
-        </Box>
+        <Router>
+            <Box fill= "horizontal">
+                <AppBar >
+                <Link to="/">Pocket Spotter</Link>
+                    <Heading level='3' margin='none'>   My App!</Heading>
+                <Button icon={<Notification />} onClick={() => {}} />
+                </AppBar>
+            </Box>
+            <Route exact path="/" component={Home} />
+        </Router>
     );
 }
 
