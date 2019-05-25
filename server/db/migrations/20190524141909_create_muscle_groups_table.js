@@ -1,17 +1,16 @@
-//Create 'users' table
+//Create 'muscle_groups' table
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable("users", function(table) {
+  return knex.schema.createTable("muscle_groups", function(table) {
     table
       .increments("id")
       .unsigned()
       .notNullable()
       .index();
     table.string("name");
-    table.string("email");
   });
 };
 
-//Drop 'users' table
+//Drop 'muscle_groups' table
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable("users");
+  return knex.schema.dropTable("muscle_groups");
 };
