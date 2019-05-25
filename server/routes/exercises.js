@@ -5,13 +5,14 @@ const router  = express.Router();
 
 module.exports = (knex) => {
   const middleware  = require('../middleware/index')(knex);
-  const helpers     = require('../helpers/users')(knex);
+  const helpers     = require('../helpers/exercises')(knex);
 
-  // users
+  // exercises
   router.route("/")
         // .all( middleware.verifyToken )
         // .all( middleware.isAuthorized )
-        .get(helpers.getUsers)
+        .get(helpers.getExercises)
+        .post(helpers.createExercise)
 
   return router;
 }
