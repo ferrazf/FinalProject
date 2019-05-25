@@ -16,6 +16,7 @@ exports.up = function(knex, Promise) {
   });
 };
 
+
 //Drop 'workout_muscle_groups' table
 exports.down = function(knex, Promise) {
   return knex.schema.dropTable("workout_muscle_groups");
