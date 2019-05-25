@@ -11,7 +11,7 @@ exports.up = function (knex, Promise) {
             .unsigned()
             .notNullable()
             .index();
-        table.unsigned("sets");
+        table.integer("sets");
         table.integer("reps");
         table.integer("rest");
         table.foreign("exercise_id").references("exercises.id");

@@ -16,9 +16,9 @@ exports.up = function(knex, Promise) {
       .notNullable()
       .defaultTo(false);
     table
-      .date("last_updated")
+      .timestamp('updated_at')
+      .defaultTo(knex.fn.now())
       .notNullable()
-      .defaultTo(knex.raw("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"));
     table.foreign("user_id").references("users.id");
   });
 };

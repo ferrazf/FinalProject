@@ -7,7 +7,8 @@ exports.up = function(knex, Promise) {
       .notNullable()
       .index();
     table
-      .unsigned("muscle_group_id")
+      .integer("muscle_group_id")
+      .unsigned()
       .notNullable()
       .index();
     table.string("name");
