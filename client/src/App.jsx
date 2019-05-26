@@ -27,8 +27,27 @@ export default class App extends Component {
     super();
 
     this.state = {}
+    this.getMuscleGroups();
 
     this.handleExerciseFormSubmit = this.handleExerciseFormSubmit.bind(this);
+  }
+
+  getMuscleGroups = async () => {
+    try{
+      const response = await axios.get(`${url}/muscles`);
+      this.setState({muscleGroups: response.data});
+    }catch (e){
+      this.setError(e);
+    }
+  }
+
+  setError = (content) => {
+    this.setState({
+        message:{
+          type: 'error',
+          content: `😱 Axios request failed: ${content}`
+        }
+      })
   }
 
   //==========================================
@@ -48,19 +67,13 @@ export default class App extends Component {
     evt.target.descr.value = '';
 
     try{
-
       const response = await axios.post(`${url}/exercises`, exercise);
       console.log('response---------------------------------');
       console.log(response.data);
+      //set state
     }catch (e){
-      this.setState({
-        message:{
-          type: 'error',
-          content: `😱 Axios request failed: ${e}`
-        }
-      })
+      this.setError(e);
     }
-
   }
 
   //==========================================
@@ -75,7 +88,7 @@ export default class App extends Component {
         {message}
         <Router>
           <Link to="/exercises/new">+ Exercise</Link>
-          <Route path="/exercises/new" component={() => <Exercise handleFormSubmit={this.handleExerciseFormSubmit}/>} />
+          <Route path="/exercises/new" component={() => <Exercise muscleGroups={this.state.muscleGroups} handleFormSubmit={this.handleExerciseFormSubmit}/>} />
         </Router>
       </Grommet>
     );

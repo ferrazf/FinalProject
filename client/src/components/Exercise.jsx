@@ -1,9 +1,11 @@
 import React from 'react';
 import { FormField, TextInput, Button } from 'grommet';
+import MuscleGroups from './MuscleGroups';
 
 
-export default( { handleFormSubmit } ) => (
+export default( { muscleGroups, handleFormSubmit } ) => (
   <form onSubmit={handleFormSubmit}>
+    <MuscleGroups muscleGroups={muscleGroups}/>
     <FormField label="Muscle:">
       <TextInput type="text" name="muscle" placeholder="muscle" />
     </FormField>

@@ -17,6 +17,7 @@ const knexLogger  = require('knex-logger');
 const indexRoutes = require("./routes/index");
 const usersRoutes = require("./routes/users");
 const exercisesRoutes = require("./routes/exercises");
+const musclesRoutes = require("./routes/muscles");
 
 //==========================================
 // app.use
@@ -43,6 +44,7 @@ app.use(function(req, res, next) {
 //==========================================
 app.use("/api/users", usersRoutes(knex));
 app.use("/api/exercises", exercisesRoutes(knex));
+app.use("/api/muscles", musclesRoutes(knex));
 app.use("/api/", indexRoutes(knex));
 
 //==========================================
