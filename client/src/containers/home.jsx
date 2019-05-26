@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, InfiniteScroll } from 'grommet';
 
-import Workout from "../components/workout.js";
+import Workout from "../components/workout.jsx";
 
 function Home() {
     return (

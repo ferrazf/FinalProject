@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import { Grommet } from 'grommet';
-import Nav from "./components/Nav.js";
+import Nav from "./components/Nav.jsx";
 
 
 
