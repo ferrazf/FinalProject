@@ -2,17 +2,12 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable("workout_exercises", function(table) {
     table
-      .increments("id")
-      .unsigned()
-      .notNullable()
-      .index();
-    table
       .integer("exercise_id")
       .unsigned()
       .notNullable()
       .index();
     table
-      .integer("muscle_group_id")
+      .integer("workout_id")
       .unsigned()
       .notNullable()
       .index();
@@ -20,7 +15,7 @@ exports.up = function(knex, Promise) {
     table.integer("reps");
     table.integer("rest");
     table.foreign("exercise_id").references("exercises.id");
-    table.foreign("muscle_group_id").references("muscle_groups.id");
+    table.foreign("workout_id").references("workouts.id");
   });
 };
 
