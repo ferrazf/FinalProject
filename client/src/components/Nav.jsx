@@ -2,11 +2,10 @@ import React from 'react';
 import { Box, Heading, Text} from 'grommet';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import Home from "../containers/home.js";
-import Profile from "../containers/profile.js";
+import Home from "../containers/home.jsx";
+import Profile from "../containers/profile.jsx";
 
 function Nav(props) {
-    console.log(props);
     return (
         <Router>
             <Box fill= "horizontal">
@@ -16,7 +15,7 @@ function Nav(props) {
                 <Text>{props.name}</Text> 
                 </AppBar>
             </Box>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={() => <Home workouts={props.workouts}/>} />
             <Route path="/profile" component={Profile} />
         </Router>
     );
