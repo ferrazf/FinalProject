@@ -9,7 +9,7 @@ import { Grommet } from 'grommet';
 //==========================================
 // import files
 //==========================================
-import Main from './containers/main.jsx'
+import Routes from './containers/routes.jsx'
 import Nav from "./components/Nav.jsx";
 import Message from './components/Message.jsx';
 
@@ -105,7 +105,7 @@ function App(props) {
     <Grommet plain>
       <Nav  name={name} />
       {message}
-      <Main workouts={workouts} handleExerciseFormSubmit={handleExerciseFormSubmit}/>
+      <Routes workouts={workouts} handleExerciseFormSubmit={handleExerciseFormSubmit}/>
     </Grommet>
   );
 }

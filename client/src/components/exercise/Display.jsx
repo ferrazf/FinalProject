@@ -10,12 +10,6 @@ function exercise_display(props) {
         <Text>Reps</Text>
         <Text>Rest</Text>
         <Text>Description</Text>
-        <Link to="/edit" >
-          <Button
-              alignSelf= "end"
-              label="Edit"
-          />
-        </Link>
     </Box>
   );
 }

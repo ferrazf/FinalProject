@@ -1,9 +1,10 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import Home from "../containers/home.jsx";
-import Profile from "../containers/profile.jsx";
-import Workout from "../containers/workouts.jsx";
-import Exercise from "../components/Exercise.jsx";
+import Home from "./home.jsx";
+import Profile from "./profile.jsx";
+import WorkoutDisplay from "./workoutDisplay.jsx";
+import EditDisplay from "./editDisplay.jsx";
+import Exercise from "../components/exercise/From.jsx";
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
@@ -15,8 +16,9 @@ const Main = (props) => (
     <Switch>
         <Route exact path="/" component={() => <Home workouts={props.workouts}/>} />
         <Route path='/profile' component={Profile}/>
-        <Route path='/workout' component={Workout}/>
-        <Route path='/edit' component={() => <Exercise handleExerciseFormSubmit={props.handleExerciseFormSubmit}/>} />
+        <Route path='/workout' component={WorkoutDisplay}/>
+        <Route path='/edit' component={EditDisplay}/>
+        <Route path='/editform' component={() => <Exercise handleExerciseFormSubmit={props.handleExerciseFormSubmit}/>} />
     </Switch>
   </main>
 )
