@@ -7,13 +7,8 @@ module.exports = (knex) => {
 
   return{
     login: (req, res, next) => {
-      // Mock user
-      const user = {
-        id: 1,
-        username: 'user1',
-        email: 'user1@gmail.com'
-      }
-      console.log(user)
+      // console.log(req.body)
+      const user = { id: 2, name: 'Bob Charles', email: 'bob.charles@charles.com' }
       jwt.sign({user}, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
         res.json({
           token
