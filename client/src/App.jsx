@@ -1,7 +1,7 @@
 //==========================================
 // import libraries/modules
 //==========================================
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Grommet } from 'grommet';
@@ -22,25 +22,61 @@ const url = process.env.REACT_APP_SERVER_URL;
 // App
 //==========================================
 function App(props) {
+  //==========================================
+  // States
+  //==========================================
   const [ name, setName ] = useState("kobi")
-  const [ workouts, setWorkout ] = useState( 
+  const [ workouts, setWorkout ] = useState(
     {1:["Chest","Back"],
     2:["Rest"],
     3:["Legs"],
-    4:["chest","back"], 
+    4:["chest","back"],
     5:["shoulders", "arms"],
     6:["rest"],
     7:["chest"]}
   );
   const [ messages, setMessage ] = useState(0)
+  const [ initialized, setInitialized ] = useState(false);
+  const [ muscleGroup, setMuscleGroups ] = useState('');
+  const [ muscle, setMuscles ] = useState('');
+
+  //==========================================
+  // Functions
+  //==========================================
+  const setError = (content) => {
+    this.setState({
+        message:{
+          type: 'error',
+          content: `😱 Axios request failed: ${content}`
+        }
+      })
+  }
+
+  const getMuscleGroup = (muscle) => {
+    return muscleGroup.filter(group => group.name === muscle);
+  }
   //==========================================
   // Events
   //==========================================
+  useEffect(() => {
+    try{
+      if (!initialized) {
+        axios.get(`${url}/muscles`)
+          .then(({ data }) => {
+            setMuscleGroups(data);
+            setMuscles(data.map(muscle => muscle.name));
+          });
+        setInitialized(true);
+      }
+    }catch (e){
+      setError(e);
+    }
+  })
+
   const handleExerciseFormSubmit = async (evt) => {
     evt.preventDefault();
-
     const exercise ={
-      muscle: this.getMuscleGroup(evt.target.muscle.value)[0].id,
+      muscle_group_id: getMuscleGroup(evt.target.muscle.value)[0].id,
       name: evt.target.name.value,
       descr: evt.target.descr.value
     }
@@ -55,19 +91,14 @@ function App(props) {
       console.log(response.data);
       //set state
     }catch (e){
-      setMessage(
-        {
-          type: 'error',
-          content: `😱 Axios request failed: ${e}`
-        }
-      )
+      setError(e);
     }
   }
 
   //==========================================
   // Return
   //==========================================
-  
+
   const message = messages && <Message message={messages}/>
 
   return (
@@ -76,7 +107,7 @@ function App(props) {
       {message}
       <Router>
         <Link to="/exercises/new">+ Exercise</Link>
-        <Route path="/exercises/new" component={() => <Exercise handleFormSubmit={handleExerciseFormSubmit}/>} />
+        <Route path="/exercises/new" component={() => <Exercise muscleGroups={muscle} handleFormSubmit={handleExerciseFormSubmit}/>} />
       </Router>
     </Grommet>
   );

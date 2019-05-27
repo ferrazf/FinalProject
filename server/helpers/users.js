@@ -1,23 +1,28 @@
 "use strict";
 
-const express     = require('express');
+const express       = require('express');
+const jwt           = require('jsonwebtoken');
 
 module.exports = (knex) => {
 
   return{
     getUsers: (req, res, next) => {
-      const user = {
-        id: 1,
-        username: 'user1',
-        email: 'user1@gmail.com'
-      }
-      res.json([user]);
-    // knex
-    //   .select("*")
-    //   .from("users")
-    //   .then((results) => {
-    //     res.json(results);
-    // });
+      knex
+        .select("*")
+        .from("users")
+        .then( results => res.json(results) );
+    },
+
+    // getUser: (req, res, next) => {
+    //   knex
+    //     .select("*")
+    //     .from("users")
+    //     .where('id', req.params.userId)
+    //     .then( results => res.json(results));
+    // },
+
+    getUserByToken: (req, res, next) => {
+      jwt.verify(req.token, process.env.JWT_SECRET, (err, authData) => err ? null : authData.user)
     }
   }
 }
