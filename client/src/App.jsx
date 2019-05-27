@@ -27,8 +27,34 @@ export default class App extends Component {
     super();
 
     this.state = {}
+    this.getMuscleGroups();
 
     this.handleExerciseFormSubmit = this.handleExerciseFormSubmit.bind(this);
+  }
+
+  getMuscleGroups = async () => {
+    try{
+      const response = await axios.get(`${url}/muscles`);
+      this.setState({
+        muscleGroups: response.data,
+        muscle: response.data.map(muscle => muscle.name)
+      });
+    }catch (e){
+      this.setError(e);
+    }
+  }
+
+  setError = (content) => {
+    this.setState({
+        message:{
+          type: 'error',
+          content: `😱 Axios request failed: ${content}`
+        }
+      })
+  }
+
+  getMuscleGroup = (muscle) => {
+    return this.state.muscleGroups.filter(group => group.name === muscle);
   }
 
   //==========================================
@@ -38,7 +64,7 @@ export default class App extends Component {
     evt.preventDefault();
 
     const exercise ={
-      muscle: evt.target.muscle.value,
+      muscle: this.getMuscleGroup(evt.target.muscle.value)[0].id,
       name: evt.target.name.value,
       descr: evt.target.descr.value
     }
@@ -48,19 +74,13 @@ export default class App extends Component {
     evt.target.descr.value = '';
 
     try{
-
       const response = await axios.post(`${url}/exercises`, exercise);
       console.log('response---------------------------------');
       console.log(response.data);
+      //set state
     }catch (e){
-      this.setState({
-        message:{
-          type: 'error',
-          content: `😱 Axios request failed: ${e}`
-        }
-      })
+      this.setError(e);
     }
-
   }
 
   //==========================================
@@ -75,7 +95,7 @@ export default class App extends Component {
         {message}
         <Router>
           <Link to="/exercises/new">+ Exercise</Link>
-          <Route path="/exercises/new" component={() => <Exercise handleFormSubmit={this.handleExerciseFormSubmit}/>} />
+          <Route path="/exercises/new" component={() => <Exercise muscleGroups={this.state.muscle} handleFormSubmit={this.handleExerciseFormSubmit}/>} />
         </Router>
       </Grommet>
     );
