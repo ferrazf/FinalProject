@@ -9,8 +9,29 @@ module.exports = (knex) => {
   return{
     getExercises: (req, res, next) => {
 
+      if(req.params.hasOwnProperty("workoutId")){
+        knex
+          .select("w.workout_id as id", "w.exercise_id", "e.name", "e.descr",
+            "w.sets", "w.reps", "w.rest",
+            "e.muscle_group_id", "m.name as muscle_group_name")
+          .from("workout_exercises as w")
+          .innerJoin("exercises as e", "e.id", "w.exercise_id")
+          .innerJoin("muscle_groups as m", "m.id", "e.muscle_group_id")
+          .where("w.workout_id", req.params.workoutId)
+          .then( result =>  res.status(200).json(result))
+          .catch(e => res.status(400).json( {e} ));
 
+      }else{
+        knex
+          .select( "e.id", "e.name", "e.descr",
+            "e.muscle_group_id", "m.name as muscle_group_name")
+          .from("exercises as e")
+          .innerJoin("muscle_groups as m", "m.id", "e.muscle_group_id")
+          .then( result =>  res.status(200).json(result))
+          .catch(e => res.status(400).json( {e} ));
+      }
     },
+
     createExercise: async (req, res, next) => {
       // const user = helpers.getUserByToken(req, res, next);
       // if( !user ){
