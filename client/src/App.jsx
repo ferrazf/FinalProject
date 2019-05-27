@@ -35,7 +35,10 @@ export default class App extends Component {
   getMuscleGroups = async () => {
     try{
       const response = await axios.get(`${url}/muscles`);
-      this.setState({muscleGroups: response.data});
+      this.setState({
+        muscleGroups: response.data,
+        muscle: response.data.map(muscle => muscle.name)
+      });
     }catch (e){
       this.setError(e);
     }
@@ -50,14 +53,20 @@ export default class App extends Component {
       })
   }
 
+  getMuscleGroup = (muscle) => {
+    return this.state.muscleGroups.filter(group => group.name === muscle);
+  }
+
   //==========================================
   // Events
   //==========================================
   handleExerciseFormSubmit = async (evt) => {
     evt.preventDefault();
-
+    debugger;
+    console.log("---------------------------------- handle")
+    console.log(evt.target);
     const exercise ={
-      muscle: evt.target.muscle.value,
+      muscle: this.getMuscleGroup(evt.target.muscle.value)[0].id,
       name: evt.target.name.value,
       descr: evt.target.descr.value
     }
@@ -88,7 +97,7 @@ export default class App extends Component {
         {message}
         <Router>
           <Link to="/exercises/new">+ Exercise</Link>
-          <Route path="/exercises/new" component={() => <Exercise muscleGroups={this.state.muscleGroups} handleFormSubmit={this.handleExerciseFormSubmit}/>} />
+          <Route path="/exercises/new" component={() => <Exercise muscleGroups={this.state.muscle} handleFormSubmit={this.handleExerciseFormSubmit}/>} />
         </Router>
       </Grommet>
     );
