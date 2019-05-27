@@ -9,8 +9,8 @@ import { Grommet } from 'grommet';
 //==========================================
 // import files
 //==========================================
+import Main from './containers/main.jsx'
 import Nav from "./components/Nav.jsx";
-import Exercise from './components/Exercise.jsx';
 import Message from './components/Message.jsx';
 
 //==========================================
@@ -72,12 +72,9 @@ function App(props) {
 
   return (
     <Grommet plain>
-      <Nav  name={name} workouts={workouts}/>
+      <Nav  name={name} />
       {message}
-      <Router>
-        <Link to="/exercises/new">+ Exercise</Link>
-        <Route path="/exercises/new" component={() => <Exercise handleFormSubmit={handleExerciseFormSubmit}/>} />
-      </Router>
+      <Main workouts={workouts} handleExerciseFormSubmit={handleExerciseFormSubmit}/>
     </Grommet>
   );
 }

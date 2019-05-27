@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box} from 'grommet';
+import { Box } from 'grommet';
 
-import Exercise from "../components/Exercise_display.jsx";
+import Exercise from "../components/ExerciseDisplay.jsx";
 
 function Workouts(props) {
     return (
