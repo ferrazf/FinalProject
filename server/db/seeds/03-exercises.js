@@ -6,19 +6,19 @@ exports.seed = function(knex, Promise) {
         knex("exercises").insert({
           id: 1,
           name: "Barbell Bench Press",
-          muscle_group_id: 6,
+          muscle_group_id: 3,
           descr: "Main Muscle Worked: Chest."
         }),
         knex("exercises").insert({
           id: 2,
           name: "Reverse Grip Triceps Pushdown",
-          muscle_group_id: 15,
+          muscle_group_id: 7,
           descr: "Main Muscle Worked: Triceps."
         }),
         knex("exercises").insert({
           id: 3,
           name: "Smith Machine Calf Raise",
-          muscle_group_id: 5,
+          muscle_group_id: 6,
           descr: "Main Muscle Worked: Calves."
         }),
         knex("exercises").insert({
@@ -30,7 +30,7 @@ exports.seed = function(knex, Promise) {
         knex("exercises").insert({
           id: 5,
           name: "Push Press",
-          muscle_group_id: 13,
+          muscle_group_id: 5,
           descr: "Main Muscle Worked: Shoulders."
         })
       ]);
