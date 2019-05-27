@@ -62,9 +62,7 @@ export default class App extends Component {
   //==========================================
   handleExerciseFormSubmit = async (evt) => {
     evt.preventDefault();
-    debugger;
-    console.log("---------------------------------- handle")
-    console.log(evt.target);
+
     const exercise ={
       muscle: this.getMuscleGroup(evt.target.muscle.value)[0].id,
       name: evt.target.name.value,
