@@ -33,6 +33,7 @@
 
 | Routes                                  | Methods             |
 |-----------------------------------------|---------------------|
+|/api/muscles/:muscleId/exercises         | GET                 |
 |/api/muscles                             | GET                 |
 |/api/exercises                           | GET, POST           |
 |/api/exercises/:id                       | GET, POST           |

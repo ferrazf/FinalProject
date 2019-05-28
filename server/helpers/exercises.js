@@ -21,6 +21,13 @@ module.exports = (knex) => {
           .then( result =>  res.status(200).json(result))
           .catch(e => res.status(400).json( {e} ));
 
+      }else if(req.params.hasOwnProperty("muscleId")){
+        knex
+          .select("*")
+          .from("exercises")
+          .where("muscle_group_id", req.params.muscleId)
+          .then( result =>  res.status(200).json(result))
+          .catch(e => res.status(400).json( {e} ));
       }else{
         knex
           .select( "e.id", "e.name", "e.descr",
