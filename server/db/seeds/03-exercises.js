@@ -32,7 +32,13 @@ exports.seed = function(knex, Promise) {
           name: "Push Press",
           muscle_group_id: 5,
           descr: "Main Muscle Worked: Shoulders."
-        })
+        }),
+        knex("exercises").insert({
+          id: 6,
+          name: "Barbell Bench Press more",
+          muscle_group_id: 6,
+          descr: "Main Muscle Worked: Chest."
+        }),
       ]);
     });
 };
