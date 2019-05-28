@@ -45,7 +45,6 @@ app.use(function(req, res, next) {
 // Mount all resource routes
 //==========================================
 app.use("/api/users", usersRoutes(knex));
-app.use("/api/register", workoutsRoutes(knex));
 app.use("/api/exercises", exercisesRoutes(knex));
 app.use("/api/muscles", musclesRoutes(knex));
 app.use("/api/workouts", workoutsRoutes(knex));

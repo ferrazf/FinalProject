@@ -14,6 +14,10 @@ module.exports = (knex) => {
           token
         });
       });
+    },
+
+    register: (req, res, next) => {
+      //
     }
   }
 }

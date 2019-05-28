@@ -7,7 +7,10 @@ module.exports = (knex) => {
   const helpers = require('../helpers/index')(knex);
 
   router.route('/login')
-        .post(helpers.login);
+    .post(helpers.login);
+
+  router.route('/register')
+    .post(helpers.register);
 
   return router;
 }
