@@ -17,6 +17,11 @@ module.exports = (knex) => {
 
   router.route("/:id")
         .get(helpers.getWorkout)
+  router.route("/:id")
+        // .all( middleware.verifyToken )
+        // .all( middleware.isAuthorized )
+        // check if the user who is updating is the one that created ir
+        .put(helpers.updateWorkout)
 
   router.route("/")
         // .all( middleware.verifyToken )
