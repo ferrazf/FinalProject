@@ -55,6 +55,10 @@ function App(props) {
   const getMuscleGroup = (muscle) => {
     return muscleGroup.filter(group => group.name === muscle);
   }
+
+  const register = (username) => {
+    return "Hello " + username;
+  }
   //==========================================
   // Events
   //==========================================
@@ -105,7 +109,7 @@ function App(props) {
     <Grommet plain>
       <Nav  name={name} />
       {message}
-      <Routes workouts={workouts} handleExerciseFormSubmit={handleExerciseFormSubmit}/>
+      <Routes workouts={workouts} register={register} handleExerciseFormSubmit={handleExerciseFormSubmit}/>
     </Grommet>
   );
 }

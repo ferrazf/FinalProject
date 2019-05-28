@@ -5,6 +5,7 @@ import Profile from "./profile.jsx";
 import WorkoutDisplay from "./workoutDisplay.jsx";
 import EditDisplay from "./editDisplay.jsx";
 import Exercise from "../components/exercise/From.jsx";
+import Register from "../components/Register.jsx";
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
@@ -17,7 +18,8 @@ const Main = (props) => (
         <Route exact path="/" component={() => <Home workouts={props.workouts}/>} />
         <Route path='/profile' component={Profile}/>
         <Route path='/workout' component={WorkoutDisplay}/>
-        <Route path='/edit' component={EditDisplay}/>
+        <Route path='/edit' component={EditDisplay} />
+        <Route path='/register' component={() => <Register register={props.register} />} />
         <Route path='/editform' component={() => <Exercise handleExerciseFormSubmit={props.handleExerciseFormSubmit}/>} />
     </Switch>
   </main>
