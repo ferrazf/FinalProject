@@ -14,6 +14,8 @@ module.exports = (knex) => {
 
   router.route("/:workoutId/exercises/:id")
         .put(exercisesHelpers.updateExercise)
+        .delete(exercisesHelpers.deleteExercise)
+
   router.route("/:workoutId/exercises")
         .get(exercisesHelpers.getExercises)
 

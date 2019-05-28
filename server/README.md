@@ -34,8 +34,8 @@
 | Routes                                  | Methods             |
 |-----------------------------------------|---------------------|
 |/api/muscles                             | GET                 |
-|/api/exercises                           | POST, GET           |
-|/api/exercises/:id                       | POST, GET           |
-|/api/workouts/:id                        | PUT, GET            |
-|/api/workouts/:workoutId/exercises/:id   | PUT, GET            |
+|/api/exercises                           | GET, POST           |
+|/api/exercises/:id                       | GET, POST           |
+|/api/workouts/:id                        | GET, PUT            |
+|/api/workouts/:workoutId/exercises/:id   | GET, PUT, DELETE    |
 |/api/workouts                            | GET, POST           |
