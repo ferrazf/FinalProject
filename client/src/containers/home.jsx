@@ -4,21 +4,14 @@ import { Box, InfiniteScroll } from 'grommet';
 import Workout from "../components/workout/Index.jsx";
 
 function Home(props) {
-    return (
-      <Box>
-        <InfiniteScroll items={
-          [<Workout workout={props.workouts[1]}/>, 
-          <Workout workout={props.workouts[2]}/>, 
-          <Workout workout={props.workouts[3]}/>, 
-          <Workout workout={props.workouts[4]}/>, 
-          <Workout workout={props.workouts[5]}/>, 
-          <Workout workout={props.workouts[6]}/>, 
-          <Workout workout={props.workouts[7]}/>]
-        }>
-          {(item) => (item)}
-        </InfiniteScroll>
-      </Box>
-    );
-  }
-  
-  export default Home;
+  const items = props.workouts.map(workout => <Workout key={workout.id} workout={workout}/>)
+  return (
+    <Box>
+      <InfiniteScroll items={items}>
+        {(item) => (item)}
+      </InfiniteScroll>
+    </Box>
+  );
+}
+
+export default Home;

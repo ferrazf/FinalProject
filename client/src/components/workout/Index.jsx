@@ -3,12 +3,12 @@ import { Text, Box, Button, Icons } from 'grommet';
 import { Link } from "react-router-dom";
 
 function Workout(prop) {
-    return( 
+    return(
         <Box  pad="medium" border= {{
             "color": "border",
             "side": "all"
         }}>
-            <Text > {prop.workout} </Text>
+            <Text > {prop.workout.name} </Text>
             <Link to="/edit" >
                 <Button
                     alignSelf= "end"
@@ -20,6 +20,12 @@ function Workout(prop) {
                 <Button
                     alignSelf= "end"
                     label="start"
+                />
+            </Link>
+            <Link to="/workout" >
+                <Button
+                    alignSelf= "end"
+                    label="finish"
                 />
             </Link>
         </Box>
