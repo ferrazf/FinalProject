@@ -31,12 +31,12 @@
 
 ## routes
 
-| Routes                                  | Methods             |
-|-----------------------------------------|---------------------|
-|/api/muscles/:muscleId/exercises         | GET                 |
-|/api/muscles                             | GET                 |
-|/api/exercises                           | GET, POST           |
-|/api/exercises/:id                       | GET, POST           |
-|/api/workouts/:id                        | GET, PUT            |
-|/api/workouts/:workoutId/exercises/:id   | GET, PUT, DELETE    |
-|/api/workouts                            | GET, POST           |
+| Routes                                  | Methods                 |
+|-----------------------------------------|-------------------------|
+|/api/muscles/:muscleId/exercises         | GET                     |
+|/api/muscles                             | GET                     |
+|/api/exercises                           | GET, POST               |
+|/api/exercises/:id                       | GET, POST               |
+|/api/workouts/:id                        | GET, PUT                |
+|/api/workouts/:workoutId/exercises/:id   | GET, PUT, DELETE, POST  |
+|/api/workouts                            | GET, POST               |
