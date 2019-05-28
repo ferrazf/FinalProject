@@ -36,12 +36,10 @@ function App(props) {
   // Functions
   //==========================================
   const setError = (content) => {
-    this.setState({
-        message:{
-          type: 'error',
-          content: `😱 Axios request failed: ${content}`
-        }
-      })
+    setMessage({
+        type: 'error',
+        content: `😱 Axios request failed: ${content}`
+      });
   }
 
   const getMuscleGroup = (muscle) => {
@@ -96,12 +94,23 @@ function App(props) {
     }
   }
 
-  const updateWorkout = async (workout) => {
+  const updateWorkout = async (id, updateWorkout) => {
     try{
-      const response = await axios.post(`${url}/workouts/${workout.id}`, workout);
+
+      const { data } = await axios.put(`${url}/workouts/${id}`, updateWorkout);
 
       //set state
+      const newWorkouts = workouts.map(workout => {
+        if(workout.workout_id == data[0].id){
+          workout.started_at = data[0].started_at;
+          workout.finished_at = data[0].finished_at;
+        }
+        return workout;
+      });
+      setWorkout(newWorkouts);
+
     }catch (e){
+      console.error(e);
       setError(e);
     }
   }
@@ -112,14 +121,16 @@ function App(props) {
 
   const handleStartWorkout = (evt) => {
     evt.preventDefault();
-    debugger;
+    const id = Number(evt.target.name);
+    const workout = { started_at: new Date() }
+    updateWorkout(id, workout);
   }
 
   const handleFinishWorkout = (evt) => {
     evt.preventDefault();
-    console.log("evt------------------------");
-    console.log(evt);
-    debugger;
+    const id = Number(evt.target.name);
+    const workout = { finished_at: new Date() }
+    updateWorkout(id, workout);
   }
 
   //==========================================

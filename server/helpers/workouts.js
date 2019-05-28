@@ -83,6 +83,46 @@ module.exports = (knex) => {
             .then( result =>  res.status(200).json(result))
         })
         .catch(e => res.status(400).json( {e} ));
+    },
+
+    updateWorkout: async (req, res, next) => {
+      // const user = helpers.getUserByToken(req, res, next);
+      // if( !user ){
+      //   return res.sendStatus(403);
+      // }
+
+      // let user = await helpers.getUserByToken(req, res, next);
+      // if( !user ){
+      //   user = await knex
+      //     .select("*")
+      //     .from("users")
+      //     .where('id', 1)
+      //   console.log('user               ----------------------- ');
+      //   console.log(user);
+      // }
+
+      knex
+        .select("*")
+        .from("workouts")
+        .where("id", req.params.id)
+        .then(result => {
+
+          const workout = result[0];
+
+          if(req.body.hasOwnProperty('started_at')){
+            workout.started_at = new Date();
+          }
+          if(req.body.hasOwnProperty('finished_at')){
+            workout.finished_at = new Date();
+          }
+
+          knex("workouts")
+            .update(workout)
+            .returning('*')
+            .where("id", req.params.id)
+            .then( result =>  res.status(200).json(result))
+        })
+        .catch(e => res.status(400).json( {e} ));
     }
   }
 }

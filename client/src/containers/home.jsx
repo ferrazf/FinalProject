@@ -6,7 +6,7 @@ import Workout from "../components/workout/Index.jsx";
 function Home(props) {
   const items = props.workouts.map(workout => (
       <Workout
-        key={workout.id}
+        key={workout.workout_id}
         workout={workout}
         handleStart={props.handleStartWorkout}
         handleFinish={props.handleFinishWorkout}
