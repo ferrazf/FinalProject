@@ -3,7 +3,6 @@
 //==========================================
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Grommet } from 'grommet';
 // import './App.css';
 //==========================================
@@ -12,7 +11,7 @@ import { Grommet } from 'grommet';
 import Routes from './containers/routes.jsx'
 import Nav from "./components/Nav.jsx";
 import Message from './components/Message.jsx';
-
+import Start from './components/start.jsx'
 //==========================================
 // Gobal var
 //==========================================
@@ -51,6 +50,8 @@ function App(props) {
   const isEmpty = (object) => {
     return Object.entries(object).length === 0 && object.constructor === Object;
   }
+
+
   //==========================================
   // Events
   //==========================================
@@ -67,6 +68,7 @@ function App(props) {
           .then(({ data }) => {
             setWorkout(data);
           });
+
         setInitialized(true);
       }
     }catch (e){
@@ -136,6 +138,7 @@ function App(props) {
       <Nav  name={name} />
       {message}
       {workoutRoute}
+      <Start/>
     </Grommet>
   );
 }
