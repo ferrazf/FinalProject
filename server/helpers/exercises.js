@@ -60,6 +60,40 @@ module.exports = (knex) => {
             .then( result =>  res.status(200).json(result))
         })
         .catch(e => res.status(400).json( {e} ));
+    },
+
+    updateExercise: async (req, res, next) => {
+
+      if(req.params.hasOwnProperty("workoutId")){
+
+        knex
+          .select("*")
+          .from("workout_exercises")
+          .where("workout_id", req.params.workoutId)
+          .andWhere("exercise_id", req.params.id)
+          .then( result => {
+            const workout = result[0];
+
+            if(req.body.hasOwnProperty('sets')){
+              workout.sets = req.body.sets;
+            }
+            if(req.body.hasOwnProperty('reps')){
+              workout.reps = req.body.reps;
+            }
+            if(req.body.hasOwnProperty('rest')){
+              workout.rest = req.body.rest;
+            }
+
+            knex("workout_exercises")
+              .update(workout)
+              .returning('*')
+              .where("workout_id", req.params.workoutId)
+              .andWhere("exercise_id", req.params.id)
+              .then( result =>  res.status(200).json(result))
+          })
+          .catch(e => res.status(400).json( {e} ));
+      }
+
     }
   }
 }
