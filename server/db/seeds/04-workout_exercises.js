@@ -13,6 +13,14 @@ exports.seed = function(knex, Promise) {
         }),
         knex("workout_exercises").insert({
           workout_id: 1,
+          exercise_id: 6,
+          sets: 3,
+          reps: 9,
+          rest: 2,
+          weight: 150
+        }),
+        knex("workout_exercises").insert({
+          workout_id: 1,
           exercise_id: 2,
           sets: 3,
           reps: 15,

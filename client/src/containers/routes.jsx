@@ -12,17 +12,26 @@ import Register from "../components/Register.jsx";
 // and /schedule routes will match any pathname that starts
 // with /roster or /schedule. The / route will only match
 // when the pathname is exactly the string "/"
-const Main = (props) => (
-  <main>
-    <Switch>
-        <Route exact path="/" component={() => <Home workouts={props.workouts}/>} />
-        <Route path='/profile' component={Profile}/>
-        <Route path='/workout' component={WorkoutDisplay}/>
+const Main = (props) => {
+  return (
+    <main>
+      <Switch>
+        <Route exact path="/" component={() => (
+          <Home
+            workouts={props.workouts}
+            handleStartWorkout={props.handleStartWorkout}
+            handleFinishWorkout={props.handleFinishWorkout}
+          />
+        )}
+        />
+        <Route path='/profile' component={Profile} />
+        <Route path='/workout' component={WorkoutDisplay} />
         <Route path='/edit' component={EditDisplay} />
-        <Route path='/register' component={() => <Register register={props.register} />} />
-        <Route path='/editform' component={() => <Exercise handleExerciseFormSubmit={props.handleExerciseFormSubmit}/>} />
-    </Switch>
-  </main>
-)
+        <Route path='/register' component={() => <Register register={props.handleViewRegister} />} />
+        <Route path='/editform' component={() => <Exercise handleExerciseFormSubmit={props.handleExerciseFormSubmit} />} />
+      </Switch>
+    </main>
+  )
+}
 
 export default Main

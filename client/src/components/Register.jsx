@@ -1,13 +1,23 @@
 import React from "react";
-import { Box, Heading, Text } from "grommet";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Box, Button, Form, FormField, Grommet, Heading, Paragraph} from 'grommet';
+import { hpe } from 'grommet-theme-hpe';
 
 function Register(props) {
     //props.register(user)
     return (
-        <Grommet>
+        <Grommet theme={hpe}>
             <Box align="center" background="status-ok">
                 <p>Register</p>
+            </Box>
+            <Box pad="medium" border={{
+                "color": "border",
+                "side": "all"
+            }}>
+                <Form>
+                    <FormField name="name" label="Name" />
+                    <FormField name="email" label="Email Address" />
+                    <Button type="submit" primary label="Register" />
+                </Form>
             </Box>
         </Grommet>
     )
