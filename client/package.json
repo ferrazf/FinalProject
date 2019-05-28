@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@csstools/normalize.css": "^10.0.0",
     "axios": "^0.18.0",
     "dotenv": "^8.0.0",
     "grommet": "^2.7.1",
