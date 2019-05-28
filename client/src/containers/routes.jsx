@@ -18,7 +18,7 @@ const Main = (props) => (
         <Route path='/profile' component={Profile}/>
         <Route path='/workout' component={WorkoutDisplay}/>
         <Route path='/edit' component={EditDisplay}/>
-        <Route path='/editform' component={() => <Exercise handleExerciseFormSubmit={props.handleExerciseFormSubmit}/>} />
+        <Route path='/editform' component={() => <Exercise handleExerciseFormSubmit={props.handleExerciseFormSubmit} muscle={props.muscle}/>} />
     </Switch>
   </main>
 )

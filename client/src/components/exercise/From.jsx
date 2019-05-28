@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { FormField, TextInput, Button, Select } from 'grommet';
 
-export default ({ muscleGroups, handleFormSubmit }) => {
+export default ({ muscle, handleFormSubmit }) => {
 
   const [value, setValue] = useState('');
-  const options = muscleGroups;
+  const options = muscle;
 
   return(
     <form onSubmit={handleFormSubmit}>

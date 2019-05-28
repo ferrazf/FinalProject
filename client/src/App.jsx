@@ -105,7 +105,7 @@ function App(props) {
     <Grommet plain>
       <Nav  name={name} />
       {message}
-      <Routes workouts={workouts} handleExerciseFormSubmit={handleExerciseFormSubmit}/>
+      <Routes workouts={workouts} handleExerciseFormSubmit={handleExerciseFormSubmit} muscle={muscle}/>
     </Grommet>
   );
 }
