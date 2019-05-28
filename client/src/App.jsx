@@ -95,12 +95,41 @@ function App(props) {
     }
   }
 
+  const updateWorkout = async (workout) => {
+    try{
+      const response = await axios.post(`${url}/workouts/${workout.id}`, workout);
+
+      //set state
+    }catch (e){
+      setError(e);
+    }
+  }
+
+  const handleStartWorkout = (evt) => {
+    evt.preventDefault();
+    debugger;
+  }
+
+  const handleFinishWorkout = (evt) => {
+    evt.preventDefault();
+    console.log("evt------------------------");
+    console.log(evt);
+    debugger;
+  }
+
   //==========================================
   // Return
   //==========================================
 
-  const message = messages && <Message message={messages}/>
-  const workoutRoute = !isEmpty(workouts) && (<Routes workouts={workouts} handleExerciseFormSubmit={handleExerciseFormSubmit}/>);
+  const message = messages && <Message message={messages}/>;
+  const workoutRoute = !isEmpty(workouts) && (
+      <Routes
+        workouts={workouts}
+        handleExerciseFormSubmit={handleExerciseFormSubmit}
+        handleStartWorkout={handleStartWorkout}
+        handleFinishWorkout={handleFinishWorkout}
+      />
+    );
 
   return (
     <Grommet plain>

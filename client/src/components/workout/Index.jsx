@@ -2,13 +2,13 @@ import React from 'react';
 import { Text, Box, Button, Icons } from 'grommet';
 import { Link } from "react-router-dom";
 
-function Workout(prop) {
+function Workout(props) {
     return(
         <Box  pad="medium" border= {{
             "color": "border",
             "side": "all"
         }}>
-            <Text > {prop.workout.name} </Text>
+            <Text > {props.workout.name.join(', ')} </Text>
             <Link to="/edit" >
                 <Button
                     alignSelf= "end"
@@ -20,14 +20,14 @@ function Workout(prop) {
                 <Button
                     alignSelf= "end"
                     label="start"
+                    onClick={props.handleStart}
                 />
             </Link>
-            <Link to="/workout" >
-                <Button
-                    alignSelf= "end"
-                    label="finish"
-                />
-            </Link>
+            <Button
+                alignSelf= "end"
+                label="finish"
+                onClick={props.handleFinish}
+            />
         </Box>
     )
 }
