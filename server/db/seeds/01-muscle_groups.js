@@ -3,7 +3,7 @@ exports.seed = function(knex, Promise) {
     .del()
     .then(function() {
       return Promise.all([
-        knex("muscle_groups").insert({ id: 1, name: "Abs" }),
+        knex("muscle_groups").insert({ id: 1, name: "Abdominals" }),
         knex("muscle_groups").insert({ id: 2, name: "Biceps" }),
         knex("muscle_groups").insert({ id: 3, name: "Chest" }),
         knex("muscle_groups").insert({ id: 4, name: "Back" }),

@@ -1,5 +1,6 @@
 node_modules/
 public/styles
+client/.env
 .env
 *.log
 *.sqlite3

@@ -11,7 +11,7 @@ function EditDisplay(props) {
         <Link to="/editform" >
           <Button
               alignSelf= "add"
-              label="Edit"
+              label="Add "
           />
         </Link>
       </Box>

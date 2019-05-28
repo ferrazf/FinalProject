@@ -14,7 +14,14 @@ import Exercise from "../components/exercise/From.jsx";
 const Main = (props) => (
   <main>
     <Switch>
-        <Route exact path="/" component={() => <Home workouts={props.workouts}/>} />
+        <Route exact path="/" component={() => (
+            <Home
+              workouts={props.workouts}
+              handleStartWorkout={props.handleStartWorkout}
+              handleFinishWorkout={props.handleFinishWorkout}
+            />
+          )}
+        />
         <Route path='/profile' component={Profile}/>
         <Route path='/workout' component={WorkoutDisplay}/>
         <Route path='/edit' component={EditDisplay}/>
