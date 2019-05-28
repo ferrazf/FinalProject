@@ -8,16 +8,14 @@ export default ({ muscle, handleFormSubmit }) => {
 
   return(
     <form onSubmit={handleFormSubmit}>
-      <FormField label="Muscle:">
-        <Select
-          name="muscle"
-          options={options}
-          value={value}
-          onChange={({ option }) => setValue(option)}
-        />
-      </FormField>
       <FormField label="Name:">
         <TextInput type="text" name="name" placeholder="name" />
+      </FormField>
+      <FormField label="Reps:">
+        <TextInput type="text" name="Reps" placeholder="10" />
+      </FormField>
+      <FormField label="Rest Time:">
+        <TextInput type="text" name="Rest" placeholder="1:00" />
       </FormField>
       <FormField label="Description:">
         <TextInput type="text" name="descr" placeholder="description" />

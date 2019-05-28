@@ -5,7 +5,7 @@ import Profile from "./profile.jsx";
 import WorkoutDisplay from "./workoutDisplay.jsx";
 import EditDisplay from "./editDisplay.jsx";
 import Exercise from "../components/exercise/From.jsx";
-
+import Add from "../components/exercise/Add.jsx";
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
 // and /schedule routes will match any pathname that starts
@@ -23,9 +23,17 @@ const Main = (props) => (
           )}
         />
         <Route path='/profile' component={Profile}/>
-        <Route path='/workout' component={WorkoutDisplay}/>
+        <Route path='/workout' component={() => (<WorkoutDisplay exercises={props.exercises}/>)}/>
         <Route path='/edit' component={EditDisplay}/>
-        <Route path='/editform' component={() => <Exercise handleExerciseFormSubmit={props.handleExerciseFormSubmit} muscle={props.muscle}/>} />
+        <Route path='/add' component={() => (
+          <Add
+            muscleGroup={props.muscleGroup} 
+            muscle={props.muscle} 
+            handleExerciseFormSubmit={props.handleExerciseFormSubmit} 
+            muscle={props.muscle}
+          />
+        )}
+        />
     </Switch>
   </main>
 )

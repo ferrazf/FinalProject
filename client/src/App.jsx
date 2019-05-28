@@ -11,7 +11,6 @@ import { Grommet } from 'grommet';
 import Routes from './containers/routes.jsx'
 import Nav from "./components/Nav.jsx";
 import Message from './components/Message.jsx';
-import Start from './components/start.jsx'
 //==========================================
 // Gobal var
 //==========================================
@@ -30,6 +29,30 @@ function App(props) {
   const [ initialized, setInitialized ] = useState(false);
   const [ muscleGroup, setMuscleGroups ] = useState('');
   const [ muscle, setMuscles ] = useState('');
+  const [ exercises, setExercises] = useState([
+    {
+        "id": 4,
+        "exercise_id": 1,
+        "name": "Barbell Bench Press",
+        "descr": "Main Muscle Worked: Chest.",
+        "sets": 6,
+        "reps": 10,
+        "rest": 1,
+        "muscle_group_id": 6,
+        "muscle_group_name": "Chest"
+    },
+    {
+        "id": 4,
+        "exercise_id": 4,
+        "name": "Standing Cable Lift",
+        "descr": "Main Muscle Worked: Abdominals.",
+        "sets": 6,
+        "reps": 10,
+        "rest": 1,
+        "muscle_group_id": 1,
+        "muscle_group_name": "Abdominals"
+    }
+ ])
 
   //==========================================
   // Functions
@@ -109,14 +132,12 @@ function App(props) {
 
   const handleStartWorkout = (evt) => {
     evt.preventDefault();
-    debugger;
   }
 
   const handleFinishWorkout = (evt) => {
     evt.preventDefault();
     console.log("evt------------------------");
     console.log(evt);
-    debugger;
   }
 
   //==========================================
@@ -127,9 +148,12 @@ function App(props) {
   const workoutRoute = !isEmpty(workouts) && (
       <Routes
         workouts={workouts}
+        muscleGroup={muscleGroup}
+        muscle={muscle}
         handleExerciseFormSubmit={handleExerciseFormSubmit}
         handleStartWorkout={handleStartWorkout}
         handleFinishWorkout={handleFinishWorkout}
+        exercises={exercises}
       />
     );
 
@@ -138,7 +162,6 @@ function App(props) {
       <Nav  name={name} />
       {message}
       {workoutRoute}
-      <Start/>
     </Grommet>
   );
 }

@@ -9,25 +9,14 @@ function Workout(props) {
             "side": "all"
         }}>
             <Text > {props.workout.name.join(', ')} </Text>
-            <Link to="/edit" >
-                <Button
-                    alignSelf= "end"
-                    label="edit"
-                    onClick={() => {}}
-                />
-            </Link>
             <Link to="/workout" >
                 <Button
                     alignSelf= "end"
                     label="start"
-                    onClick={props.handleStart}
+                    onClick={() => {}}
                 />
             </Link>
-            <Button
-                alignSelf= "end"
-                label="finish"
-                onClick={props.handleFinish}
-            />
+            
         </Box>
     )
 }

@@ -1,19 +1,18 @@
 import React from 'react';
-import { Box, Button } from 'grommet';
+import { Box } from 'grommet';
 import { Link } from "react-router-dom";
 
-import Edit from "../components/exercise/Edit.jsx";
+import Form from "../components/exercise/From.jsx";
 
 function EditDisplay(props) {
     return (
       <Box>
-        <Edit test="test" />
-        <Link to="/editform" >
-          <Button
-              alignSelf= "add"
-              label="Add "
-          />
-        </Link>
+        <Form 
+            muscleGroup={props.muscleGroup} 
+            muscle={props.muscle} 
+            handleExerciseFormSubmit={props.handleExerciseFormSubmit} 
+            muscle={props.muscle} 
+        />
       </Box>
     );
   }
