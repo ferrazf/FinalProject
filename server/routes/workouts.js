@@ -12,11 +12,21 @@ module.exports = (knex) => {
   router.route("/")
         .get(helpers.getWorkouts)
 
+  router.route("/:workoutId/exercises/:id")
+        .put(exercisesHelpers.updateExercise)
+        .delete(exercisesHelpers.deleteExercise)
+        .post(exercisesHelpers.createExercise)
+
   router.route("/:workoutId/exercises")
         .get(exercisesHelpers.getExercises)
 
   router.route("/:id")
         .get(helpers.getWorkout)
+  router.route("/:id")
+        // .all( middleware.verifyToken )
+        // .all( middleware.isAuthorized )
+        // check if the user who is updating is the one that created ir
+        .put(helpers.updateWorkout)
 
   router.route("/")
         // .all( middleware.verifyToken )

@@ -27,3 +27,16 @@
 
 - Node 5.10.x or above
 - NPM 3.8.x or above
+
+
+## routes
+
+| Routes                                  | Methods                 |
+|-----------------------------------------|-------------------------|
+|/api/muscles/:muscleId/exercises         | GET                     |
+|/api/muscles                             | GET                     |
+|/api/exercises                           | GET, POST               |
+|/api/exercises/:id                       | GET, POST               |
+|/api/workouts/:id                        | GET, PUT                |
+|/api/workouts/:workoutId/exercises/:id   | GET, PUT, DELETE, POST  |
+|/api/workouts                            | GET, POST               |

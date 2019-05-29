@@ -24,7 +24,7 @@ function App(props) {
   // States
   //==========================================
   const [ name, setName ] = useState("kobi")
-  const [ workouts, setWorkout ] = useState({});
+  const [ workouts, setWorkout ] = useState([]);
   const [ messages, setMessage ] = useState('')
   const [ initialized, setInitialized ] = useState(false);
   const [ muscleGroup, setMuscleGroups ] = useState('');
@@ -58,22 +58,19 @@ function App(props) {
   // Functions
   //==========================================
   const setError = (content) => {
-    this.setState({
-        message:{
-          type: 'error',
-          content: `😱 Axios request failed: ${content}`
-        }
-      })
+    setMessage({
+        type: 'error',
+        content: `😱 Axios request failed: ${content}`
+      });
   }
 
   const getMuscleGroup = (muscle) => {
     return muscleGroup.filter(group => group.name === muscle);
   }
 
-  const isEmpty = (object) => {
-    return Object.entries(object).length === 0 && object.constructor === Object;
-  }
-
+  // const isEmpty = (object) => {
+  //   return Object.entries(object).length === 0 && object.constructor === Object;
+  // }
 
   //==========================================
   // Events
@@ -120,36 +117,54 @@ function App(props) {
     }
   }
 
-  const updateWorkout = async (workout) => {
+  const updateWorkout = async (id, updateWorkout) => {
     try{
-      const response = await axios.post(`${url}/workouts/${workout.id}`, workout);
+
+      const { data } = await axios.put(`${url}/workouts/${id}`, updateWorkout);
 
       //set state
+      const newWorkouts = workouts.map(workout => {
+        if(workout.workout_id == data[0].id){
+          workout.started_at = data[0].started_at;
+          workout.finished_at = data[0].finished_at;
+        }
+        return workout;
+      });
+      setWorkout(newWorkouts);
+
     }catch (e){
+      console.error(e);
       setError(e);
     }
   }
 
+  const handleViewRegister = (username) => {
+    return "Hello " + username;
+  }
+
   const handleStartWorkout = (evt) => {
     evt.preventDefault();
+    const id = Number(evt.target.name);
+    const workout = { started_at: new Date() }
+    updateWorkout(id, workout);
   }
 
   const handleFinishWorkout = (evt) => {
     evt.preventDefault();
-    console.log("evt------------------------");
-    console.log(evt);
+    const id = Number(evt.target.name);
+    const workout = { finished_at: new Date() }
+    updateWorkout(id, workout);
   }
 
   //==========================================
   // Return
   //==========================================
+  const message = messages && <Message message={messages} />;
 
-  const message = messages && <Message message={messages}/>;
-  const workoutRoute = !isEmpty(workouts) && (
+  const workoutRoute = workouts.length && (
       <Routes
         workouts={workouts}
-        muscleGroup={muscleGroup}
-        muscle={muscle}
+        handleViewRegister={handleViewRegister}
         handleExerciseFormSubmit={handleExerciseFormSubmit}
         handleStartWorkout={handleStartWorkout}
         handleFinishWorkout={handleFinishWorkout}
@@ -159,8 +174,9 @@ function App(props) {
 
   return (
     <Grommet plain>
-      <Nav  name={name} />
+      <Nav name={name} />
       {message}
+      {/* {userRoute} */}
       {workoutRoute}
     </Grommet>
   );

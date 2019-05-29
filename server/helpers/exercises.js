@@ -21,6 +21,13 @@ module.exports = (knex) => {
           .then( result =>  res.status(200).json(result))
           .catch(e => res.status(400).json( {e} ));
 
+      }else if(req.params.hasOwnProperty("muscleId")){
+        knex
+          .select("*")
+          .from("exercises")
+          .where("muscle_group_id", req.params.muscleId)
+          .then( result =>  res.status(200).json(result))
+          .catch(e => res.status(400).json( {e} ));
       }else{
         knex
           .select( "e.id", "e.name", "e.descr",
@@ -47,19 +54,113 @@ module.exports = (knex) => {
       //   console.log('user               ----------------------- ');
       //   console.log(user);
       // }
+      if(req.params.hasOwnProperty("workoutId")){
 
-      knex('exercises').max('id')
-        .then(result => result[0].max + 1)
-        .then( max => {
+        knex
+          .select("*")
+          .from("workout_exercises")
+          .where("workout_id", req.params.workoutId)
+          .andWhere("exercise_id", req.params.id)
+          .then( result => {
+            if(result.length){
+              res.status(400).json( {error: "Exercise already existis in this workout"} );
 
-          const exercise = Object.assign({}, req.body);
-          exercise['id'] = max;
-          knex('exercises')
-            .insert(exercise)
-            .returning('*')
-            .then( result =>  res.status(200).json(result))
-        })
-        .catch(e => res.status(400).json( {e} ));
+            }else{
+              const workout = {
+                workout_id: req.params.workoutId,
+                exercise_id: req.params.id
+              }
+
+              if(req.body.hasOwnProperty("sets")){
+                workout.sets = req.body.sets;
+              }
+              if(req.body.hasOwnProperty("reps")){
+                workout.reps = req.body.reps;
+              }
+              if(req.body.hasOwnProperty("rest")){
+                workout.rest = req.body.rest;
+              }
+
+              knex("workout_exercises")
+                .insert(workout)
+                .returning('*')
+                .then( result =>  res.status(200).json(result))
+            }
+          })
+          .catch(e => { res.status(400).json( {e} )});
+
+      }else{
+
+        knex('exercises').max('id')
+          .then(result => result[0].max + 1)
+          .then( max => {
+
+            const exercise = Object.assign({}, req.body);
+            exercise['id'] = max;
+            knex('exercises')
+              .insert(exercise)
+              .returning('*')
+              .then( result =>  res.status(200).json(result))
+          })
+          .catch(e => res.status(400).json( {e} ));
+      }
+    },
+
+    updateExercise: async (req, res, next) => {
+
+      if(req.params.hasOwnProperty("workoutId")){
+
+        knex
+          .select("*")
+          .from("workout_exercises")
+          .where("workout_id", req.params.workoutId)
+          .andWhere("exercise_id", req.params.id)
+          .then( result => {
+            const workout = result[0];
+
+            if(req.body.hasOwnProperty('sets')){
+              workout.sets = req.body.sets;
+            }
+            if(req.body.hasOwnProperty('reps')){
+              workout.reps = req.body.reps;
+            }
+            if(req.body.hasOwnProperty('rest')){
+              workout.rest = req.body.rest;
+            }
+
+            knex("workout_exercises")
+              .update(workout)
+              .returning('*')
+              .where("workout_id", req.params.workoutId)
+              .andWhere("exercise_id", req.params.id)
+              .then( result =>  res.status(200).json(result))
+          })
+          .catch(e => res.status(400).json( {e} ));
+      }
+
+    },
+
+    deleteExercise: async (req, res, next) => {
+
+      if(req.params.hasOwnProperty("workoutId")){
+
+        knex
+          .select("*")
+          .from("workout_exercises")
+          .where("workout_id", req.params.workoutId)
+          .andWhere("exercise_id", req.params.id)
+          .then( result => {
+            const workout = result[0];
+
+            knex("workout_exercises")
+              .where("workout_id", req.params.workoutId)
+              .andWhere("exercise_id", req.params.id)
+              .del()
+              .then( result =>  res.status(200).json({message: "Deleted"}))
+          })
+          .catch(e => res.status(400).json( {e} ));
+      }
+
     }
   }
 }
