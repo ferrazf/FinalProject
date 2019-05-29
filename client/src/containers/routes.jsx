@@ -13,6 +13,7 @@ import Register from "../components/Register.jsx";
 // with /roster or /schedule. The / route will only match
 // when the pathname is exactly the string "/"
 const Main = (props) => {
+  console.log(props.exercise)
   return (
     <main>
       <Switch>
@@ -25,7 +26,7 @@ const Main = (props) => {
         )}
         />
         <Route path='/profile' component={Profile}/>
-        <Route path='/workout' component={() => (<WorkoutDisplay updateExercise={props.UpdateExercise} workoutExercises={props.workoutExercises}/>)}/>
+        <Route path='/workout' component={() => (<WorkoutDisplay updateExercise={props.updateExercise} workoutExercises={props.workoutExercises}/>)}/>
         <Route path='/edit' component={() => (<EditDisplay exercise={props.exercise}/>)}/>
         <Route path='/register' component={() => <Register register={props.handleViewRegister} />} />
         <Route path='/add' component={() => (
@@ -34,6 +35,7 @@ const Main = (props) => {
             muscle={props.muscle} 
             handleExerciseFormSubmit={props.handleExerciseFormSubmit} 
             exercises={props.exercises}
+            updateMG={props.updateMG}
           />
         )}
         />

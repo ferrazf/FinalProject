@@ -6,6 +6,7 @@ import DisplayExercise from "../components/exercise/Display.jsx";
 
 //accepts exercise display components 
 function WorkoutDisplay(props) {
+    console.log(props)
     const items = props.workoutExercises.map(exercise => (
       <DisplayExercise
         key={exercise.id}
