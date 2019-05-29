@@ -135,7 +135,7 @@ function App(props) {
     }
   }
   const updateMG = (muscleGroup) => {
-    // get exercise based on muscle group name 
+    // get exercise based on muscle group name
     // update setExercises
     console.log(muscleGroup)
   }
@@ -146,7 +146,7 @@ function App(props) {
 
       //set state
       const newWorkouts = workouts.map(workout => {
-        if(workout.workout_id == data[0].id){
+        if(workout.workout_id === data[0].id){
           workout.started_at = data[0].started_at;
           workout.finished_at = data[0].finished_at;
         }
