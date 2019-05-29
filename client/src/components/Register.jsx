@@ -21,12 +21,9 @@ function Register(props) {
           <FormField name="email" label="Email Address" placeholder="Your Email Address" />
           <FormField name="password" type="password" label="Password" placeholder="Your Desired Password" />
           <FormField name="password" type="password" label="Password" placeholder="Verify Your Desired Password" />
-          <Box align="center">
-            {" "}
-            <Box pad="medium" direction="row" gap="small">
+            <Box align="center" pad="medium" direction="row" gap="small">
               <Button alignSelf="start" onclick="" primary label="Register" />
             </Box>
-          </Box>
         </Form>
       </Box>
     </Grommet>
