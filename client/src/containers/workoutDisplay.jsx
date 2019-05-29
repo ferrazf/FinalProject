@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 
 import DisplayExercise from "../components/exercise/Display.jsx";
 
+//accepts exercise display components 
 function WorkoutDisplay(props) {
-    const items = props.exercises.map(exercise => (
+    const items = props.workoutExercises.map(exercise => (
       <DisplayExercise
         key={exercise.id}
         exercise={exercise}
-        EditExercise={props.EditExercise}
+        updateExercise={props.updateExercise}
       />
     ))
     return (

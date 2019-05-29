@@ -1,28 +1,24 @@
-import { Text, Box, FormField, Select } from 'grommet';
-import React, { useState } from 'react';
+import { Text, Button, Box } from 'grommet';
+import React from 'react';
 import { Link } from "react-router-dom";
 
-function Add(props) {
+//Displays exercises that can be added to workout on the add container  
+function exercise_display_add(props) {
+  return (
+    <Box>
+        <Text> {props.exercise.name} </Text>
+        <Text>Description:{props.exercise.descr} </Text>
+        <Link to="/workout">
+          <Button
+              alignSelf= "end"
+              label="add"
+              onClick={() => {}}
+          />
+        </Link>
+    </Box>
 
-    const [value, setValue] = useState('');
-    const options = props.muscle;
-
-    return (
-        <Box>
-            <form onSubmit={props.handleFormSubmit}></form>
-                <FormField label="Muscle:">
-                    <Select
-                    name="muscle"
-                    options={options}
-                    value={value}
-                    onChange={({ option }) => setValue(option)}
-                    />
-                </FormField>
-            <Text>Exercise</Text>
-            <Text>Description</Text>
-        </Box>
-    );
+  );
 }
 
-export default Add
-  
+export default exercise_display_add
+

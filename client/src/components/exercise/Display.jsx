@@ -1,7 +1,9 @@
 import { Text, Button, Box } from 'grommet';
 import React from 'react';
-import { Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 
+//Displays exercises in workoutDisplay Container 
+//passes exercise prop through callback inorder to allow edit  
 function exercise_display(props) {
   return (
     <Box>
@@ -14,7 +16,7 @@ function exercise_display(props) {
             <Button
                 alignSelf= "end"
                 label="edit"
-                onClick={() => {props.EditExercise(props.exercise)}}
+                onClick={() => {props.updateExercise(props.exercise)}}
             />
         </Link>
     </Box>

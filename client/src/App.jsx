@@ -30,7 +30,7 @@ function App(props) {
   const [ muscleGroup, setMuscleGroups ] = useState('');
   const [ muscle, setMuscles ] = useState('');
   const [ exercise, setExercise] = useState('');
-  const [ exercises, setExercises] = useState([
+  const [ workoutExercises, setWorkoutExercises] = useState([
     {
         "id": 4,
         "exercise_id": 1,
@@ -54,6 +54,20 @@ function App(props) {
         "muscle_group_name": "Abdominals"
     }
  ])
+ const [exercises, setExercises] = useState([
+  {
+      "id": 6,
+      "muscle_group_id": 6,
+      "name": "Barbell Bench Press more",
+      "descr": "Main Muscle Worked: Chest."
+  },
+  {
+      "id": 1,
+      "muscle_group_id": 6,
+      "name": "Barbell Bench Press",
+      "descr": "Main Muscle Worked: Chest."
+  }
+])
 
   //==========================================
   // Functions
@@ -69,9 +83,8 @@ function App(props) {
     return muscleGroup.filter(group => group.name === muscle);
   }
 
-  const EditExercise  = (exercise) => {
-    setExercise(exercise)
-    console.log(exercise)
+  const updateExercise  = (workoutExercise) => {
+    setWorkoutExercises(workoutExercise)
   }
   // const isEmpty = (object) => {
   //   return Object.entries(object).length === 0 && object.constructor === Object;
@@ -173,9 +186,11 @@ function App(props) {
         handleExerciseFormSubmit={handleExerciseFormSubmit}
         handleStartWorkout={handleStartWorkout}
         handleFinishWorkout={handleFinishWorkout}
+        workoutExercises={workoutExercises}
+        updateExercise={updateExercise}
         exercises={exercises}
-        EditExercise={EditExercise}
         exercise={exercise}
+        muscle={muscle}
       />
     );
 

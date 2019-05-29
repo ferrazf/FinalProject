@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormField, TextInput, Button, Text } from 'grommet';
 
+// displays form to update an individual exercise 
 export default ({ exercise, handleFormSubmit }) => {
 
   
@@ -19,12 +20,6 @@ export default ({ exercise, handleFormSubmit }) => {
         <TextInput type="text" name="Rest" placeholder={exercise.rest} />
       </FormField>
 
-      <Button type="submit" primary label="Submit"/>
-      <Button
-                alignSelf= "end"
-                label="edit"
-                onClick={() => {console.log(exercise)}}
-            />
     </form>
   )
 }

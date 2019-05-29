@@ -4,8 +4,7 @@ import Home from "./home.jsx";
 import Profile from "./profile.jsx";
 import WorkoutDisplay from "./workoutDisplay.jsx";
 import EditDisplay from "./editDisplay.jsx";
-import Exercise from "../components/exercise/From.jsx";
-import Add from "../components/exercise/Add.jsx";
+import AddDisplay from "./addDisplay.jsx";
 import Register from "../components/Register.jsx";
 
 // The Main component renders one of the three provided
@@ -26,15 +25,15 @@ const Main = (props) => {
         )}
         />
         <Route path='/profile' component={Profile}/>
-        <Route path='/workout' component={() => (<WorkoutDisplay EditExercise={props.EditExercise} exercises={props.exercises}/>)}/>
+        <Route path='/workout' component={() => (<WorkoutDisplay updateExercise={props.UpdateExercise} workoutExercises={props.workoutExercises}/>)}/>
         <Route path='/edit' component={() => (<EditDisplay exercise={props.exercise}/>)}/>
         <Route path='/register' component={() => <Register register={props.handleViewRegister} />} />
         <Route path='/add' component={() => (
-          <Add
+          <AddDisplay
             muscleGroup={props.muscleGroup} 
             muscle={props.muscle} 
             handleExerciseFormSubmit={props.handleExerciseFormSubmit} 
-            muscle={props.muscle}
+            exercises={props.exercises}
           />
         )}
         />
