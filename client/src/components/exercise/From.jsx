@@ -1,10 +1,10 @@
 import React from 'react';
 import { FormField, TextInput, Button, Text } from 'grommet';
 
-// displays form to update an individual exercise 
+// displays form to update an individual exercise in editdisplay container
 export default ({ exercise, handleFormSubmit }) => {
 
-  
+  console.log("exercise: ", exercise)
 
   return(
     <form onSubmit={handleFormSubmit}>

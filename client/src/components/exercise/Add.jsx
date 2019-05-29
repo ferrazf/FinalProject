@@ -22,3 +22,4 @@ function exercise_display_add(props) {
 
 export default exercise_display_add
 
+

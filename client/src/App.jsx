@@ -84,7 +84,7 @@ function App(props) {
   }
 
   const updateExercise  = (workoutExercise) => {
-    setWorkoutExercises(workoutExercise)
+    setExercise(workoutExercise)
   }
   // const isEmpty = (object) => {
   //   return Object.entries(object).length === 0 && object.constructor === Object;
@@ -134,7 +134,11 @@ function App(props) {
       setError(e);
     }
   }
-
+  const updateMG = (muscleGroup) => {
+    // get exercise based on muscle group name 
+    // update setExercises
+    console.log(muscleGroup)
+  }
   const updateWorkout = async (id, updateWorkout) => {
     try{
 
@@ -191,6 +195,7 @@ function App(props) {
         exercises={exercises}
         exercise={exercise}
         muscle={muscle}
+        updateMG={updateMG}
       />
     );
 
