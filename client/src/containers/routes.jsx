@@ -2,11 +2,11 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import Home from "./home.jsx";
 import Profile from "./profile.jsx";
-import Logout from "./logout.jsx";
 import WorkoutDisplay from "./workoutDisplay.jsx";
 import EditDisplay from "./editDisplay.jsx";
 import Exercise from "../components/exercise/From.jsx";
 import Register from "../components/Register.jsx";
+import Login from "../components/Login.jsx";
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
@@ -28,8 +28,8 @@ const Main = (props) => {
         <Route path='/profile' component={Profile} />
         <Route path='/workout' component={WorkoutDisplay} />
         <Route path='/edit' component={EditDisplay} />
+        <Route path='/login' component={Login} />
         <Route path='/register' component={() => <Register register={props.handleViewRegister} />} />
-        <Route path='/logout' component={Logout} />
         <Route path='/editform' component={() => <Exercise handleExerciseFormSubmit={props.handleExerciseFormSubmit} />} />
       </Switch>
     </main>
