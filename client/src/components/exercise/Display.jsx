@@ -2,7 +2,7 @@ import { Box, Button, Grommet, Text } from 'grommet';
 import React from 'react';
 import { Link } from "react-router-dom";
 import { hpe } from "grommet-theme-hpe";
-import { Edit } from "grommet-icons";
+import { Edit, FormView } from "grommet-icons";
 
 //Displays exercises in workoutDisplay Container
 //passes exercise prop through callback inorder to allow edit
@@ -17,8 +17,7 @@ function exercise_display(props) {
         <Text>Description:{props.exercise.descr} </Text>
         <Link to="/edit">
           <Button
-            secondary
-            icon={<Edit />}
+            icon={<FormView />}
             margin="small"
             alignSelf="end"
             label="edit"
