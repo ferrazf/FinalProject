@@ -19,6 +19,7 @@ export default ({ exercise, handleFormSubmit }) => {
       <FormField label="Rest Time:">
         <TextInput type="text" name="Rest" placeholder={exercise.rest} />
       </FormField>
+      <Button type="submit" primary label="Submit"/>
 
     </form>
   )
