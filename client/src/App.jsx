@@ -3,7 +3,6 @@
 //==========================================
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Grommet } from 'grommet';
 // import './App.css';
 //==========================================
@@ -12,7 +11,6 @@ import { Grommet } from 'grommet';
 import Routes from './containers/routes.jsx'
 import Nav from "./components/Nav.jsx";
 import Message from './components/Message.jsx';
-
 //==========================================
 // Gobal var
 //==========================================
@@ -31,6 +29,45 @@ function App(props) {
   const [ initialized, setInitialized ] = useState(false);
   const [ muscleGroup, setMuscleGroups ] = useState('');
   const [ muscle, setMuscles ] = useState('');
+  const [ exercise, setExercise] = useState('');
+  const [ workoutExercises, setWorkoutExercises] = useState([
+    {
+        "id": 4,
+        "exercise_id": 1,
+        "name": "Barbell Bench Press",
+        "descr": "Main Muscle Worked: Chest.",
+        "sets": 6,
+        "reps": 10,
+        "rest": 1,
+        "muscle_group_id": 6,
+        "muscle_group_name": "Chest"
+    },
+    {
+        "id": 4,
+        "exercise_id": 4,
+        "name": "Standing Cable Lift",
+        "descr": "Main Muscle Worked: Abdominals.",
+        "sets": 6,
+        "reps": 10,
+        "rest": 1,
+        "muscle_group_id": 1,
+        "muscle_group_name": "Abdominals"
+    }
+ ])
+ const [exercises, setExercises] = useState([
+  {
+      "id": 6,
+      "muscle_group_id": 6,
+      "name": "Barbell Bench Press more",
+      "descr": "Main Muscle Worked: Chest."
+  },
+  {
+      "id": 1,
+      "muscle_group_id": 6,
+      "name": "Barbell Bench Press",
+      "descr": "Main Muscle Worked: Chest."
+  }
+])
 
   //==========================================
   // Functions
@@ -46,6 +83,9 @@ function App(props) {
     return muscleGroup.filter(group => group.name === muscle);
   }
 
+  const updateExercise  = (workoutExercise) => {
+    setExercise(workoutExercise)
+  }
   // const isEmpty = (object) => {
   //   return Object.entries(object).length === 0 && object.constructor === Object;
   // }
@@ -66,6 +106,7 @@ function App(props) {
           .then(({ data }) => {
             setWorkout(data);
           });
+
         setInitialized(true);
       }
     }catch (e){
@@ -87,13 +128,17 @@ function App(props) {
 
     try{
       const response = await axios.post(`${url}/exercises`, exercise);
-
+      console.log(response)
       //set state
     }catch (e){
       setError(e);
     }
   }
-
+  const updateMG = (muscleGroup) => {
+    // get exercise based on muscle group name 
+    // update setExercises
+    console.log(muscleGroup)
+  }
   const updateWorkout = async (id, updateWorkout) => {
     try{
 
@@ -145,6 +190,12 @@ function App(props) {
         handleExerciseFormSubmit={handleExerciseFormSubmit}
         handleStartWorkout={handleStartWorkout}
         handleFinishWorkout={handleFinishWorkout}
+        workoutExercises={workoutExercises}
+        updateExercise={updateExercise}
+        exercises={exercises}
+        exercise={exercise}
+        muscle={muscle}
+        updateMG={updateMG}
       />
     );
 

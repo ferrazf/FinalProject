@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Button, Grommet, Text } from "grommet";
 import { Link } from "react-router-dom";
 import { hpe } from "grommet-theme-hpe";
-import { Edit, FormView } from "grommet-icons";
+import { FormView } from "grommet-icons";
 
 function Workout(props) {
   const start = !props.workout.started_at && (
@@ -23,36 +23,28 @@ function Workout(props) {
     />
   );
 
-  return (
-    <Grommet theme={hpe}>
-      <Box
-        pad="medium"
-        border={{
-          color: "border",
-          side: "all"
-        }}
-      >
-        <Text> {props.workout.name.join(", ")} </Text>
-        <Link to="/edit">
-          <Button
-            icon={<Edit />}
-            alignSelf="end"
-            label="edit"
-            onClick={() => {}}
-          />
-        </Link>
-        <Link to="/workout">
-          <Button
-            icon={<FormView />}
-            alignSelf="end"
-            label="view"
-            onClick={() => {}}
-          />
-        </Link>
-        {start}
-        {finish}
-      </Box>
-    </Grommet>
-  );
+    return(
+      <Grommet theme={hpe}>
+        <Box
+          pad="medium"
+          border={{
+            color: "border",
+            side: "all"
+          }}
+        >
+            <Text > {props.workout.name.join(', ')} </Text>
+            <Link to="/workout" >
+            <Button
+                    icon={<FormView />}
+                    alignSelf= "end"
+                    label="view"
+                    onClick={() => {}}
+                />
+            </Link>
+            {start}
+            {finish}
+        </Box>
+      </Grommet>
+    )
 }
 export default Workout;

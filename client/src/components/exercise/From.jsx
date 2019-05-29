@@ -1,28 +1,26 @@
-import React, { useState } from 'react';
-import { FormField, TextInput, Button, Select } from 'grommet';
+import React from 'react';
+import { FormField, TextInput, Button, Text } from 'grommet';
 
-export default ({ muscleGroups, handleFormSubmit }) => {
+// displays form to update an individual exercise in editdisplay container
+export default ({ exercise, handleFormSubmit }) => {
 
-  const [value, setValue] = useState('');
-  const options = muscleGroups;
+  console.log("exercise: ", exercise)
 
   return(
     <form onSubmit={handleFormSubmit}>
-      <FormField label="Muscle:">
-        <Select
-          name="muscle"
-          options={options}
-          value={value}
-          onChange={({ option }) => setValue(option)}
-        />
+      <Text>Exercise: {exercise.name} </Text>
+        
+      <FormField label="Sets:">
+        <TextInput type="text" name="Sets" placeholder={exercise.sets} />
       </FormField>
-      <FormField label="Name:">
-        <TextInput type="text" name="name" placeholder="name" />
+      <FormField label="Reps:">
+        <TextInput type="text" name="Reps" placeholder={exercise.reps} />
       </FormField>
-      <FormField label="Description:">
-        <TextInput type="text" name="descr" placeholder="description" />
+      <FormField label="Rest Time:">
+        <TextInput type="text" name="Rest" placeholder={exercise.rest} />
       </FormField>
       <Button type="submit" primary label="Submit"/>
+
     </form>
   )
 }

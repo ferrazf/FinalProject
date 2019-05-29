@@ -4,7 +4,7 @@ import Home from "./home.jsx";
 import Profile from "./profile.jsx";
 import WorkoutDisplay from "./workoutDisplay.jsx";
 import EditDisplay from "./editDisplay.jsx";
-import Exercise from "../components/exercise/From.jsx";
+import AddDisplay from "./addDisplay.jsx";
 import Register from "../components/Register.jsx";
 import Login from "../components/Login.jsx";
 
@@ -14,6 +14,7 @@ import Login from "../components/Login.jsx";
 // with /roster or /schedule. The / route will only match
 // when the pathname is exactly the string "/"
 const Main = (props) => {
+  console.log(props.exercise)
   return (
     <main>
       <Switch>
@@ -25,15 +26,23 @@ const Main = (props) => {
           />
         )}
         />
-        <Route path='/profile' component={Profile} />
-        <Route path='/workout' component={WorkoutDisplay} />
-        <Route path='/edit' component={EditDisplay} />
+        <Route path='/profile' component={Profile}/>
+        <Route path='/workout' component={() => (<WorkoutDisplay updateExercise={props.updateExercise} workoutExercises={props.workoutExercises}/>)}/>
+        <Route path='/edit' component={() => (<EditDisplay exercise={props.exercise} />)} />
         <Route path='/login' component={Login} />
         <Route path='/register' component={() => <Register register={props.handleViewRegister} />} />
-        <Route path='/editform' component={() => <Exercise handleExerciseFormSubmit={props.handleExerciseFormSubmit} />} />
-      </Switch>
-    </main>
-  )
+        <Route path='/add' component={() => (
+          <AddDisplay
+            muscleGroup={props.muscleGroup}
+            muscle={props.muscle}
+            handleExerciseFormSubmit={props.handleExerciseFormSubmit}
+            exercises={props.exercises}
+            updateMG={props.updateMG}
+          />
+        )}
+        />
+    </Switch>
+  </main>
+)
 }
-
 export default Main
