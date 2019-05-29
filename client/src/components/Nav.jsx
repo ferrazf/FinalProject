@@ -9,8 +9,9 @@ function Nav(props) {
             <AppBar >
                 <Link to="/" justify='start'> Pocket Spotter</Link>
                 <Link to="/profile"><Heading level='3' margin='none'> Profile</Heading></Link>
-                 {/* Replace with logout if user logged in */}
+                {/* Replace with logout if user logged in */}
                 <Link to="/register"> Register</Link>
+                <Link to="/logout"> Logout</Link>
                 <Text>{props.name}</Text>
             </AppBar>
         </Box>
