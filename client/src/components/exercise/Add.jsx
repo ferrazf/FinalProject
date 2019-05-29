@@ -1,22 +1,26 @@
-import { Text, Button, Box } from 'grommet';
+import { Box, Button, Grommet, Text } from 'grommet';
 import React from 'react';
 import { Link } from "react-router-dom";
+import { hpe } from "grommet-theme-hpe";
+import { AddCircle } from "grommet-icons";
 
-//Displays exercises that can be added to workout on the addDisplay container  
+//Displays exercises that can be added to workout on the addDisplay container
 function exercise_display_add(props) {
   return (
-    <Box>
+    <Grommet theme={hpe}>
+      <Box>
         <Text> {props.exercise.name} </Text>
         <Text>Description:{props.exercise.descr} </Text>
         <Link to="/workout">
           <Button
-              alignSelf= "end"
-              label="add"
-              onClick={() => {props.addExercise(props.exercise)}}
+            icon={<AddCircle />}
+            alignSelf="end"
+            label="Add"
+            onClick={() => { props.addExercise(props.exercise) }}
           />
         </Link>
-    </Box>
-
+      </Box>
+    </Grommet>
   );
 }
 
