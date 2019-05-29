@@ -12,7 +12,7 @@ function  addDisplay(props) {
     <Add
       key={exercise.id}
       exercise={exercise}
-      EditExercise={props.EditExercise}
+      addExercise={props.addExercise}
 
     />
   ))
