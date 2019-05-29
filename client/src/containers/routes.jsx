@@ -13,7 +13,6 @@ import Register from "../components/Register.jsx";
 // with /roster or /schedule. The / route will only match
 // when the pathname is exactly the string "/"
 const Main = (props) => {
-  console.log(props.exercise)
   return (
     <main>
       <Switch>

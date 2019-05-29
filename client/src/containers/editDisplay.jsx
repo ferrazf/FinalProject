@@ -10,7 +10,6 @@ function EditDisplay(props) {
         <Form 
             handleExerciseFormSubmit={props.handleExerciseFormSubmit}   
             exercise={props.exercise}
-            updateExercise={props.updateExercise}
         />
       </Box>
     );

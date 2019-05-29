@@ -1,13 +1,13 @@
 import React from 'react';
 import { FormField, TextInput, Button, Text } from 'grommet';
+import { Link } from "react-router-dom";
 
-// displays form to update an individual exercise in editdisplay container
-export default ({ exercise, handleFormSubmit }) => {
+// displays form to update an individual exercise in editDisplay container
+export default ({ exercise, handleExerciseFormSubmit }) => {
 
-  console.log("exercise: ", exercise)
 
   return(
-    <form onSubmit={handleFormSubmit}>
+    <form onSubmit={handleExerciseFormSubmit}>
       <Text>Exercise: {exercise.name} </Text>
         
       <FormField label="Sets:">
@@ -19,8 +19,9 @@ export default ({ exercise, handleFormSubmit }) => {
       <FormField label="Rest Time:">
         <TextInput type="text" name="Rest" placeholder={exercise.rest} />
       </FormField>
-      <Button type="submit" primary label="Submit"/>
-
+      <Link to="/workout">
+        <Button type="submit" primary label="Submit"/>
+      </Link>
     </form>
   )
 }

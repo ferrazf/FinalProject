@@ -6,10 +6,8 @@ function MUscleGroupSelect(props) {
 
     const [muscleGroup, setMuscleGroup] = useState('');
     const options = props.muscle;
-    console.log(props)
     const handleClick = ({option}) => {
         setMuscleGroup(option)
-        console.log(muscleGroup)
         props.updateMG(option)
     }
 
