@@ -25,7 +25,7 @@ function App(props) {
   //==========================================
   // States
   //==========================================
-  const [ name, setName ] = useState("kobi")
+  const [name, setName] = useState("kobi");
   const [ workouts, setWorkout ] = useState([]);
   const [ messages, setMessage ] = useState('')
   const [ initialized, setInitialized ] = useState(false);

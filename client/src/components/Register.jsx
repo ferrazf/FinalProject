@@ -23,7 +23,9 @@ function Register(props) {
           <FormField name="password" type="password" label="Password" placeholder="Verify Your Desired Password" />
           <Box align="center">
             {" "}
-            <Button type="submit" primary label="Register" />
+            <Box pad="medium" direction="row" gap="small">
+              <Button alignSelf="start" onclick="" primary label="Register" />
+            </Box>
           </Box>
         </Form>
       </Box>

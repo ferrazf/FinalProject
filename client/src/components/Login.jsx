@@ -21,7 +21,10 @@ function Login(props) {
                     <FormField name="password" type="password" label="Password" placeholder="Your Password" />
                     <Box align="center">
                         {" "}
-                        <Button type="submit" primary label="Login" />
+                        <Box pad="medium" direction="row" gap="small">
+                            <Button alignSelf="end" primary label="Login" />
+                            <Button alignSelf="start" primary label="Register" />
+                        </Box>
                     </Box>
                 </Form>
             </Box>
