@@ -2,6 +2,7 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import Home from "./home.jsx";
 import Profile from "./profile.jsx";
+import Logout from "./logout.jsx";
 import WorkoutDisplay from "./workoutDisplay.jsx";
 import EditDisplay from "./editDisplay.jsx";
 import Exercise from "../components/exercise/From.jsx";
@@ -28,6 +29,7 @@ const Main = (props) => {
         <Route path='/workout' component={WorkoutDisplay} />
         <Route path='/edit' component={EditDisplay} />
         <Route path='/register' component={() => <Register register={props.handleViewRegister} />} />
+        <Route path='/logout' component={Logout} />
         <Route path='/editform' component={() => <Exercise handleExerciseFormSubmit={props.handleExerciseFormSubmit} />} />
       </Switch>
     </main>

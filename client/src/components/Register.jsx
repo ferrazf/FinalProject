@@ -4,9 +4,7 @@ import {
   Button,
   Form,
   FormField,
-  Grommet,
-  Heading,
-  Paragraph
+  Grommet
 } from "grommet";
 import { hpe } from "grommet-theme-hpe";
 
@@ -19,8 +17,9 @@ function Register(props) {
       </Box>
       <Box pad="medium">
         <Form>
-          <FormField name="name" label="Name" />
-          <FormField name="email" label="Email Address" />
+          <FormField name="name" label="Name" placeholder="Your Name" />
+          <FormField name="email" label="Email Address" placeholder="Your Email Address" />
+          <FormField name="password" type="password" label="Password" placeholder="Your Desired Password" />
           <Box align="center">
             {" "}
             <Button type="submit" primary label="Register" />
