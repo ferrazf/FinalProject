@@ -23,28 +23,27 @@ function Workout(props) {
     />
   );
 
-    return(
-      <Grommet theme={hpe}>
-        <Box
-          pad="medium"
-          border={{
-            color: "border",
-            side: "all"
-          }}
-        >
-            <Text > {props.workout.name.join(', ')} </Text>
-            <Link to="/workout" >
-            <Button
-                    icon={<FormView />}
-                    alignSelf= "end"
-                    label="view"
-                    onClick={() => {}}
-                />
-            </Link>
-            {start}
-            {finish}
-        </Box>
-      </Grommet>
-    )
+  return (
+    <Grommet theme={hpe}>
+      <Box
+        pad="medium"
+        border={{
+          color: "border",
+          side: "all"
+        }}
+      >
+        <Text > {props.workout.name.join(', ')} </Text>
+        <Button
+          href="/workout"
+          icon={<FormView />}
+          alignSelf="start"
+          label="View"
+          onClick={() => { }}
+        />
+        {start}
+        {finish}
+      </Box>
+    </Grommet>
+  )
 }
 export default Workout;
