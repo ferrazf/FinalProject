@@ -86,6 +86,10 @@ function App(props) {
   const updateExercise  = (workoutExercise) => {
     setExercise(workoutExercise)
   }
+
+  const addExercise = (exercise) => {
+    setWorkoutExercises([...workoutExercises, exercise])
+  }
   // const isEmpty = (object) => {
   //   return Object.entries(object).length === 0 && object.constructor === Object;
   // }
@@ -196,6 +200,7 @@ function App(props) {
         exercise={exercise}
         muscle={muscle}
         updateMG={updateMG}
+        addExercise={addExercise}
       />
     );
 

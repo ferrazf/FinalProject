@@ -38,6 +38,7 @@ const Main = (props) => {
             handleExerciseFormSubmit={props.handleExerciseFormSubmit}
             exercises={props.exercises}
             updateMG={props.updateMG}
+            addExercise={props.addExercise}
           />
         )}
         />
