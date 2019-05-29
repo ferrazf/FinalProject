@@ -9,6 +9,7 @@ function WorkoutDisplay(props) {
       <DisplayExercise
         key={exercise.id}
         exercise={exercise}
+        EditExercise={props.EditExercise}
       />
     ))
     return (

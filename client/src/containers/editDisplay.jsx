@@ -8,10 +8,8 @@ function EditDisplay(props) {
     return (
       <Box>
         <Form 
-            muscleGroup={props.muscleGroup} 
-            muscle={props.muscle} 
             handleExerciseFormSubmit={props.handleExerciseFormSubmit} 
-            muscle={props.muscle} 
+            exercise={props.exercise}
         />
       </Box>
     );

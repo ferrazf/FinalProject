@@ -26,8 +26,8 @@ const Main = (props) => {
         )}
         />
         <Route path='/profile' component={Profile}/>
-        <Route path='/workout' component={() => (<WorkoutDisplay exercises={props.exercises}/>)}/>
-        <Route path='/edit' component={EditDisplay}/>
+        <Route path='/workout' component={() => (<WorkoutDisplay EditExercise={props.EditExercise} exercises={props.exercises}/>)}/>
+        <Route path='/edit' component={() => (<EditDisplay exercise={props.exercise}/>)}/>
         <Route path='/register' component={() => <Register register={props.handleViewRegister} />} />
         <Route path='/add' component={() => (
           <Add

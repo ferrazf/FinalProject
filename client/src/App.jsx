@@ -29,6 +29,7 @@ function App(props) {
   const [ initialized, setInitialized ] = useState(false);
   const [ muscleGroup, setMuscleGroups ] = useState('');
   const [ muscle, setMuscles ] = useState('');
+  const [ exercise, setExercise] = useState('');
   const [ exercises, setExercises] = useState([
     {
         "id": 4,
@@ -68,6 +69,10 @@ function App(props) {
     return muscleGroup.filter(group => group.name === muscle);
   }
 
+  const EditExercise  = (exercise) => {
+    setExercise(exercise)
+    console.log(exercise)
+  }
   // const isEmpty = (object) => {
   //   return Object.entries(object).length === 0 && object.constructor === Object;
   // }
@@ -169,6 +174,8 @@ function App(props) {
         handleStartWorkout={handleStartWorkout}
         handleFinishWorkout={handleFinishWorkout}
         exercises={exercises}
+        EditExercise={EditExercise}
+        exercise={exercise}
       />
     );
 
