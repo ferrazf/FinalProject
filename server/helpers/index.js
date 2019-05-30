@@ -19,7 +19,9 @@ module.exports = (knex) => {
           if(!foundUser.length){ return res.status(400).send({ error: "Username not found. Please enter valid username."}); }
 
           if(bcrypt.compareSync( password, foundUser[0].password)){
-            fnHelpers.generateToken(foundUser[0], res);
+            fnHelpers.generateToken(foundUser[0])
+              .then(output => res.status(200).json(output))
+              .catch( e => res.status(400).json(e))
           } else {
             return res.status(400).send({ error: "Incorrect password. Please try again."});
           }
@@ -128,19 +130,21 @@ module.exports = (knex) => {
     },
 
     getUserByToken: (req, res, next) => {
-      fnHelpers.getUserByToken(req, res, next, (user)=>{
-        if(user){
-          const sendUser = {
-            id: user.id,
-            name: user.name,
-            email: user.email
+      fnHelpers.getUserByToken(req, res, next)
+        .then( user =>{
+          if(user){
+            const sendUser = {
+              id: user.id,
+              name: user.name,
+              email: user.email
+            }
+            res.status(200).json(sendUser)
+          }else{
+            res.status(400).json({error: 'User not found'})
           }
-          res.status(200).json(sendUser)
-        }else{
-          res.status(400).json({error: 'User not found'})
-        }
-      });
 
+        })
+        .catch( e => res.status(400).json(e))
     }
   }
 }

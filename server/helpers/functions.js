@@ -13,19 +13,26 @@ module.exports = {
       return true;
     }, // end of checkMandatoryInputs
 
-    generateToken: (user, res) => {
-      jwt.sign({user}, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
-        const output = {
-          name: user.name,
-          email: user.email,
-          token
-        }
-        res.status(200).json(output);
-      });
+    generateToken: async (user) => {
+      return new Promise((resolve, reject)=>{
+        jwt.sign({user}, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+
+          if(err){ return reject(error) }
+          const output = {
+            name: user.name,
+            email: user.email,
+            token
+          }
+          return resolve(output);
+        });
+      })
     }, // end of generateToken
 
-    getUserByToken: (req, res, next, cb_fn) => {
-      jwt.verify(req.token, process.env.JWT_SECRET, (err, authData) => err ? cb_fn(null) : cb_fn(authData.user))
+    getUserByToken: async (req, res, next) => {
+    // getUserByToken: (req, res, next, cb_fn) => {
+      return new Promise((resolve, reject)=>{
+        jwt.verify(req.token, process.env.JWT_SECRET, (err, authData) => err ? reject(err) : resolve(authData.user))
+      })
     }
 
 }
