@@ -19,9 +19,11 @@ function Login(props) {
                 <Form>
                     <FormField name="email" label="Email Address" placeholder="Your Email Address" />
                     <FormField name="password" type="password" label="Password" placeholder="Your Password" />
-                    <Box align="center" pad="medium" direction="row" gap="small">
-                        <Button alignSelf="end" primary label="Login" />
-                        <Button alignSelf="start" primary label="Register" />
+                    <Box align="center" pad="medium">
+                        <Box direction="row" gap="small">
+                            <Button alignSelf="end" primary label="Login" />
+                            <Button alignSelf="start" onclick="" primary label="Register" />
+                        </Box>
                     </Box>
                 </Form>
             </Box>
