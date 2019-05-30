@@ -9,38 +9,17 @@ module.exports = (knex) => {
 
   return{
     login: (req, res, next) => {
-      const checkUser = {
-        // name: req.body.name,
-        email: req.body.email,
-        password: '$2b$10$HuYJ4p/sQ2DW1iJxHCy2huLPNa3Cb/eO8JjEPVy8TDeyKXpWzAiFq' //req.body.password
-      }
-      // const checkUser = {
-      //   id: 8,
-      //   name: 'User 1',
-      //   email: 'user1@test.com',
-      //   password: '$2b$10$HuYJ4p/sQ2DW1iJxHCy2huLPNa3Cb/eO8JjEPVy8TDeyKXpWzAiFq'
-      // };
 
-      const {username, password} = req.body;
+      const {email, password} = req.body;
       knex
         .select("*")
         .from("users")
-        .where('username', username)
+        .where('email', email)
         .then((foundUser) => {
           if(!foundUser.length){ return res.status(400).send({ error: "Username not found. Please enter valid username."}); }
 
-          // if(password === foundUser[0].password){
           if(bcrypt.compareSync( password, foundUser[0].password)){
-
-            res.json(fnHelpers.generateToken(checkUser));
-            // jwt.sign({checkUser}, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
-
-            //   res.json({
-            //     name: foundUser[0].name,
-            //     email,
-            //     token
-            //   });
-            // });
+            fnHelpers.generateToken(foundUser[0], res);
           } else {
             return res.status(400).send({ error: "Incorrect password. Please try again."});
           }
@@ -83,7 +62,6 @@ module.exports = (knex) => {
                 .insert(newUser)
                 .returning('*')
                 .then( createdUser => {
-                  console.log(createdUser)
 
                   // creates user with some default workouts
                   knex('workouts').max('id')
@@ -133,8 +111,6 @@ module.exports = (knex) => {
                                     });
                                   })
 
-                                  console.log(workout_exercises);
-
                                   knex('workout_exercises')
                                     .insert(workout_exercises)
                                     .returning('*')
@@ -144,8 +120,7 @@ module.exports = (knex) => {
                             })// end of insert workouts
                         })// end of original workouts
                   }) // end of max workouts
-                  res.json(fnHelpers.generateToken(createdUser))
-                  // res.status(200).json(createdUser);
+                  fnHelpers.generateToken(createdUser[0], res);
                 }) // end of insert user
             });
         })

@@ -13,17 +13,14 @@ module.exports = {
       return true;
     }, // end of checkMandatoryInputs
 
-    generateToken: (checkUser) => {
-      console.log("user-------------------");
-      console.log(checkUser);
-
+    generateToken: (checkUser, res) => {
       jwt.sign({checkUser}, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
-        console.log("here--------------------------", token)
-        return {
-          name: user.name,
-          email,
+        const output = {
+          name: checkUser.name,
+          email: checkUser.email,
           token
-        };
+        }
+        res.status(200).json(output);
       });
     } // end of generateToken
 
