@@ -39,5 +39,5 @@
 |/api/exercises/:id                       | GET, POST               |
 |/api/workouts/:id                        | GET, PUT                |
 |/api/workouts/:workoutId/exercises/:id   | GET, PUT, DELETE        |
-|/api/workouts/:id/exercises/             | GET, POST               |
+|/api/workouts/:id/exercises              | GET, POST               |
 |/api/workouts                            | GET, POST               |

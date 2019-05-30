@@ -1,17 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Box,
     Button,
     Form,
     FormField,
-    Grommet
+    Grommet,
 } from "grommet";
 import { hpe } from "grommet-theme-hpe";
+import { Redirect } from "react-router-dom";
+import axios from 'axios';
 
 function Login(props) {
+
+    const [ toHome, setToHome ] = useState(false);
+    const setData = async (user) => {
+        try{
+            const { data } = await axios.post(`${props.url}/login`, user);
+            setToHome(true)
+            props.setUser(data);
+        }catch (e){
+            props.setError(e);
+        }
+    }
+
+    const handleLogin = (evt) => {
+        evt.preventDefault();
+
+        const user ={
+          email: evt.target.form.elements.email.value,
+          password: evt.target.form.elements.password.value
+        }
+
+        evt.target.form.elements.email.value = '';
+        evt.target.form.elements.password.value = '';
+
+        setData(user)
+    }
+
     //props.register(user)
+    const redirectHome = toHome ? <Redirect to='/'/> : null;
+
     return (
         <Grommet theme={hpe}>
+        {redirectHome}
             <Box align="center" background="status-ok">
                 <p>Login</p>
             </Box>
@@ -21,8 +52,7 @@ function Login(props) {
                     <FormField name="password" type="password" label="Password" placeholder="Your Password" />
                     <Box align="center" pad="medium">
                         <Box direction="row" gap="small">
-                            <Button alignSelf="end" primary label="Login" />
-                            <Button alignSelf="start" onclick="" primary label="Register" />
+                            <Button alignSelf="end" onClick={handleLogin} primary label="Login" />
                         </Box>
                     </Box>
                 </Form>

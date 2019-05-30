@@ -14,6 +14,25 @@ import Login from "../components/Login.jsx";
 // with /roster or /schedule. The / route will only match
 // when the pathname is exactly the string "/"
 const Main = (props) => {
+  const login = !props.isLoggedin(props.user) && (
+    <Route path='/login' component={() => (
+      <Login
+        url={props.url}
+        setUser={props.setUser}
+        setError={props.setError}
+      />)}
+    />)
+  const register = !props.isLoggedin(props.user) && (
+    <Route path='/register' component={() => (
+      <Register
+        url={props.url}
+        setUser={props.setUser}
+        setError={props.setError}
+      />)}
+    />)
+  const profile = props.isLoggedin(props.user) && (
+    <Route path='/profile' component={Profile}/>)
+  // const logout = props.isLoggedin(props.user) && ()
   return (
     <main>
       <Switch>
@@ -25,11 +44,11 @@ const Main = (props) => {
             handleFinishWorkout={props.handleFinishWorkout}
           />
         )}/>
-        <Route path='/profile' component={Profile}/>
+        {profile}
         <Route path='/workout' component={() => (<WorkoutDisplay updateExercise={props.updateExercise} workoutExercises={props.workoutExercises}/>)}/>
         <Route path='/edit' component={() => (<EditDisplay exercise={props.exercise} />)} />
-        <Route path='/login' component={Login} />
-        <Route path='/register' component={() => <Register register={props.handleViewRegister} />} />
+        {login}
+        {register}
         <Route path='/add' component={() => (
           <AddDisplay
             muscleGroup={props.muscleGroup}

@@ -23,7 +23,7 @@ function App(props) {
   //==========================================
   // States
   //==========================================
-  const [ user, setUser ] = useState({})
+  const [ user, setUser ] = useState({});
   const [ workouts, setWorkout ] = useState([]);
   const [ messages, setMessage ] = useState('')
   const [ initialized, setInitialized ] = useState(false);
@@ -72,6 +72,7 @@ function App(props) {
   //==========================================
   // Functions
   //==========================================
+  const isLoggedin = (user) => (user && user.hasOwnProperty('name')) ? true : false;
   const setError = (content) => {
     setMessage({
         type: 'error',
@@ -122,7 +123,7 @@ function App(props) {
     }
   })
 
-  // show workout display with corrisponding exercises 
+  // show workout display with corrisponding exercises
   const viewWorkout = async (workout) => {
     console.log(workouts)
     console.log(workout)
@@ -135,7 +136,7 @@ function App(props) {
     }
   }
 
-  // update exercise values 
+  // update exercise values
   const handleExerciseFormSubmit = async (evt) => {
     evt.preventDefault();
     const getExercise = getWorkoutExercises(evt.target.ExName.value)[0]
@@ -178,7 +179,7 @@ function App(props) {
     }
   }*/
 
-  // update add display based on muscle group 
+  // update add display based on muscle group
   const updateMG = async (muscleGroup) => {
     const MG_id = getMuscleGroup(muscleGroup)[0].id
     try{
@@ -234,6 +235,8 @@ function App(props) {
 
   const workoutRoute = workouts.length && (
       <Routes
+        url={url}
+        setUser={setUser}
         workouts={workouts}
         handleViewRegister={handleViewRegister}
         handleExerciseFormSubmit={handleExerciseFormSubmit}
@@ -247,6 +250,8 @@ function App(props) {
         updateMG={updateMG}
         addExercise={addExercise}
         viewWorkout={viewWorkout}
+        isLoggedin={isLoggedin}
+        setError={setError}
       />
     );
 
@@ -254,7 +259,11 @@ function App(props) {
 
   return (
     <Grommet plain>
-      <Nav name={name} />
+      <Nav
+        user={user}
+        name={name}
+        isLoggedin={isLoggedin}
+      />
       {message}
       {/* {userRoute} */}
       {workoutRoute}
