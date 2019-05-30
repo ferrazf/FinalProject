@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Box, Button, Icons } from 'grommet';
+import { Text, Box, Button } from 'grommet';
 import { Link } from "react-router-dom";
 
 function Workout(props) {
@@ -28,7 +28,7 @@ function Workout(props) {
                 <Button
                     alignSelf= "end"
                     label="view"
-                    onClick={() => {}}
+                    onClick={() => {props.viewWorkout(props.workout.workout_id)}}
                 />
             </Link>
             {start}

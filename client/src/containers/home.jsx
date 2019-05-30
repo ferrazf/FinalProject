@@ -8,6 +8,7 @@ function Home(props) {
       <Workout
         key={workout.workout_id}
         workout={workout}
+        viewWorkout={props.viewWorkout}
         handleStart={props.handleStartWorkout}
         handleFinish={props.handleFinishWorkout}
       />

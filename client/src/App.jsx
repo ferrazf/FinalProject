@@ -83,6 +83,10 @@ function App(props) {
     return muscleGroup.filter(group => group.name === muscle);
   }
 
+  const getWorkoutExercises = (exercise) => {
+    return workoutExercises.filter(group => group.name === exercise);
+  }
+
   const updateExercise  = (workoutExercise) => {
     setExercise(workoutExercise)
   }
@@ -118,10 +122,45 @@ function App(props) {
     }
   })
 
+  // show workout display with corrisponding exercises 
+  const viewWorkout = async (workout) => {
+    console.log(workouts)
+    console.log(workout)
+
+    try{
+      const response = await axios.get(`${url}/workouts/${workout}`);
+      console.log(response.data)
+    }catch (e){
+      setError(e);
+    }
+  }
+
+  // update exercise values 
   const handleExerciseFormSubmit = async (evt) => {
     evt.preventDefault();
+    const getExercise = getWorkoutExercises(evt.target.ExName.value)[0]
+
     const exercise ={
-      muscle_group_id: getMuscleGroup(evt.target.muscle.value)[0].id,
+      sets: Number(evt.target.Sets.value),
+      reps: Number(evt.target.Reps.value),
+      rest: Number(evt.target.Rest.value),
+    }
+
+    try{
+      const response = await axios.put(`${url}/workouts/${getExercise.id}/exercises/${getExercise.exercise_id}`, exercise);
+      setWorkoutExercises(response.data)
+    }catch (e){
+      setError(e);
+    }
+  }
+
+  // incase we let them create an exercise
+
+  /*const handleExerciseFormSubmit = async (evt) => {
+    evt.preventDefault();
+    console.log("thing")
+    const exercise ={
+      muscle_group_id: getWorkoutExercises(evt.target.muscle.value)[0].id,
       name: evt.target.name.value,
       descr: evt.target.descr.value
     }
@@ -137,12 +176,19 @@ function App(props) {
     }catch (e){
       setError(e);
     }
+  }*/
+
+  // update add display based on muscle group 
+  const updateMG = async (muscleGroup) => {
+    const MG_id = getMuscleGroup(muscleGroup)[0].id
+    try{
+      const response = await axios.get(`${url}/muscles/${MG_id}/exercises`)
+      setExercises(response.data)
+    }catch (e){
+      setError(e);
+    }
   }
-  const updateMG = (muscleGroup) => {
-    // get exercise based on muscle group name 
-    // update setExercises
-    console.log(muscleGroup)
-  }
+
   const updateWorkout = async (id, updateWorkout) => {
     try{
 
@@ -201,6 +247,7 @@ function App(props) {
         muscle={muscle}
         updateMG={updateMG}
         addExercise={addExercise}
+        viewWorkout={viewWorkout}
       />
     );
 
@@ -210,6 +257,8 @@ function App(props) {
       {message}
       {/* {userRoute} */}
       {workoutRoute}
+
+
     </Grommet>
   );
 }

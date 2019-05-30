@@ -1,6 +1,5 @@
 import React from 'react';
 import { FormField, TextInput, Button, Text } from 'grommet';
-import { Link } from "react-router-dom";
 
 // displays form to update an individual exercise in editDisplay container
 export default ({ exercise, handleExerciseFormSubmit }) => {
@@ -18,10 +17,11 @@ export default ({ exercise, handleExerciseFormSubmit }) => {
       </FormField>
       <FormField label="Rest Time:">
         <TextInput type="text" name="Rest" placeholder={exercise.rest} />
+        <TextInput type="hidden" name="ExName" value={exercise.name} />
       </FormField>
-      <Link to="/workout">
-        <Button type="submit" primary label="Submit"/>
-      </Link>
+      <Button type="submit" primary label="Submit"/>
     </form>
   )
 }
+
+/* <Link to="/workout"> */

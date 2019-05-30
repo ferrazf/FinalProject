@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Form, FormField, Grommet, Heading, Paragraph} from 'grommet';
+import { Box, Button, Form, FormField, Grommet} from 'grommet';
 
 function Register(props) {
     //props.register(user)
