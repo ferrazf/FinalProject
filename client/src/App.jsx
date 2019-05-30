@@ -23,7 +23,7 @@ function App(props) {
   //==========================================
   // States
   //==========================================
-  const [name, setName] = useState("kobi");
+  const [ user, setUser ] = useState({})
   const [ workouts, setWorkout ] = useState([]);
   const [ messages, setMessage ] = useState('')
   const [ initialized, setInitialized ] = useState(false);
@@ -203,6 +203,8 @@ function App(props) {
         addExercise={addExercise}
       />
     );
+
+  const name = user.hasOwnProperty('name') && user.name;
 
   return (
     <Grommet plain>
