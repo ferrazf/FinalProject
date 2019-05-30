@@ -13,16 +13,20 @@ module.exports = {
       return true;
     }, // end of checkMandatoryInputs
 
-    generateToken: (checkUser, res) => {
-      jwt.sign({checkUser}, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+    generateToken: (user, res) => {
+      jwt.sign({user}, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
         const output = {
-          name: checkUser.name,
-          email: checkUser.email,
+          name: user.name,
+          email: user.email,
           token
         }
         res.status(200).json(output);
       });
-    } // end of generateToken
+    }, // end of generateToken
+
+    getUserByToken: (req, res, next, cb_fn) => {
+      jwt.verify(req.token, process.env.JWT_SECRET, (err, authData) => err ? cb_fn(null) : cb_fn(authData.user))
+    }
 
 }
 

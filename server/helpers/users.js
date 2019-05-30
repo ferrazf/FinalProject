@@ -2,8 +2,10 @@
 
 const express       = require('express');
 const jwt           = require('jsonwebtoken');
+const fnHelpers     = require('../helpers/functions');
 
 module.exports = (knex) => {
+  const helpers = require('../helpers/index')(knex);
 
   return{
     getUsers: (req, res, next) => {
@@ -20,10 +22,6 @@ module.exports = (knex) => {
     //     .where('id', req.params.userId)
     //     .then( results => res.json(results));
     // },
-
-    getUserByToken: (req, res, next) => {
-      jwt.verify(req.token, process.env.JWT_SECRET, (err, authData) => err ? null : authData.user)
-    }
   }
 }
 

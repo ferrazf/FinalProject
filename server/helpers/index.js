@@ -125,47 +125,22 @@ module.exports = (knex) => {
             });
         })
         .catch(e => res.status(400).json( {e} ));
+    },
+
+    getUserByToken: (req, res, next) => {
+      fnHelpers.getUserByToken(req, res, next, (user)=>{
+        if(user){
+          const sendUser = {
+            id: user.id,
+            name: user.name,
+            email: user.email
+          }
+          res.status(200).json(sendUser)
+        }else{
+          res.status(400).json({error: 'User not found'})
+        }
+      });
+
     }
   }
 }
-
-
-// const request       = require("request");
-// const jwt           = require('jsonwebtoken');
-
-// module.exports = (knex) => {
-//   return{
-//     isAuthorized: (req, res, next) => {
-//       jwt.verify(req.token, 'secretkey', (err, authData) => {
-//         if(err) {
-//           res.sendStatus(403);
-//         } else {
-//           res.json({
-//             message: 'Post created...',
-//             authData
-//           });
-//         }
-//       });
-//     }
-//     // Verify Token
-//     verifyToken: (req, res, next) => {
-//       // Get auth header value
-//       const bearerHeader = req.headers['authorization'];
-//       // Check if bearer is undefined
-//       if(typeof bearerHeader !== 'undefined') {
-//         // Split at the space
-//         const bearer = bearerHeader.split(' ');
-//         // Get token from array
-//         const bearerToken = bearer[1];
-//         // Set the token
-//         req.token = bearerToken;
-//         // Next middleware
-//         next();
-//       } else {
-//         // Forbidden
-//         res.sendStatus(403);
-//       }
-
-//     }
-//   }
-// }
