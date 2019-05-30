@@ -47,7 +47,7 @@ function Workout(props) {
               icon={<FormView />}
               alignSelf="start"
               label="View"
-              onClick={() => { }}
+              onClick={() => {props.viewWorkout(props.workout.workout_id)}}
             />
           </Link>
           {start}

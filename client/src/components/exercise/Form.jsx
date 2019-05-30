@@ -19,6 +19,7 @@ export default ({ exercise, handleExerciseFormSubmit }) => {
       </FormField>
       <FormField label="Rest Time:">
         <TextInput type="text" name="Rest" placeholder={exercise.rest} />
+        <TextInput type="hidden" name="ExName" value={exercise.name} />
       </FormField>
       <Box align="center" pad="none">
         <Box direction="row" gap="small">
@@ -30,3 +31,5 @@ export default ({ exercise, handleExerciseFormSubmit }) => {
     </form>
   )
 }
+
+/* <Link to="/workout"> */

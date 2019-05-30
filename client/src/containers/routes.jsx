@@ -20,11 +20,11 @@ const Main = (props) => {
         <Route exact path="/" component={() => (
           <Home
             workouts={props.workouts}
+            viewWorkout={props.viewWorkout}
             handleStartWorkout={props.handleStartWorkout}
             handleFinishWorkout={props.handleFinishWorkout}
           />
-        )}
-        />
+        )}/>
         <Route path='/profile' component={Profile}/>
         <Route path='/workout' component={() => (<WorkoutDisplay updateExercise={props.updateExercise} workoutExercises={props.workoutExercises}/>)}/>
         <Route path='/edit' component={() => (<EditDisplay exercise={props.exercise} />)} />
@@ -39,8 +39,7 @@ const Main = (props) => {
             updateMG={props.updateMG}
             addExercise={props.addExercise}
           />
-        )}
-        />
+        )}/>
     </Switch>
   </main>
 )
