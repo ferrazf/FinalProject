@@ -30,6 +30,7 @@ function WorkoutDisplay(props) {
           primary
           href="/add"
           icon={<AddCircle />}
+          margin="small"
           alignSelf="center"
           label="Add"
           onClick={() => { }}
