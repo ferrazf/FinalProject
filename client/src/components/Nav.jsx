@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Grommet, Heading, Text } from 'grommet';
 import { Link } from "react-router-dom";
 import { hpe } from "grommet-theme-hpe";
 
 function Nav(props) {
 
+    const handleOnLogout = () => props.setUser({});
+
     const login = !props.isLoggedin(props.user) && (<Link to="/login"> Login</Link>)
     const register = !props.isLoggedin(props.user) && (<Link to="/register"> Register</Link>)
     const profile = props.isLoggedin(props.user) && (<Link to="/profile"><Heading level='3' margin='none'> Profile</Heading></Link>)
-    const logout = props.isLoggedin(props.user) && (<Link to="/login"> Logout</Link>)
+    const logout = props.isLoggedin(props.user) && (<Link to="/login" onClick={handleOnLogout}> Logout</Link>)
 
     return (
         <Grommet theme={hpe}>

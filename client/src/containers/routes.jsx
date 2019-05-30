@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import Home from "./home.jsx";
 import Profile from "./profile.jsx";
@@ -14,6 +14,8 @@ import Login from "../components/Login.jsx";
 // with /roster or /schedule. The / route will only match
 // when the pathname is exactly the string "/"
 const Main = (props) => {
+
+  // functions
   const login = !props.isLoggedin(props.user) && (
     <Route path='/login' component={() => (
       <Login
@@ -32,7 +34,8 @@ const Main = (props) => {
     />)
   const profile = props.isLoggedin(props.user) && (
     <Route path='/profile' component={Profile}/>)
-  // const logout = props.isLoggedin(props.user) && ()
+
+  //return
   return (
     <main>
       <Switch>

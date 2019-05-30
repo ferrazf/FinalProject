@@ -261,6 +261,7 @@ function App(props) {
     <Grommet plain>
       <Nav
         user={user}
+        setUser={setUser}
         name={name}
         isLoggedin={isLoggedin}
       />
