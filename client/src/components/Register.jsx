@@ -20,7 +20,7 @@ function Register(props) {
           <FormField name="name" label="Name" placeholder="Your Name" />
           <FormField name="email" label="Email Address" placeholder="Your Email Address" />
           <FormField name="password" type="password" label="Password" placeholder="Your Desired Password" />
-          <FormField name="password" type="password" label="Password" placeholder="Verify Your Desired Password" />
+          <FormField name="passwordverify" type="password" label="Verify Password" placeholder="Verify Your Desired Password" />
           <Box align="center" pad="medium">
             <Box direction="row" gap="small">
               <Button alignSelf="start" onclick="" primary label="Register" />
