@@ -1,17 +1,16 @@
 import React from 'react';
 import { Box, Button, FormField, TextInput, Text, Heading } from 'grommet';
+import { Link } from "react-router-dom";
 
-// displays form to update an individual exercise in editdisplay container
-export default ({ exercise, handleFormSubmit }) => {
+// displays form to update an individual exercise in editDisplay container
+export default ({ exercise, handleExerciseFormSubmit }) => {
 
-  console.log("exercise: ", exercise)
 
   return(
-    <form onSubmit={handleFormSubmit}>
+    <form onSubmit={handleExerciseFormSubmit}>
       <Heading level="2" size="small" margin={{
         "bottom": "0.8rem", top: "none"
       }} pad="none"> Exercise: {exercise.name} </Heading>
-
       <FormField label="Sets:">
         <TextInput type="text" name="Sets" placeholder={exercise.sets} />
       </FormField>
@@ -23,10 +22,11 @@ export default ({ exercise, handleFormSubmit }) => {
       </FormField>
       <Box align="center" pad="none">
         <Box direction="row" gap="small">
-          <Button margin="medium" type="submit" primary label="Submit" />
+          <Link to="/workout">
+            <Button margin="medium" type="submit" primary label="Submit" />
+          </Link>
         </Box>
       </Box>
-
     </form>
   )
 }

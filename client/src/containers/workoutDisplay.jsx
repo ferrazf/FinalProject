@@ -8,7 +8,6 @@ import DisplayExercise from "../components/exercise/Display.jsx";
 
 //accepts exercise display components
 function WorkoutDisplay(props) {
-  console.log(props)
   const items = props.workoutExercises.map(exercise => (
     <DisplayExercise
       key={exercise.id}
@@ -24,6 +23,13 @@ function WorkoutDisplay(props) {
         <InfiniteScroll items={items}>
           {(item) => (item)}
         </InfiniteScroll>
+        <Link to="/add" >
+          <Button
+            alignSelf="end"
+            label="add"
+            onClick={() => { }}
+          />
+        </Link>
       </Box>
       <Box align="center" pad="medium" direction="column" gap="small">
         <Button
