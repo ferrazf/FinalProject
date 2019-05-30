@@ -4,11 +4,13 @@ const express     = require('express');
 const jwt         = require('jsonwebtoken');
 
 module.exports = (knex) => {
-  const helpers   = require('./users')(knex);
 
-  return{
-    getWorkouts: (req, res, next) => {
-     knex
+  const fnHelpers   = require('../helpers/functions')(knex);
+
+  const getAllWorkouts = () => {
+    return new Promise((resolve, reject) => {
+
+      knex
         .distinct("main.workout_id", "main.user_id", "main.started_at", "main.finished_at", knex.raw("ARRAY_AGG(main.name) as name"))
         .from(function () {
             this.distinct("w.id as workout_id", "w.user_id", "w.started_at", "w.finished_at", "m.id as muscle_id", "m.name")
@@ -20,8 +22,48 @@ module.exports = (knex) => {
             .as('main')
         })
         .groupBy("main.workout_id", "main.user_id", "main.started_at", "main.finished_at")
-        .then( result =>  res.status(200).json(result))
-        .catch(e => res.status(400).json( {e} ));
+        .then( result =>  resolve(result))
+        .catch( e => reject(e))
+    })
+  }
+
+  return{
+    getWorkouts: (req, res, next) => {
+
+      fnHelpers.getUserByToken(req, res, next)
+        .then( user => {
+          if(user){
+            knex
+              .distinct("main.workout_id", "main.user_id", "main.started_at", "main.finished_at", knex.raw("ARRAY_AGG(main.name) as name"))
+              .from(function () {
+                  this.distinct("w.id as workout_id", "w.user_id", "w.started_at", "w.finished_at", "m.id as muscle_id", "m.name")
+                  .from("workouts as w")
+                  .innerJoin("workout_exercises as we", "we.workout_id", "w.id")
+                  .innerJoin("exercises as e", "e.id", "we.exercise_id")
+                  .innerJoin("muscle_groups as m", "m.id", "e.muscle_group_id")
+                  .where("w.user_id", user.id)
+                  .groupBy("w.id", "m.id")
+                  .as('main')
+              })
+              .groupBy("main.workout_id", "main.user_id", "main.started_at", "main.finished_at")
+              .then( result =>  res.status(200).json(result))
+
+          }else{
+            getAllWorkouts()
+              .then(result =>  res.status(200).json(result))
+              .catch(e => res.status(400).json(e))
+          }
+        })
+        .catch( e => {
+          if(e.name == "JsonWebTokenError" ){
+            getAllWorkouts()
+                .then(result =>  res.status(200).json(result))
+                .catch(e => res.status(400).json(e))
+
+          }else{
+            res.status(400).json(e);
+          }
+        });
     },
 
     getWorkout: (req, res, next) => {
@@ -56,73 +98,76 @@ module.exports = (knex) => {
     },
 
     createWorkout: async (req, res, next) => {
-      // const user = helpers.getUserByToken(req, res, next);
-      // if( !user ){
-      //   return res.sendStatus(403);
-      // }
 
-      // let user = await helpers.getUserByToken(req, res, next);
-      // if( !user ){
-      //   user = await knex
-      //     .select("*")
-      //     .from("users")
-      //     .where('id', 1)
-      //   console.log('user               ----------------------- ');
-      //   console.log(user);
-      // }
+      fnHelpers.getUserByToken(req, res, next)
+        .then( user => {
 
-      knex('workouts').max('id')
-        .then(result => result[0].max + 1)
-        .then( max => {
+          if(user){
+            knex('workouts').max('id')
+              .then(result => result[0].max + 1)
+              .then( max => {
 
-          const workout = Object.assign({}, req.body);
-          workout['id'] = max;
-          knex('workouts')
-            .insert(workout)
-            .returning('*')
-            .then( result =>  res.status(200).json(result))
+                const workout = Object.assign({}, req.body);
+                workout['id'] = max;
+                workout['user_id'] = user.id
+                knex('workouts')
+                  .insert(workout)
+                  .returning('*')
+                  .then( result =>  res.status(200).json(result))
+              })
+          }else{
+            res.status(400).json({error: 'User not found'})
+          }
+
         })
-        .catch(e => res.status(400).json( {e} ));
+        .catch( e => res.status(400).json(e));
     },
 
     updateWorkout: async (req, res, next) => {
-      // const user = helpers.getUserByToken(req, res, next);
-      // if( !user ){
-      //   return res.sendStatus(403);
-      // }
+      fnHelpers.getUserByToken(req, res, next)
+        .then( user =>{
+          if(user){
+            fnHelpers.isUsersWorkout(user, req.params.id)
+              .then( workout => {
+                if(req.body.hasOwnProperty('started_at')){
+                  workout.started_at = new Date();
+                }
+                if(req.body.hasOwnProperty('finished_at')){
+                  workout.finished_at = new Date();
+                }
 
-      // let user = await helpers.getUserByToken(req, res, next);
-      // if( !user ){
-      //   user = await knex
-      //     .select("*")
-      //     .from("users")
-      //     .where('id', 1)
-      //   console.log('user               ----------------------- ');
-      //   console.log(user);
-      // }
-
-      knex
-        .select("*")
-        .from("workouts")
-        .where("id", req.params.id)
-        .then(result => {
-
-          const workout = result[0];
-
-          if(req.body.hasOwnProperty('started_at')){
-            workout.started_at = new Date();
+                knex("workouts")
+                  .update(workout)
+                  .returning('*')
+                  .where("id", req.params.id)
+                  .then( result =>  res.status(200).json(result))
+              })
+              .catch( e => res.status(400).json(e))
+          }else{
+            reject('User not found');
           }
-          if(req.body.hasOwnProperty('finished_at')){
-            workout.finished_at = new Date();
-          }
-
-          knex("workouts")
-            .update(workout)
-            .returning('*')
-            .where("id", req.params.id)
-            .then( result =>  res.status(200).json(result))
         })
-        .catch(e => res.status(400).json( {e} ));
+        .catch( e => res.status(400).json(e));
+    },
+
+    isAuthorized:  (req, res, next) => {
+      fnHelpers.getUserByToken(req, res, next)
+        .then( user =>{
+          if(user){
+
+            let workout_id = req.params.id;
+            if(req.params.hasOwnProperty('workoutId')){
+              workout_id = req.params.workoutId;
+            }
+
+            fnHelpers.isUsersWorkout(user, workout_id)
+              .then( workout => next())
+              .catch( e => res.status(400).json(e))
+          }else{
+            reject('User not found');
+          }
+        })
+        .catch( e => res.status(400).json(e));
     }
   }
 }

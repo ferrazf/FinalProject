@@ -2,23 +2,23 @@
 
 require('dotenv').config();
 
-const PORT        = process.env.PORT || 8080;
-const ENV         = process.env.ENV || "development";
-const express     = require("express");
-const bodyParser  = require("body-parser");
-const app         = express();
+const PORT            = process.env.PORT || 8080;
+const ENV             = process.env.ENV || "development";
+const express         = require("express");
+const bodyParser      = require("body-parser");
+const app             = express();
 
-const knexConfig  = require("./knexfile");
-const knex        = require("knex")(knexConfig[ENV]);
-const morgan      = require('morgan');
-const knexLogger  = require('knex-logger');
+const knexConfig      = require("./knexfile");
+const knex            = require("knex")(knexConfig[ENV]);
+const morgan          = require('morgan');
+const knexLogger      = require('knex-logger');
 
 // Seperated Routes for each Resource
-const indexRoutes = require("./routes/index");
-const usersRoutes = require("./routes/users");
+const indexRoutes     = require("./routes/index");
+const usersRoutes     = require("./routes/users");
 const exercisesRoutes = require("./routes/exercises");
-const musclesRoutes = require("./routes/muscles");
-const workoutsRoutes = require("./routes/workouts");
+const musclesRoutes   = require("./routes/muscles");
+const workoutsRoutes  = require("./routes/workouts");
 
 //==========================================
 // app.use
