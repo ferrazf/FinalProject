@@ -3,9 +3,10 @@
 const express     = require('express');
 const jwt         = require('jsonwebtoken');
 const bcrypt      = require('bcrypt');
-const fnHelpers   = require('../helpers/functions');
 
 module.exports = (knex) => {
+
+  const fnHelpers   = require('../helpers/functions')(knex);
 
   return{
     login: (req, res, next) => {
