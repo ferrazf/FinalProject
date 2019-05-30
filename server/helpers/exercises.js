@@ -3,8 +3,27 @@
 const express     = require('express');
 const jwt         = require('jsonwebtoken');
 
+const setWorkoutExercises = (body, workout) => {
+  const newWorkout = Object.assign({}, workout);
+
+  if(body.hasOwnProperty("sets")){
+    newWorkout.sets = body.sets;
+  }
+  if(body.hasOwnProperty("reps")){
+    newWorkout.reps = body.reps;
+  }
+  if(body.hasOwnProperty("rest")){
+    newWorkout.rest = body.rest;
+  }
+  if(body.hasOwnProperty("weight")){
+    newWorkout.rest = body.rest;
+  }
+  return newWorkout;
+}
+
 module.exports = (knex) => {
-  const helpers   = require('./users')(knex);
+
+  const fnHelpers   = require('../helpers/functions')(knex);
 
   return{
     getExercises: (req, res, next) => {
@@ -40,49 +59,30 @@ module.exports = (knex) => {
     },
 
     createExercise: async (req, res, next) => {
-      // const user = helpers.getUserByToken(req, res, next);
-      // if( !user ){
-      //   return res.sendStatus(403);
-      // }
 
-      // let user = await helpers.getUserByToken(req, res, next);
-      // if( !user ){
-      //   user = await knex
-      //     .select("*")
-      //     .from("users")
-      //     .where('id', 1)
-      //   console.log('user               ----------------------- ');
-      //   console.log(user);
-      // }
-      if(req.params.hasOwnProperty("workoutId")){
+      if(req.params.hasOwnProperty("id")){
+        const { exercise_id } = req.body;
 
         knex
           .select("*")
           .from("workout_exercises")
-          .where("workout_id", req.params.workoutId)
-          .andWhere("exercise_id", req.params.id)
+          .where("workout_id", req.params.id)
+          .andWhere("exercise_id", exercise_id)
           .then( result => {
+
             if(result.length){
               res.status(400).json( {error: "Exercise already existis in this workout"} );
 
             }else{
+
               const workout = {
-                workout_id: req.params.workoutId,
-                exercise_id: req.params.id
+                workout_id: req.params.id,
+                exercise_id: exercise_id
               }
-
-              if(req.body.hasOwnProperty("sets")){
-                workout.sets = req.body.sets;
-              }
-              if(req.body.hasOwnProperty("reps")){
-                workout.reps = req.body.reps;
-              }
-              if(req.body.hasOwnProperty("rest")){
-                workout.rest = req.body.rest;
-              }
-
+              const newWorkout = setWorkoutExercises(req.body, workout);
+              console.log(newWorkout);
               knex("workout_exercises")
-                .insert(workout)
+                .insert(newWorkout)
                 .returning('*')
                 .then( result =>  res.status(200).json(result))
             }
@@ -116,17 +116,8 @@ module.exports = (knex) => {
           .where("workout_id", req.params.workoutId)
           .andWhere("exercise_id", req.params.id)
           .then( result => {
-            const workout = result[0];
 
-            if(req.body.hasOwnProperty('sets')){
-              workout.sets = req.body.sets;
-            }
-            if(req.body.hasOwnProperty('reps')){
-              workout.reps = req.body.reps;
-            }
-            if(req.body.hasOwnProperty('rest')){
-              workout.rest = req.body.rest;
-            }
+            const workout = setWorkoutExercises(req.body, result[0]);
 
             knex("workout_exercises")
               .update(workout)

@@ -8,13 +8,15 @@ module.exports = (knex) => {
   const helpers     = require('../helpers/workouts')(knex);
   const exercisesHelpers     = require('../helpers/exercises')(knex);
 
-  // workouts
-  router.route("/")
-        .get(helpers.getWorkouts)
-
   router.route("/:workoutId/exercises/:id")
+        .all( middleware.verifyToken )
+        .all( helpers.isAuthorized )
         .put(exercisesHelpers.updateExercise)
         .delete(exercisesHelpers.deleteExercise)
+
+  router.route("/:id/exercises/")
+        .all( middleware.verifyToken )
+        .all( helpers.isAuthorized )
         .post(exercisesHelpers.createExercise)
 
   router.route("/:workoutId/exercises")
@@ -22,17 +24,20 @@ module.exports = (knex) => {
 
   router.route("/:id")
         .get(helpers.getWorkout)
+
   router.route("/:id")
-        // .all( middleware.verifyToken )
-        // .all( middleware.isAuthorized )
-        // check if the user who is updating is the one that created ir
+        .all( middleware.verifyToken )
         .put(helpers.updateWorkout)
 
   router.route("/")
-        // .all( middleware.verifyToken )
+        .all( middleware.verifyToken )
         // .all( middleware.isAuthorized )
         // check if the user who is updating is the one that created ir
         .post(helpers.createWorkout)
+
+  // workouts
+  router.route("/")
+        .get(helpers.getWorkouts)
 
   return router;
 }
