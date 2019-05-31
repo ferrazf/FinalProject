@@ -83,14 +83,13 @@ function App(props) {
   const setOnLogin = async ( user ) => {
     setUser(user);
     try{
-      // user22@test.com
+
       const workoutUrl = `${url}/users/${user.id}/workouts`;
 
-      const { data } = await axios.get(workoutUrl, workoutUrl)
-      console.log("data workout------------------------");
-      debugger;
-      console.log(data);
-
+      const { data } = await axios.get(workoutUrl, workoutUrl);
+      console.log(data)
+      setWorkout(data);
+      console.log(workouts)
     }catch (e){
       setError(e);
     }
