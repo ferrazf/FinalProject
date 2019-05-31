@@ -207,7 +207,7 @@ function App(props) {
   const updateWorkout = async (id, updateWorkout) => {
     try{
 
-      const { data } = await axios.put(`${url}/workouts/${id}`, updateWorkout);
+      const { data } = await axios.put(`${url}/users/${user.id}/workouts/${id}`, updateWorkout);
 
       //set state
       const newWorkouts = workouts.map(workout => {
@@ -230,6 +230,7 @@ function App(props) {
   }
 
   const handleStartWorkout = (evt) => {
+    debugger;
     evt.preventDefault();
     const id = Number(evt.target.name);
     const workout = { started_at: new Date() }
