@@ -81,6 +81,7 @@ function App(props) {
     exercise.reps = 10 
     exercise.rest = 1
     exercise.exercise_id = exercise.id
+    console.log(currentWorkout)
     //REMEMBER THIS IS HARD CODED
     const request = await axios.post(`${url}/users/2/workouts/${currentWorkout.workout_id}/exercises`, exercise);
     
@@ -146,7 +147,9 @@ function App(props) {
 
   //delete exercise from workout
   const deleteExercise = async (workout, exercise) => {
-    await axios.delete(`${url}/workouts/${workout.workout_id}/exercises/${exercise.id}`, exercise);
+    //REMEMBER THIS IS HARD CODED 
+    console.log(workoutExercises)
+    await axios.delete(`${url}/users/2/workouts/${workout.workout_id}/exercises/${exercise.id}`, exercise);
     const response = await axios.get(`${url}/workouts/${workout.workout_id}/exercises`);
     setWorkoutExercises(response.data)
     console.log(response.data)

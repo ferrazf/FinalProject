@@ -32,10 +32,15 @@ module.exports = (knex) => {
 
     getUser: async (req, res, next) => {
       return new Promise((resolve, reject)=>{
+        let userId = req.params.id
+        if(req.params.hasOwnProperty("userId")){
+          userId = req.params.userId;
+        }
+
         knex
           .select("*")
           .from("users")
-          .where('id', req.params.id)
+          .where('id', userId)
           .then( results => resolve(results[0]))
           .catch( e => reject(e))
       })

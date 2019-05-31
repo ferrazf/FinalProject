@@ -31,21 +31,17 @@
 
 ## routes
 
-| Routes                                  | Methods                 |
-|-----------------------------------------|-------------------------|
-|/api/muscles/:muscleId/exercises         | GET                     |
-|/api/muscles                             | GET                     |
-|/api/exercises                           | GET, POST               |
-|/api/exercises/:id                       | GET, POST               |
-|/api/workouts/:id                        | GET, PUT                |
-|/api/workouts/:workoutId/exercises/:id   | GET, PUT, DELETE        |
-|/api/workouts/:id/exercises              | GET, POST               |
-|/api/workouts                            | GET, POST               |
-<<<<<<< HEAD
 
-
-
-=======
-|/api/users/:id/workouts                  | GET, ??????/POST        |
-|/api/users/:id/workouts/:workoutId/exercises/ | POST                    |
->>>>>>> 7581fc35ad632527c153d1789c3603f5c4655853
+| Routes                                              | Methods                 |
+|-----------------------------------------            |-------------------------|
+|/api/muscles/:muscleId/exercises                     | GET                     |
+|/api/muscles                                         | GET                     |
+|/api/exercises                                       | GET, POST               |
+|/api/exercises/:id                                   | GET, POST               |
+|/api/workouts/:id                                    | GET, PUT                |
+|/api/workouts/:workoutId/exercises/:id               | GET, PUT, DELETE        |
+|/api/workouts/:id/exercises                          | GET, POST               |
+|/api/workouts                                        | GET, POST               |
+|/api/users/:id/workouts                              | GET                     |
+|/api/users/:userId/workouts/:id/exercises/           | POST                    |
+|/api/users/:userId/workouts/:workoutId/exercises/:id  | PUT, DELETE             |

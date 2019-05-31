@@ -94,25 +94,25 @@ module.exports = (knex) => {
     },
 
     createExercise: async (req, res, next) => {
-      if(req.params.hasOwnProperty("id")){
-        if(req.params.hasOwnProperty("workoutId")){
-          fnHelpers.getUser(req, res, next)
+      if(req.params.hasOwnProperty("userId")){
+
+        fnHelpers.getUser(req, res, next)
+        .then( user => {
+          createWorkoutExercise(req.body, req.params.id, user)
+            .then(result => res.status(200).json(result))
+            .catch(e => res.status(400).json(e))
+          })
+          .catch( e => res.status(400).json(e));
+
+      }else if(req.params.hasOwnProperty("workoutId")){
+        fnHelpers.getUserByToken(req, res, next)
           .then( user => {
-            createWorkoutExercise(req.body, req.params.workoutId, user)
+
+            createWorkoutExercise(req.body, req.params.id, user)
               .then(result => res.status(200).json(result))
               .catch(e => res.status(400).json(e))
-            })
-            .catch( e => res.status(400).json(e));
-        }else{
-          fnHelpers.getUserByToken(req, res, next)
-            .then( user => {
-
-              createWorkoutExercise(req.body, req.params.id, user)
-                .then(result => res.status(200).json(result))
-                .catch(e => res.status(400).json(e))
-            })
-            .catch( e => res.status(400).json(e));
-        }
+          })
+          .catch( e => res.status(400).json(e));
 
       }else{
 
@@ -132,49 +132,61 @@ module.exports = (knex) => {
     },
 
     updateExercise: async (req, res, next) => {
-
       if(req.params.hasOwnProperty("workoutId")){
+        fnHelpers.getUser(req, res, next)
+          .then( user => {
+            fnHelpers.isUsersWorkout(user, req.params.workoutId)
+              .then( workout => {
+                knex
+                  .select("*")
+                  .from("workout_exercises")
+                  .where("workout_id", req.params.workoutId)
+                  .andWhere("exercise_id", req.params.id)
+                  .then( result => {
 
-        knex
-          .select("*")
-          .from("workout_exercises")
-          .where("workout_id", req.params.workoutId)
-          .andWhere("exercise_id", req.params.id)
-          .then( result => {
+                    const workout = setWorkoutExercises(req.body, result[0]);
 
-            const workout = setWorkoutExercises(req.body, result[0]);
-
-            knex("workout_exercises")
-              .update(workout)
-              .returning('*')
-              .where("workout_id", req.params.workoutId)
-              .andWhere("exercise_id", req.params.id)
-              .then( result =>  res.status(200).json(result))
+                    knex("workout_exercises")
+                      .update(workout)
+                      .returning('*')
+                      .where("workout_id", req.params.workoutId)
+                      .andWhere("exercise_id", req.params.id)
+                      .then( result =>  res.status(200).json(result))
+                  })
+                  .catch(e => res.status(400).json( {e} ));
+              })
+              .catch(e => res.status(400).json( {e} ));
           })
-          .catch(e => res.status(400).json( {e} ));
+          .catch( e => res.status(400).json(e));
       }
 
     },
 
     deleteExercise: async (req, res, next) => {
-
       if(req.params.hasOwnProperty("workoutId")){
+        fnHelpers.getUser(req, res, next)
+          .then( user => {
+            fnHelpers.isUsersWorkout(user, req.params.workoutId)
+              .then( workout => {
+                knex
+                  .select("*")
+                  .from("workout_exercises")
+                  .where("workout_id", req.params.workoutId)
+                  .andWhere("exercise_id", req.params.id)
+                  .then( result => {
+                    const workout = result[0];
 
-        knex
-          .select("*")
-          .from("workout_exercises")
-          .where("workout_id", req.params.workoutId)
-          .andWhere("exercise_id", req.params.id)
-          .then( result => {
-            const workout = result[0];
-
-            knex("workout_exercises")
-              .where("workout_id", req.params.workoutId)
-              .andWhere("exercise_id", req.params.id)
-              .del()
-              .then( result =>  res.status(200).json({message: "Deleted"}))
-          })
-          .catch(e => res.status(400).json( {e} ));
+                    knex("workout_exercises")
+                      .where("workout_id", req.params.workoutId)
+                      .andWhere("exercise_id", req.params.id)
+                      .del()
+                      .then( result =>  res.status(200).json({message: "Deleted"}))
+                  })
+                  .catch(e => res.status(400).json( {e} ));
+              })
+              .catch(e => res.status(400).json( {e} ));
+        })
+        .catch( e => res.status(400).json(e));
       }
 
     }
