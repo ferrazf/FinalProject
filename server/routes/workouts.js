@@ -15,7 +15,7 @@ module.exports = (knex) => {
         .get(helpers.getWorkout)
 
   router.route("/")
-        .all( middleware.verifyToken )
+        // .all( middleware.verifyToken )
         .get(helpers.getWorkouts)
 
   router.route("/:id")

@@ -31,5 +31,8 @@ module.exports = (knex) => {
         // .all( middleware.isAuthorized )
         .post(exercisesHelpers.createExercise)
 
+  router.route("/:userId/workouts/:id")
+        .put(workoutsHelpers.updateWorkout)
+
   return router;
 }

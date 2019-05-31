@@ -46,6 +46,30 @@ module.exports = (knex) => {
     })
   }
 
+  const updateUsersWorkouts = (user, params, body ) => {
+    return new Promise((resolve, reject) => {
+      if(user){
+        fnHelpers.isUsersWorkout(user, params.id)
+          .then( workout => {
+            if(body.hasOwnProperty('started_at')){
+              workout.started_at = new Date();
+            }
+            if(body.hasOwnProperty('finished_at')){
+              workout.finished_at = new Date();
+            }
+
+            knex("workouts")
+              .update(workout)
+              .returning('*')
+              .where("id", params.id)
+              .then( result =>  resolve(result))
+          })
+          .catch( e => reject(e))
+      }else{
+        reject('User not found');
+      }
+    })
+  }
   return{
     getWorkouts: (req, res, next) => {
       if(req.params.hasOwnProperty('id')){
@@ -143,30 +167,24 @@ module.exports = (knex) => {
     },
 
     updateWorkout: async (req, res, next) => {
-      fnHelpers.getUserByToken(req, res, next)
-        .then( user =>{
-          if(user){
-            fnHelpers.isUsersWorkout(user, req.params.id)
-              .then( workout => {
-                if(req.body.hasOwnProperty('started_at')){
-                  workout.started_at = new Date();
-                }
-                if(req.body.hasOwnProperty('finished_at')){
-                  workout.finished_at = new Date();
-                }
+      if(req.params.hasOwnProperty('userId')){
+        fnHelpers.getUser(req, res, next)
+          .then( user => {
+            updateUsersWorkouts(user, req.params, req.body )
+              .then(result => res.status(200).json(result))
+              .catch(e => res.status(400).json(e))
+          })
+          .catch(e => res.status(400).json(e))
 
-                knex("workouts")
-                  .update(workout)
-                  .returning('*')
-                  .where("id", req.params.id)
-                  .then( result =>  res.status(200).json(result))
-              })
-              .catch( e => res.status(400).json(e))
-          }else{
-            reject('User not found');
-          }
-        })
-        .catch( e => res.status(400).json(e));
+      }else{
+        fnHelpers.getUserByToken(req, res, next)
+          .then( user =>{
+            updateUsersWorkouts(user, req.params, req.body )
+              .then(result =>  res.status(200).json(result))
+              .catch(e => res.status(400).json(e))
+          })
+          .catch( e => res.status(400).json(e));
+      }
     },
 
     isAuthorized:  (req, res, next) => {

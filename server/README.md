@@ -42,5 +42,6 @@
 |/api/workouts/:id/exercises                            | GET, POST               |
 |/api/workouts                                          | GET, POST               |
 |/api/users/:id/workouts                                | GET                     |
+|/api/users/:userId/workouts/:id                        | PUT                     |
 |/api/users/:userId/workouts/:workoutId/exercises/:id   | PUT, DELETE             |
 verifyToken
