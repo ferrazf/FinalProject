@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -8,10 +8,49 @@ import {
 } from "grommet";
 import { hpe } from "grommet-theme-hpe";
 
+import { Redirect } from "react-router-dom";
+import axios from 'axios';
+
 function Register(props) {
-  //props.register(user)
+  // hooks
+  const [ toHome, setToHome ] = useState(false);
+
+  //events
+  const handleOnRegister = async (evt) => {
+    evt.preventDefault();
+
+    if(evt.target.form.elements.password.value !== evt.target.form.elements.passwordverify.value){
+      props.setError('Passwords do not match');
+    }else{
+
+      const user ={
+        name: evt.target.form.elements.name.value,
+        email: evt.target.form.elements.email.value,
+        password: evt.target.form.elements.password.value
+      }
+
+      evt.target.form.elements.name.value = '';
+      evt.target.form.elements.email.value = '';
+      evt.target.form.elements.password.value = '';
+      evt.target.form.elements.passwordverify.value = '';
+
+      try{
+        const { data } = await axios.post(`${props.url}/register`, user);
+        // please do NOT switch setToHome and props.setUser
+        setToHome(true)
+        props.setUser(data);
+        props.setOnLogin(data);
+      }catch (e){
+        props.setError(e);
+      }
+    }
+  }
+
+  const redirectHome = toHome ? <Redirect to='/'/> : null;
+
   return (
     <Grommet theme={hpe}>
+      {redirectHome}
       <Box align="center" background="status-ok">
         <p>Register</p>
       </Box>
@@ -23,7 +62,7 @@ function Register(props) {
           <FormField name="passwordverify" type="password" label="Verify Password" placeholder="Verify Your Desired Password" />
           <Box align="center" pad="medium">
             <Box direction="row" gap="small">
-              <Button alignSelf="start" onclick="" primary label="Register" />
+              <Button alignSelf="start" onClick={handleOnRegister} primary label="Register" />
             </Box>
           </Box>
         </Form>

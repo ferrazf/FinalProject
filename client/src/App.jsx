@@ -82,10 +82,9 @@ function App(props) {
     exercise.rest = 1
     exercise.exercise_id = exercise.id
     console.log(currentWorkout)
-    //REMEMBER THIS IS HARD CODED
-    const request = await axios.post(`${url}/users/2/workouts/${currentWorkout.workout_id}/exercises`, exercise);
     
-    setWorkoutExercises([...workoutExercises, exercise])
+    const request = await axios.post(`${url}/users/${user.id}/workouts/${currentWorkout.workout_id}/exercises`, exercise);
+    setWorkoutExercises([...workoutExercises, request.data])
   }
   // const isEmpty = (object) => {
   //   return Object.entries(object).length === 0 && object.constructor === Object;
@@ -137,6 +136,7 @@ function App(props) {
       rest: Number(evt.target.Rest.value),
     }
     try{
+      //come back later
       await axios.put(`${url}/workouts/${getExercise.id}/exercises/${getExercise.exercise_id}`, exercise);
       const response = await axios.get(`${url}/workouts/${getExercise.id}/exercises`);
       setWorkoutExercises(response.data)
@@ -149,8 +149,8 @@ function App(props) {
   const deleteExercise = async (workout, exercise) => {
     //REMEMBER THIS IS HARD CODED 
     console.log(workoutExercises)
-    await axios.delete(`${url}/users/2/workouts/${workout.workout_id}/exercises/${exercise.id}`, exercise);
-    const response = await axios.get(`${url}/workouts/${workout.workout_id}/exercises`);
+    await axios.delete(`${url}/users/${user.id}/workouts/${workout.workout_id}/exercises/${exercise.id}`, exercise);
+    const response = await axios.get(`${url}/workouts/${currentWorkout.workout_id}/exercises`);
     setWorkoutExercises(response.data)
     console.log(response.data)
 

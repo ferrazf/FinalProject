@@ -15,16 +15,6 @@ function Login(props) {
     const [ toHome, setToHome ] = useState(false);
 
     //events
-    const setData = async (user) => {
-        try{
-            const { data } = await axios.post(`${props.url}/login`, user);
-            setToHome(true)
-            props.setUser(data);
-        }catch (e){
-            props.setError(e);
-        }
-    }
-
     const handleOnLogin = async (evt) => {
         evt.preventDefault();
 
