@@ -14,6 +14,7 @@ import Login from "../components/Login.jsx";
 // with /roster or /schedule. The / route will only match
 // when the pathname is exactly the string "/"
 const Main = (props) => {
+
   return (
     <main>
       <Switch>
@@ -27,7 +28,7 @@ const Main = (props) => {
         )}/>
         <Route path='/profile' component={Profile}/>
         <Route path='/workout' component={() => (<WorkoutDisplay workouts={props.workouts} updateExercise={props.updateExercise} workoutExercises={props.workoutExercises}/>)}/>
-        <Route path='/edit' component={() => (<EditDisplay exercise={props.exercise} handleExerciseFormSubmit={props.handleExerciseFormSubmit} />)} />
+        <Route path='/edit' component={() => (<EditDisplay workout={props.currentWorkout} deleteExercise={props.deleteExercise} exercise={props.exercise} handleExerciseFormSubmit={props.handleExerciseFormSubmit} />)} />
         <Route path='/login' component={Login} />
         <Route path='/register' component={() => <Register register={props.handleViewRegister} />} />
         <Route path='/add' component={() => (

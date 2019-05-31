@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Button, FormField, TextInput, Form, Heading } from 'grommet';
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 // displays form to update an individual exercise in editDisplay container
 function EditForm(props) {
@@ -13,7 +13,7 @@ function EditForm(props) {
     return <Redirect to='/workout' />
   }
 
-
+  console.log(props.workout)
   return(
     <Form onSubmit={formSubmit}>
       <Heading level="2" size="small" margin={{
@@ -33,10 +33,16 @@ function EditForm(props) {
         <Box direction="row" gap="small">
             <Button margin="medium" type="submit" primary label="Submit" />
         </Box>
+        <Link to="/workout">
+            <Button
+              alignSelf="start"
+              label="Delete"
+              onClick={() => {props.deleteExercise(props.workout, props.exercise)}}
+            />
+          </Link>
       </Box>
     </Form>
   )
 }
 
 export default EditForm
-/* <Link to="/workout"> */

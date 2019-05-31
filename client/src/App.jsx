@@ -32,44 +32,8 @@ function App(props) {
   const [ currentMG, setCurrentMG ] = useState('');
   const [ muscle, setMuscles ] = useState('');
   const [ exercise, setExercise] = useState('');
-  const [ workoutExercises, setWorkoutExercises] = useState([
-    {
-        "id": 4,
-        "exercise_id": 1,
-        "name": "Barbell Bench Press",
-        "descr": "Main Muscle Worked: Chest.",
-        "sets": 6,
-        "reps": 10,
-        "rest": 1,
-        "muscle_group_id": 6,
-        "muscle_group_name": "Chest"
-    },
-    {
-        "id": 4,
-        "exercise_id": 4,
-        "name": "Standing Cable Lift",
-        "descr": "Main Muscle Worked: Abdominals.",
-        "sets": 6,
-        "reps": 10,
-        "rest": 1,
-        "muscle_group_id": 1,
-        "muscle_group_name": "Abdominals"
-    }
- ])
- const [exercises, setExercises] = useState([
-  {
-      "id": 6,
-      "muscle_group_id": 6,
-      "name": "Barbell Bench Press more",
-      "descr": "Main Muscle Worked: Chest."
-  },
-  {
-      "id": 1,
-      "muscle_group_id": 6,
-      "name": "Barbell Bench Press",
-      "descr": "Main Muscle Worked: Chest."
-  }
-])
+  const [ workoutExercises, setWorkoutExercises] = useState([])
+ const [ exercises, setExercises] = useState([])
 
   //==========================================
   // Functions
@@ -93,13 +57,15 @@ function App(props) {
     setExercise(workoutExercise)
   }
 
+  // add exercise with default values 
   const addExercise = async (exercise) => {
 
     exercise.sets = 10
     exercise.reps = 10 
     exercise.rest = 1
-    await axios.post(`${url}/workouts/${currentWorkout.workout_id}/exercises/${exercise.id}`, exercise);
-    console.log(currentWorkout)
+    exercise.exercise_id = exercise.id
+    const request = await axios.post(`${url}/workouts/${currentWorkout.workout_id}/exercises`, exercise);
+    
     setWorkoutExercises([...workoutExercises, exercise])
   }
   // const isEmpty = (object) => {
@@ -159,6 +125,15 @@ function App(props) {
     }
   }
 
+  //delete exercise from workout
+  const deleteExercise = async (workout, exercise) => {
+    await axios.delete(`${url}/workouts/${workout.workout_id}/exercises/${exercise.id}`, exercise);
+    const response = await axios.get(`${url}/workouts/${workout.workout_id}/exercises`);
+    setWorkoutExercises(response.data)
+    console.log(response.data)
+
+  }
+
   // incase we let them create an exercise
 
   /*const handleExerciseFormSubmit = async (evt) => {
@@ -195,6 +170,7 @@ function App(props) {
     }
     
   }
+
   const updateWorkout = async (id, updateWorkout) => {
     try{
 
@@ -255,7 +231,8 @@ function App(props) {
         currentMG={currentMG}
         addExercise={addExercise}
         viewWorkout={viewWorkout}
-
+        deleteExercise={deleteExercise}
+        currentWorkout={currentWorkout}
       />
     );
 

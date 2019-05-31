@@ -12,7 +12,7 @@ module.exports = (knex) => {
         .get(helpers.getExercises)
 
 router.route("/")
-        .all( middleware.verifyToken )
+        // .all( middleware.verifyToken )
         // .all( middleware.isAuthorized )
         .post(helpers.createExercise)
 
