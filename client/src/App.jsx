@@ -24,10 +24,12 @@ function App(props) {
   // States
   //==========================================
   const [ user, setUser ] = useState({})
+  const [ currentWorkout, setCurrentWorkout ] = useState('')
   const [ workouts, setWorkout ] = useState([]);
   const [ messages, setMessage ] = useState('')
   const [ initialized, setInitialized ] = useState(false);
   const [ muscleGroup, setMuscleGroups ] = useState('');
+  const [ currentMG, setCurrentMG ] = useState('');
   const [ muscle, setMuscles ] = useState('');
   const [ exercise, setExercise] = useState('');
   const [ workoutExercises, setWorkoutExercises] = useState([
@@ -91,7 +93,13 @@ function App(props) {
     setExercise(workoutExercise)
   }
 
-  const addExercise = (exercise) => {
+  const addExercise = async (exercise) => {
+
+    exercise.sets = 10
+    exercise.reps = 10 
+    exercise.rest = 1
+    await axios.post(`${url}/workouts/${currentWorkout.workout_id}/exercises/${exercise.id}`, exercise);
+    console.log(currentWorkout)
     setWorkoutExercises([...workoutExercises, exercise])
   }
   // const isEmpty = (object) => {
@@ -124,17 +132,14 @@ function App(props) {
 
   // show workout display with corrisponding exercises 
   const viewWorkout = async (workout) => {
-    console.log(workouts)
-    console.log(workout)
-
+    setCurrentWorkout(workout)
     try{
-      const response = await axios.get(`${url}/workouts/${workout}`);
-      console.log(response.data)
+      const response = await axios.get(`${url}/workouts/${workout.workout_id}/exercises`);
+      setWorkoutExercises(response.data)
     }catch (e){
       setError(e);
     }
   }
-
   // update exercise values 
   const handleExerciseFormSubmit = async (evt) => {
     evt.preventDefault();
@@ -145,9 +150,9 @@ function App(props) {
       reps: Number(evt.target.Reps.value),
       rest: Number(evt.target.Rest.value),
     }
-
     try{
-      const response = await axios.put(`${url}/workouts/${getExercise.id}/exercises/${getExercise.exercise_id}`, exercise);
+      await axios.put(`${url}/workouts/${getExercise.id}/exercises/${getExercise.exercise_id}`, exercise);
+      const response = await axios.get(`${url}/workouts/${getExercise.id}/exercises`);
       setWorkoutExercises(response.data)
     }catch (e){
       setError(e);
@@ -184,9 +189,11 @@ function App(props) {
     try{
       const response = await axios.get(`${url}/muscles/${MG_id}/exercises`)
       setExercises(response.data)
+      setCurrentMG(muscleGroup)
     }catch (e){
       setError(e);
     }
+    
   }
   const updateWorkout = async (id, updateWorkout) => {
     try{
@@ -245,8 +252,10 @@ function App(props) {
         exercise={exercise}
         muscle={muscle}
         updateMG={updateMG}
+        currentMG={currentMG}
         addExercise={addExercise}
         viewWorkout={viewWorkout}
+
       />
     );
 

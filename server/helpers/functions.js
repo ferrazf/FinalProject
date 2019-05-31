@@ -42,7 +42,6 @@ module.exports = (knex) => {
           .from("workouts")
           .where("id", workout_id)
           .then(result => {
-            console.log(result[0])
             const workout = result[0];
             if(workout.user_id != user.id){
               reject("Forbidden: you are not this workout's owner");

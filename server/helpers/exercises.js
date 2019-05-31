@@ -80,7 +80,6 @@ module.exports = (knex) => {
                 exercise_id: exercise_id
               }
               const newWorkout = setWorkoutExercises(req.body, workout);
-              console.log(newWorkout);
               knex("workout_exercises")
                 .insert(newWorkout)
                 .returning('*')

@@ -28,14 +28,14 @@ module.exports = (knex) => {
         .post(helpers.createWorkout)
 
   router.route("/:workoutId/exercises/:id")
-        .all( middleware.verifyToken )
-        .all( helpers.isAuthorized )
+      //   .all( middleware.verifyToken )
+      //   .all( helpers.isAuthorized )
         .put(exercisesHelpers.updateExercise)
         .delete(exercisesHelpers.deleteExercise)
 
   router.route("/:id/exercises/")
-        .all( middleware.verifyToken )
-        .all( helpers.isAuthorized )
+      //   .all( middleware.verifyToken )
+      //   .all( helpers.isAuthorized )
         .post(exercisesHelpers.createExercise)
 
   return router;
