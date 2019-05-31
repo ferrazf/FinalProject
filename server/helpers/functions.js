@@ -22,21 +22,12 @@ module.exports = (knex) => {
           const output = {
             id: user.id,
             name: user.name,
-<<<<<<< HEAD
             email: user.email,
             // token
           }
           return resolve(output);
         // });
       })
-=======
-            email: user.email
-            // token
-          }
-          return resolve(output);
-        });
-      // })
->>>>>>> cbef89df726e3259d3d04ffbedb8ff4b198a8fa0
     }, // end of generateToken
 
     getUser: async (req, res, next) => {
