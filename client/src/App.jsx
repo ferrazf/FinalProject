@@ -38,11 +38,28 @@ function App(props) {
   //==========================================
   // Functions
   //==========================================
+  const isLoggedin = (user) => (user && user.hasOwnProperty('name')) ? true : false;
   const setError = (content) => {
     setMessage({
         type: 'error',
         content: `😱 Axios request failed: ${content}`
       });
+  }
+
+  const setOnLogin = async ( user ) => {
+    setUser(user);
+    try{
+      // user22@test.com
+      const workoutUrl = `${url}/users/${user.id}/workouts`;
+
+      const { data } = await axios.get(workoutUrl, workoutUrl)
+      console.log("data workout------------------------");
+      debugger;
+      console.log(data);
+
+    }catch (e){
+      setError(e);
+    }
   }
 
   const getMuscleGroup = (muscle) => {
@@ -96,7 +113,7 @@ function App(props) {
     }
   })
 
-  // show workout display with corrisponding exercises 
+  // show workout display with corrisponding exercises
   const viewWorkout = async (workout) => {
     setCurrentWorkout(workout)
     try{
@@ -106,6 +123,7 @@ function App(props) {
       setError(e);
     }
   }
+  
   // update exercise values 
   const handleExerciseFormSubmit = async (evt) => {
     evt.preventDefault();
@@ -158,7 +176,7 @@ function App(props) {
     }
   }*/
 
-  // update add display based on muscle group 
+  // update add display based on muscle group
   const updateMG = async (muscleGroup) => {
     const MG_id = getMuscleGroup(muscleGroup)[0].id
     try{
@@ -217,11 +235,14 @@ function App(props) {
 
   const workoutRoute = workouts.length && (
       <Routes
+        url={url}
+        setUser={setUser}
         workouts={workouts}
         handleViewRegister={handleViewRegister}
         handleExerciseFormSubmit={handleExerciseFormSubmit}
         handleStartWorkout={handleStartWorkout}
         handleFinishWorkout={handleFinishWorkout}
+        setOnLogin={setOnLogin}
         workoutExercises={workoutExercises}
         updateExercise={updateExercise}
         exercises={exercises}
@@ -233,6 +254,8 @@ function App(props) {
         viewWorkout={viewWorkout}
         deleteExercise={deleteExercise}
         currentWorkout={currentWorkout}
+        isLoggedin={isLoggedin}
+        setError={setError}
       />
     );
 
@@ -240,7 +263,12 @@ function App(props) {
 
   return (
     <Grommet plain>
-      <Nav name={name} />
+      <Nav
+        user={user}
+        setUser={setUser}
+        name={name}
+        isLoggedin={isLoggedin}
+      />
       {message}
       {/* {userRoute} */}
       {workoutRoute}

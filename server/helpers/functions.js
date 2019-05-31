@@ -20,6 +20,7 @@ module.exports = (knex) => {
 
           if(err){ return reject(error) }
           const output = {
+            id: user.id,
             name: user.name,
             email: user.email,
             token
@@ -28,6 +29,17 @@ module.exports = (knex) => {
         });
       })
     }, // end of generateToken
+
+    getUser: async (req, res, next) => {
+      return new Promise((resolve, reject)=>{
+        knex
+          .select("*")
+          .from("users")
+          .where('id', req.params.id)
+          .then( results => resolve(results[0]))
+          .catch( e => reject(e))
+      })
+    },
 
     getUserByToken: async (req, res, next) => {
       return new Promise((resolve, reject)=>{

@@ -26,6 +26,9 @@ module.exports = (knex) => {
     },
     // Verify Token
     verifyToken: (req, res, next) => {
+      // console.log("headerrrrrrrrrrrrrr")
+      // console.log(req.headers)
+      // console.log(req.body)
       // Get auth header value
       const bearerHeader = req.headers['authorization'];
       // Check if bearer is undefined
@@ -37,12 +40,12 @@ module.exports = (knex) => {
         // Set the token
         req.token = bearerToken;
         // Next middleware
-        next();
-      } else {
-        // Forbidden
-        res.sendStatus(403);
+      //   next();
+      // } else {
+      //   // Forbidden
+      //   res.sendStatus(403);
       }
-
+      next();
     }
   }
 }
