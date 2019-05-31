@@ -13,7 +13,6 @@ function EditForm(props) {
     return <Redirect to='/workout' />
   }
 
-  console.log(props.workout)
   return(
     <Form onSubmit={formSubmit}>
       <Heading level="2" size="small" margin={{

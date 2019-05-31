@@ -26,7 +26,6 @@ function Workout(props) {
       onClick={props.handleFinish}
     />
   );
-
   return (
 
     <Grommet theme={hpe}>

@@ -148,8 +148,7 @@ function App(props) {
   //delete exercise from workout
   const deleteExercise = async (workout, exercise) => {
     //REMEMBER THIS IS HARD CODED 
-    console.log(workoutExercises)
-    await axios.delete(`${url}/users/${user.id}/workouts/${workout.workout_id}/exercises/${exercise.id}`, exercise);
+    await axios.delete(`${url}/users/${user.id}/workouts/${workout.workout_id}/exercises/${exercise.exercise_id}`, exercise);
     const response = await axios.get(`${url}/workouts/${currentWorkout.workout_id}/exercises`);
     setWorkoutExercises(response.data)
     console.log(response.data)
