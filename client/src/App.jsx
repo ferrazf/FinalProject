@@ -80,6 +80,22 @@ function App(props) {
       });
   }
 
+  const setOnLogin = async ( user ) => {
+    setUser(user);
+    try{
+      // user22@test.com
+      const workoutUrl = `${url}/users/${user.id}/workouts`;
+
+      const { data } = await axios.get(workoutUrl, workoutUrl)
+      console.log("data workout------------------------");
+      debugger;
+      console.log(data);
+
+    }catch (e){
+      setError(e);
+    }
+  }
+
   const getMuscleGroup = (muscle) => {
     return muscleGroup.filter(group => group.name === muscle);
   }
@@ -242,6 +258,7 @@ function App(props) {
         handleExerciseFormSubmit={handleExerciseFormSubmit}
         handleStartWorkout={handleStartWorkout}
         handleFinishWorkout={handleFinishWorkout}
+        setOnLogin={setOnLogin}
         workoutExercises={workoutExercises}
         updateExercise={updateExercise}
         exercises={exercises}

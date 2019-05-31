@@ -38,12 +38,13 @@ function Login(props) {
 
         try{
             const { data } = await axios.post(`${props.url}/login`, user);
+            // please do NOT switch setToHome and props.setUser
             setToHome(true)
             props.setUser(data);
+            props.setOnLogin(data);
         }catch (e){
             props.setError(e);
         }
-        // setData(user)
     }
 
     const redirectHome = toHome ? <Redirect to='/'/> : null;

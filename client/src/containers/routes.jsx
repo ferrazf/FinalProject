@@ -21,6 +21,7 @@ const Main = (props) => {
       <Login
         url={props.url}
         setUser={props.setUser}
+        setOnLogin={props.setOnLogin}
         setError={props.setError}
       />)}
     />)
@@ -29,6 +30,7 @@ const Main = (props) => {
       <Register
         url={props.url}
         setUser={props.setUser}
+        setOnLogin={props.setOnLogin}
         setError={props.setError}
       />)}
     />)
