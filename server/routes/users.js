@@ -20,13 +20,13 @@ module.exports = (knex) => {
         // .all( middleware.isAuthorized )
         .get(workoutsHelpers.getWorkouts)
 
-  // router.route(":id/workouts/:workoutId/exercises/:id")
+  router.route("/:userId/workouts/:workoutId/exercises/:id")
   //       .all( middleware.verifyToken )
   //       .all( helpers.isAuthorized )
-  //       .put(exercisesHelpers.updateExercise)
-  //       .delete(exercisesHelpers.deleteExercise)
+        .put(exercisesHelpers.updateExercise)
+        .delete(exercisesHelpers.deleteExercise)
 
-  router.route("/:id/workouts/:workoutId/exercises/")
+  router.route("/:userId/workouts/:id/exercises/")
         // .all( middleware.verifyToken )
         // .all( middleware.isAuthorized )
         .post(exercisesHelpers.createExercise)

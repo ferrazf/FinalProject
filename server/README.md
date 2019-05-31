@@ -42,4 +42,4 @@
 |/api/workouts/:id/exercises              | GET, POST               |
 |/api/workouts                            | GET, POST               |
 |/api/users/:id/workouts                  | GET, ??????/POST        |
-|/api/users/:id/workouts/:workoutId/exercises/ | POST                    |
+|/api/users/:userId/workouts/:id/exercises/ | POST                    |
