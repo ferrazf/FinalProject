@@ -12,7 +12,6 @@ function EditForm(props) {
   if (toWorkout === true) {
     return <Redirect to='/workout' />
   }
-
   return(
     <Form onSubmit={formSubmit}>
       <Heading level="2" size="small" margin={{

@@ -16,17 +16,17 @@ module.exports = (knex) => {
 
     generateToken: async (user) => {
       return new Promise((resolve, reject)=>{
-        jwt.sign({user}, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+        // jwt.sign({user}, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
 
-          if(err){ return reject(error) }
+        //   if(err){ return reject(error) }
           const output = {
             id: user.id,
             name: user.name,
             email: user.email,
-            token
+            // token
           }
           return resolve(output);
-        });
+        // });
       })
     }, // end of generateToken
 

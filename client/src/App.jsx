@@ -50,12 +50,11 @@ function App(props) {
     setUser(user);
     try{
       // user22@test.com
-      const workoutUrl = `${url}/users/${user.id}/workouts`;
-
+      const workoutUrl = `${url}/users/12/workouts`;
       const { data } = await axios.get(workoutUrl, workoutUrl)
       console.log("data workout------------------------");
-      debugger;
-      console.log(data);
+      setWorkout(data)
+      
 
     }catch (e){
       setError(e);
@@ -81,7 +80,6 @@ function App(props) {
     exercise.reps = 10 
     exercise.rest = 1
     exercise.exercise_id = exercise.id
-    console.log(currentWorkout)
     
     const request = await axios.post(`${url}/users/${user.id}/workouts/${currentWorkout.workout_id}/exercises`, exercise);
     setWorkoutExercises([...workoutExercises, request.data])
