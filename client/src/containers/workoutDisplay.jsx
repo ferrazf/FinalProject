@@ -27,7 +27,7 @@ function WorkoutDisplay(props) {
           <Button
             alignSelf="end"
             label="add"
-            onClick={() => { }}
+            onClick={() => {}}
           />
         </Link>
       </Box>

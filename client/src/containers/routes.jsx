@@ -52,15 +52,14 @@ const Main = (props) => {
           />
         )}/>
         {profile}
-        <Route path='/workout' component={() => (<WorkoutDisplay updateExercise={props.updateExercise} workoutExercises={props.workoutExercises}/>)}/>
-        <Route path='/edit' component={() => (<EditDisplay exercise={props.exercise} />)} />
+        <Route path='/workout' component={() => (<WorkoutDisplay workouts={props.workouts} updateExercise={props.updateExercise} workoutExercises={props.workoutExercises}/>)}/>
+        <Route path='/edit' component={() => (<EditDisplay workout={props.currentWorkout} deleteExercise={props.deleteExercise} exercise={props.exercise} handleExerciseFormSubmit={props.handleExerciseFormSubmit} />)} />
         {login}
         {register}
         <Route path='/add' component={() => (
           <AddDisplay
-            muscleGroup={props.muscleGroup}
+            currentMG={props.currentMG}
             muscle={props.muscle}
-            handleExerciseFormSubmit={props.handleExerciseFormSubmit}
             exercises={props.exercises}
             updateMG={props.updateMG}
             addExercise={props.addExercise}

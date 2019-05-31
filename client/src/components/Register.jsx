@@ -18,7 +18,7 @@ function Register(props) {
   //events
   const handleOnRegister = async (evt) => {
     evt.preventDefault();
-
+    
     if(evt.target.form.elements.password.value !== evt.target.form.elements.passwordverify.value){
       props.setError('Passwords do not match');
     }else{
@@ -35,18 +35,23 @@ function Register(props) {
       evt.target.form.elements.passwordverify.value = '';
 
       try{
+        console.log("before")
         const { data } = await axios.post(`${props.url}/register`, user);
+        console.log("after")
         // please do NOT switch setToHome and props.setUser
         setToHome(true)
+        
         props.setUser(data);
         props.setOnLogin(data);
+        
       }catch (e){
+        console.log("catch")
         props.setError(e);
       }
     }
   }
 
-  const redirectHome = toHome ? <Redirect to='/'/> : null;
+  const redirectHome = toHome ? <Redirect to='/'/> : console.log("test");
 
   return (
     <Grommet theme={hpe}>
