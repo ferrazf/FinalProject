@@ -66,7 +66,7 @@ module.exports = (knex) => {
                 .returning('*')
                 .then( createdUser => {
 
-                  // creates user with some default workouts
+                  // create user with some default workouts
                   knex('workouts').max('id')
                     .then( result => result[0].max )
                     .then( max => {
@@ -123,7 +123,9 @@ module.exports = (knex) => {
                             })// end of insert workouts
                         })// end of original workouts
                   }) // end of max workouts
-                  fnHelpers.generateToken(createdUser[0], res);
+                  fnHelpers.generateToken(createdUser[0])
+                    .then(result => res.status(200).json(result))
+                    .catch(e => res.status(400).json( {e} ));
                 }) // end of insert user
             });
         })

@@ -230,7 +230,6 @@ function App(props) {
   }
 
   const handleStartWorkout = (evt) => {
-    debugger;
     evt.preventDefault();
     const id = Number(evt.target.name);
     const workout = { started_at: new Date() }
