@@ -81,7 +81,8 @@ function App(props) {
     exercise.reps = 10 
     exercise.rest = 1
     exercise.exercise_id = exercise.id
-    const request = await axios.post(`${url}/workouts/${currentWorkout.workout_id}/exercises`, exercise);
+    //REMEMBER THIS IS HARD CODED
+    const request = await axios.post(`${url}/users/2/workouts/${currentWorkout.workout_id}/exercises`, exercise);
     
     setWorkoutExercises([...workoutExercises, exercise])
   }

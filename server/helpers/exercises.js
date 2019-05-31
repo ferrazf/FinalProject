@@ -95,34 +95,6 @@ module.exports = (knex) => {
 
     createExercise: async (req, res, next) => {
       if(req.params.hasOwnProperty("id")){
-<<<<<<< HEAD
-        const { exercise_id } = req.body;
-
-        knex
-          .select("*")
-          .from("workout_exercises")
-          .where("workout_id", req.params.id)
-          .andWhere("exercise_id", exercise_id)
-          .then( result => {
-
-            if(result.length){
-              res.status(400).json( {error: "Exercise already existis in this workout"} );
-
-            }else{
-
-              const workout = {
-                workout_id: req.params.id,
-                exercise_id: exercise_id
-              }
-              const newWorkout = setWorkoutExercises(req.body, workout);
-              knex("workout_exercises")
-                .insert(newWorkout)
-                .returning('*')
-                .then( result =>  res.status(200).json(result))
-            }
-          })
-          .catch(e => { res.status(400).json( {e} )});
-=======
         if(req.params.hasOwnProperty("workoutId")){
           fnHelpers.getUser(req, res, next)
           .then( user => {
@@ -141,7 +113,6 @@ module.exports = (knex) => {
             })
             .catch( e => res.status(400).json(e));
         }
->>>>>>> 7581fc35ad632527c153d1789c3603f5c4655853
 
       }else{
 
