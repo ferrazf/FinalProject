@@ -50,12 +50,9 @@ function App(props) {
     setUser(user);
     try{
       // user22@test.com
-      const workoutUrl = `${url}/users/12/workouts`;
+      const workoutUrl = `${url}/users/${user.id}/workouts`;
       const { data } = await axios.get(workoutUrl, workoutUrl)
-      console.log("data workout------------------------");
       setWorkout(data)
-      
-
     }catch (e){
       setError(e);
     }
@@ -82,7 +79,8 @@ function App(props) {
     exercise.exercise_id = exercise.id
     
     const request = await axios.post(`${url}/users/${user.id}/workouts/${currentWorkout.workout_id}/exercises`, exercise);
-    setWorkoutExercises([...workoutExercises, request.data])
+    setWorkoutExercises([...workoutExercises, exercise])
+    
   }
   // const isEmpty = (object) => {
   //   return Object.entries(object).length === 0 && object.constructor === Object;
@@ -135,7 +133,7 @@ function App(props) {
     }
     try{
       //come back later
-      await axios.put(`${url}/workouts/${getExercise.id}/exercises/${getExercise.exercise_id}`, exercise);
+      await axios.put(`${url}/users/${user.id}/workouts/${getExercise.id}/exercises/${getExercise.exercise_id}`, exercise);
       const response = await axios.get(`${url}/workouts/${getExercise.id}/exercises`);
       setWorkoutExercises(response.data)
     }catch (e){
@@ -149,7 +147,6 @@ function App(props) {
     await axios.delete(`${url}/users/${user.id}/workouts/${workout.workout_id}/exercises/${exercise.exercise_id}`, exercise);
     const response = await axios.get(`${url}/workouts/${currentWorkout.workout_id}/exercises`);
     setWorkoutExercises(response.data)
-    console.log(response.data)
 
   }
 
@@ -193,7 +190,7 @@ function App(props) {
   const updateWorkout = async (id, updateWorkout) => {
     try{
 
-      const { data } = await axios.put(`${url}/workouts/${id}`, updateWorkout);
+      const { data } = await axios.put(`${url}/users/${user.id}/workouts/${id}`, updateWorkout);
 
       //set state
       const newWorkouts = workouts.map(workout => {
@@ -261,8 +258,8 @@ function App(props) {
     );
 
   const name = user.hasOwnProperty('name') && user.name;
-
   return (
+    
     <Grommet plain>
       <Nav
         user={user}
