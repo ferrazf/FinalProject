@@ -51,7 +51,6 @@ module.exports = (knex) => {
       if(req.params.hasOwnProperty('id')){
         fnHelpers.getUser(req, res, next)
           .then( user => {
-            console.log(user);
             getUsersWorkouts(user)
               .then(result => res.status(200).json(result))
               .catch(e => res.status(400).json(e))
