@@ -39,17 +39,29 @@ function App(props) {
   // Functions
   //==========================================
   const isLoggedin = (user) => (user && user.hasOwnProperty('name')) ? true : false;
-  const setError = (content) => {
-    setMessage({
-        type: 'error',
-        content: `😱 Axios request failed: ${content}`
-      });
+
+  const clearError = () => {
+    setMessage('');
   }
 
+  const setError = (content) => {
+    let error = content;
+    if(content.hasOwnProperty('response') && content.response.hasOwnProperty('data') &&
+      content.response.data.hasOwnProperty('error')){
+      error = content.response.data.error;
+    }
+
+    setMessage({
+        type: 'error',
+        content: `😱 ${error}`
+      });
+
+    setTimeout(() => clearError(), 3000);
+  }
   const setOnLogin = async ( user ) => {
     setUser(user);
+    clearError();
     try{
-      // user22@test.com
       const workoutUrl = `${url}/users/${user.id}/workouts`;
       const { data } = await axios.get(workoutUrl, workoutUrl)
       setWorkout(data)
@@ -70,19 +82,19 @@ function App(props) {
     setExercise(workoutExercise)
   }
 
-  // add exercise with default values 
+  // add exercise with default values
   const addExercise = async (exercise) => {
 
     exercise.sets = 10
-    exercise.reps = 10 
+    exercise.reps = 10
     exercise.rest = 1
     exercise.exercise_id = exercise.id
-    
+
     await axios.post(`${url}/users/${user.id}/workouts/${currentWorkout.workout_id}/exercises`, exercise);
     setWorkoutExercises([...workoutExercises, exercise])
-    const request = await axios.get(`${url}/users/${user.id}/workouts`);     
+    const request = await axios.get(`${url}/users/${user.id}/workouts`);
     setWorkout(request.data)
-    
+
   }
   // const isEmpty = (object) => {
   //   return Object.entries(object).length === 0 && object.constructor === Object;
@@ -122,8 +134,8 @@ function App(props) {
       setError(e);
     }
   }
-  
-  // update exercise values 
+
+  // update exercise values
   const handleExerciseFormSubmit = async (evt) => {
     evt.preventDefault();
     const getExercise = getWorkoutExercises(evt.target.ExName.value)[0]
@@ -148,7 +160,7 @@ function App(props) {
     await axios.delete(`${url}/users/${user.id}/workouts/${workout.workout_id}/exercises/${exercise.exercise_id}`, exercise);
     const response = await axios.get(`${url}/workouts/${currentWorkout.workout_id}/exercises`);
     setWorkoutExercises(response.data)
-    const request2 = await axios.get(`${url}/users/${user.id}/workouts`);     
+    const request2 = await axios.get(`${url}/users/${user.id}/workouts`);
     setWorkout(request2.data)
 
   }
@@ -187,7 +199,7 @@ function App(props) {
     }catch (e){
       setError(e);
     }
-    
+
   }
 
   const updateWorkout = async (id, updateWorkout) => {
@@ -263,7 +275,7 @@ function App(props) {
 
   const name = user.hasOwnProperty('name') && user.name;
   return (
-    
+
     <Grommet plain>
       <Nav
         user={user}
