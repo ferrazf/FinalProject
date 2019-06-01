@@ -4,7 +4,7 @@ import { Box, InfiniteScroll } from 'grommet';
 import MuscleGroup from "../components/exercise/MuscleGroupSelect.jsx";
 import Add from "../components/exercise/Add.jsx";
 
-//accepts selectMuscleGroup compenent and exercise add components 
+//accepts selectMuscleGroup compenent and exercise add components
 
 function  addDisplay(props) {
   console.log(props.exercises)
@@ -19,8 +19,8 @@ function  addDisplay(props) {
     return (
       <Box>
         <MuscleGroup
-            muscleGroup={props.muscleGroup} 
-            muscle={props.muscle} 
+            muscleGroup={props.muscleGroup}
+            muscle={props.muscle}
             updateMG={props.updateMG}
         />
         <InfiniteScroll items={items}>
@@ -29,5 +29,5 @@ function  addDisplay(props) {
       </Box>
     );
   }
-  
+
   export default addDisplay;
