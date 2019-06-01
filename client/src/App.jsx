@@ -78,8 +78,10 @@ function App(props) {
     exercise.rest = 1
     exercise.exercise_id = exercise.id
     
-    const request = await axios.post(`${url}/users/${user.id}/workouts/${currentWorkout.workout_id}/exercises`, exercise);
+    await axios.post(`${url}/users/${user.id}/workouts/${currentWorkout.workout_id}/exercises`, exercise);
     setWorkoutExercises([...workoutExercises, exercise])
+    const request = await axios.get(`${url}/users/${user.id}/workouts`);     
+    setWorkout(request.data)
     
   }
   // const isEmpty = (object) => {
@@ -108,7 +110,7 @@ function App(props) {
     }catch (e){
       setError(e);
     }
-  })
+  }, ["initialized"])
 
   // show workout display with corrisponding exercises
   const viewWorkout = async (workout) => {
@@ -143,10 +145,11 @@ function App(props) {
 
   //delete exercise from workout
   const deleteExercise = async (workout, exercise) => {
-    //REMEMBER THIS IS HARD CODED 
     await axios.delete(`${url}/users/${user.id}/workouts/${workout.workout_id}/exercises/${exercise.exercise_id}`, exercise);
     const response = await axios.get(`${url}/workouts/${currentWorkout.workout_id}/exercises`);
     setWorkoutExercises(response.data)
+    const request2 = await axios.get(`${url}/users/${user.id}/workouts`);     
+    setWorkout(request2.data)
 
   }
 
