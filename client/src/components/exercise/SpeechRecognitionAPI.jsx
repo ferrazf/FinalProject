@@ -3,8 +3,8 @@ import { Box, Button } from 'grommet';
 import PropTypes from "prop-types";
 import SpeechRecognition from "react-speech-recognition";
 import TextToSpeech from 'speak-tts'
-import { PlayFill } from "grommet-icons";
-import { Redirect } from 'react-router';
+import { FormPreviousLink, Microphone } from "grommet-icons";
+import { Link } from "react-router-dom";
 
 const speech = new TextToSpeech();
 speech.init({
@@ -107,17 +107,30 @@ const Dictaphone = ({
 
   return (
     <Box
-      direction="row"
-      basis="1/2">
-      {/* <button onClick={resetTranscript}>Reset</button> */}
-      <Button
-        primary
-        fill="horizontal"
-        icon={<PlayFill />}
-        margin="small"
-        label="Start Workout"
-        onClick={startListening}></Button>
-      <span>{interimTranscript}</span>
+      direction="row">
+      <Link to="/">
+        <Button
+          primary
+          href="/"
+          icon={<FormPreviousLink />}
+          margin="small"
+          alignSelf="center"
+          label="Main Menu"
+          onClick={() => { }}
+        />
+        <Button
+          primary
+          icon={<Microphone />}
+          margin="small"
+          alignSelf="center"
+          label="Hands-Free"
+          onClick={(e) => {
+            e.preventDefault();
+            startListening();
+          }}
+
+        />
+      </Link>
     </Box>
   );
 };
