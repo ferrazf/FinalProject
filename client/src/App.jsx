@@ -25,59 +25,38 @@ function App(props) {
   // States
   //==========================================
   const [ user, setUser ] = useState({})
+  const [ currentWorkout, setCurrentWorkout ] = useState('')
   const [ workouts, setWorkout ] = useState([]);
   const [ messages, setMessage ] = useState('')
   const [ initialized, setInitialized ] = useState(false);
   const [ muscleGroup, setMuscleGroups ] = useState('');
+  const [ currentMG, setCurrentMG ] = useState('');
   const [ muscle, setMuscles ] = useState('');
   const [ exercise, setExercise] = useState('');
-  const [ workoutExercises, setWorkoutExercises] = useState([
-    {
-        "id": 4,
-        "exercise_id": 1,
-        "name": "Barbell Bench Press",
-        "descr": "Main Muscle Worked: Chest.",
-        "sets": 6,
-        "reps": 10,
-        "rest": 1,
-        "muscle_group_id": 6,
-        "muscle_group_name": "Chest"
-    },
-    {
-        "id": 5,
-        "exercise_id": 4,
-        "name": "Standing Cable Lift",
-        "descr": "Main Muscle Worked: Abdominals.",
-        "sets": 6,
-        "reps": 10,
-        "rest": 1,
-        "muscle_group_id": 1,
-        "muscle_group_name": "Abdominals"
-    }
- ])
- const [exercises, setExercises] = useState([
-  {
-      "id": 6,
-      "muscle_group_id": 6,
-      "name": "Barbell Bench Press more",
-      "descr": "Main Muscle Worked: Chest."
-  },
-  {
-      "id": 1,
-      "muscle_group_id": 6,
-      "name": "Barbell Bench Press",
-      "descr": "Main Muscle Worked: Chest."
-  }
-])
+  const [ workoutExercises, setWorkoutExercises] = useState([])
+  const [ exercises, setExercises] = useState([])
 
   //==========================================
   // Functions
   //==========================================
+  const isLoggedin = (user) => (user && user.hasOwnProperty('name')) ? true : false;
   const setError = (content) => {
     setMessage({
         type: 'error',
         content: `😱 Axios request failed: ${content}`
       });
+  }
+
+  const setOnLogin = async ( user ) => {
+    setUser(user);
+    try{
+      // user22@test.com
+      const workoutUrl = `${url}/users/${user.id}/workouts`;
+      const { data } = await axios.get(workoutUrl, workoutUrl)
+      setWorkout(data)
+    }catch (e){
+      setError(e);
+    }
   }
 
   const getMuscleGroup = (muscle) => {
@@ -92,8 +71,19 @@ function App(props) {
     setExercise(workoutExercise)
   }
 
-  const addExercise = (exercise) => {
+  // add exercise with default values
+  const addExercise = async (exercise) => {
+
+    exercise.sets = 10
+    exercise.reps = 10
+    exercise.rest = 1
+    exercise.exercise_id = exercise.id
+
+    await axios.post(`${url}/users/${user.id}/workouts/${currentWorkout.workout_id}/exercises`, exercise);
     setWorkoutExercises([...workoutExercises, exercise])
+    const request = await axios.get(`${url}/users/${user.id}/workouts`);
+    setWorkout(request.data)
+
   }
   // const isEmpty = (object) => {
   //   return Object.entries(object).length === 0 && object.constructor === Object;
@@ -121,16 +111,14 @@ function App(props) {
     }catch (e){
       setError(e);
     }
-  })
+  }, ["initialized"])
 
   // show workout display with corrisponding exercises
   const viewWorkout = async (workout) => {
-    console.log(workouts)
-    console.log(workout)
-
+    setCurrentWorkout(workout)
     try{
-      const response = await axios.get(`${url}/workouts/${workout}`);
-      console.log(response.data)
+      const response = await axios.get(`${url}/workouts/${workout.workout_id}/exercises`);
+      setWorkoutExercises(response.data)
     }catch (e){
       setError(e);
     }
@@ -146,13 +134,24 @@ function App(props) {
       reps: Number(evt.target.Reps.value),
       rest: Number(evt.target.Rest.value),
     }
-
     try{
-      const response = await axios.put(`${url}/workouts/${getExercise.id}/exercises/${getExercise.exercise_id}`, exercise);
+      //come back later
+      await axios.put(`${url}/users/${user.id}/workouts/${getExercise.id}/exercises/${getExercise.exercise_id}`, exercise);
+      const response = await axios.get(`${url}/workouts/${getExercise.id}/exercises`);
       setWorkoutExercises(response.data)
     }catch (e){
       setError(e);
     }
+  }
+
+  //delete exercise from workout
+  const deleteExercise = async (workout, exercise) => {
+    await axios.delete(`${url}/users/${user.id}/workouts/${workout.workout_id}/exercises/${exercise.exercise_id}`, exercise);
+    const response = await axios.get(`${url}/workouts/${currentWorkout.workout_id}/exercises`);
+    setWorkoutExercises(response.data)
+    const request2 = await axios.get(`${url}/users/${user.id}/workouts`);
+    setWorkout(request2.data)
+
   }
 
   // incase we let them create an exercise
@@ -185,14 +184,17 @@ function App(props) {
     try{
       const response = await axios.get(`${url}/muscles/${MG_id}/exercises`)
       setExercises(response.data)
+      setCurrentMG(muscleGroup)
     }catch (e){
       setError(e);
     }
+
   }
+
   const updateWorkout = async (id, updateWorkout) => {
     try{
 
-      const { data } = await axios.put(`${url}/workouts/${id}`, updateWorkout);
+      const { data } = await axios.put(`${url}/users/${user.id}/workouts/${id}`, updateWorkout);
 
       //set state
       const newWorkouts = workouts.map(workout => {
@@ -235,27 +237,41 @@ function App(props) {
 
   const workoutRoute = workouts.length && (
       <Routes
+        url={url}
+        user={user}
+        setUser={setUser}
         workouts={workouts}
         handleViewRegister={handleViewRegister}
         handleExerciseFormSubmit={handleExerciseFormSubmit}
         handleStartWorkout={handleStartWorkout}
         handleFinishWorkout={handleFinishWorkout}
+        setOnLogin={setOnLogin}
         workoutExercises={workoutExercises}
         updateExercise={updateExercise}
         exercises={exercises}
         exercise={exercise}
         muscle={muscle}
         updateMG={updateMG}
+        currentMG={currentMG}
         addExercise={addExercise}
         viewWorkout={viewWorkout}
+        deleteExercise={deleteExercise}
+        currentWorkout={currentWorkout}
+        isLoggedin={isLoggedin}
+        setError={setError}
       />
     );
 
   const name = user.hasOwnProperty('name') && user.name;
-
   return (
+
     <Grommet plain>
-      <Nav name={name} />
+      <Nav
+        user={user}
+        setUser={setUser}
+        name={name}
+        isLoggedin={isLoggedin}
+      />
       {message}
       {/* {userRoute} */}
       {workoutRoute}

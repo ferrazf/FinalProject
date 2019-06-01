@@ -1,13 +1,12 @@
 import React from 'react';
-import { Box, InfiniteScroll } from 'grommet';
-
+import { Box, InfiniteScroll, Button, Grommet } from 'grommet';
+import { Link } from "react-router-dom";
 import MuscleGroup from "../components/exercise/MuscleGroupSelect.jsx";
 import Add from "../components/exercise/Add.jsx";
-
+import { hpe } from "grommet-theme-hpe";
 //accepts selectMuscleGroup compenent and exercise add components
 
 function  addDisplay(props) {
-  console.log(props.exercises)
   const items = props.exercises.map(exercise => (
     <Add
       key={exercise.id}
@@ -17,16 +16,25 @@ function  addDisplay(props) {
     />
   ))
     return (
-      <Box>
-        <MuscleGroup
-            muscleGroup={props.muscleGroup}
-            muscle={props.muscle}
-            updateMG={props.updateMG}
-        />
-        <InfiniteScroll items={items}>
-            {(item) => (item)}
-          </InfiniteScroll>
-      </Box>
+      <Grommet theme={hpe}>
+        <Box>
+          <MuscleGroup
+              currentMG={props.currentMG}
+              muscle={props.muscle}
+              updateMG={props.updateMG}
+          />
+          <InfiniteScroll items={items}>
+              {(item) => (item)}
+            </InfiniteScroll>
+            <Link to="/workout">
+              <Button
+                alignSelf="center"
+                label="Back"
+                onClick={() => {}}
+              />
+            </Link>
+        </Box>
+      </Grommet>
     );
   }
 

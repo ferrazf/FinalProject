@@ -24,15 +24,25 @@ function WorkoutDisplay(props) {
         <InfiniteScroll items={items}>
           {(item) => (item)}
         </InfiniteScroll>
-
-        <Link
-          to="/add" >
+      </Box>
+      <Box align="center" pad="medium" direction="column" gap="small">
+        <Link to="/add" >
           <Button
+            primary
             icon={<AddCircle />}
             margin="small"
             alignSelf="center"
-            width="50%"
             label="Add"
+            onClick={() => { }}
+          />
+        </Link>
+        <Link to="/" >
+          <Button
+            primary
+            icon={<AddCircle />}
+            margin="small"
+            alignSelf="center"
+            label="Complete"
             onClick={() => { }}
           />
         </Link>

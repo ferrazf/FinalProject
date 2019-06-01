@@ -1,7 +1,8 @@
 {
-  "name": "react-pwa",
+  "name": "PocketSpotter",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "@csstools/normalize.css": "^10.0.0",
     "axios": "^0.18.0",
