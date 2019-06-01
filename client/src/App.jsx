@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Grommet } from 'grommet';
+
 // import './App.css';
 //==========================================
 // import files
@@ -43,7 +44,7 @@ function App(props) {
         "muscle_group_name": "Chest"
     },
     {
-        "id": 4,
+        "id": 5,
         "exercise_id": 4,
         "name": "Standing Cable Lift",
         "descr": "Main Muscle Worked: Abdominals.",
@@ -122,7 +123,7 @@ function App(props) {
     }
   })
 
-  // show workout display with corrisponding exercises 
+  // show workout display with corrisponding exercises
   const viewWorkout = async (workout) => {
     console.log(workouts)
     console.log(workout)
@@ -135,7 +136,7 @@ function App(props) {
     }
   }
 
-  // update exercise values 
+  // update exercise values
   const handleExerciseFormSubmit = async (evt) => {
     evt.preventDefault();
     const getExercise = getWorkoutExercises(evt.target.ExName.value)[0]
@@ -178,7 +179,7 @@ function App(props) {
     }
   }*/
 
-  // update add display based on muscle group 
+  // update add display based on muscle group
   const updateMG = async (muscleGroup) => {
     const MG_id = getMuscleGroup(muscleGroup)[0].id
     try{
