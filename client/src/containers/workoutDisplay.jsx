@@ -2,8 +2,7 @@ import React from 'react';
 import { Box, Button, Grommet, InfiniteScroll } from 'grommet';
 import { Link } from "react-router-dom";
 import { hpe } from "grommet-theme-hpe";
-import { PlayFill } from "grommet-icons";
-import { AddCircle } from "grommet-icons";
+import { Duplicate } from "grommet-icons";
 import DisplayExercise from "../components/exercise/Display.jsx";
 import SpeechRecognition from "../components/exercise/SpeechRecognitionAPI.jsx";
 
@@ -19,8 +18,18 @@ function WorkoutDisplay(props) {
   return (
     <Grommet theme={hpe}>
       <Box
-        direction="column"
-        basis="1/2">
+        direction="column">
+        <Box
+          align="center"
+          pad="medium"
+          direction="column"
+          gap="small"
+          border={{
+            color: "border",
+            side: "bottom"
+          }}>
+          <SpeechRecognition exerciseList={props.workoutExercises}></SpeechRecognition>
+        </Box>
         <InfiniteScroll items={items}>
           {(item) => (item)}
         </InfiniteScroll>
@@ -29,28 +38,13 @@ function WorkoutDisplay(props) {
         <Link to="/add" >
           <Button
             primary
-            icon={<AddCircle />}
+            icon={<Duplicate />}
             margin="small"
             alignSelf="center"
-            label="Add"
+            label="Add Exercise"
             onClick={() => { }}
           />
         </Link>
-        <Link to="/" >
-          <Button
-            primary
-            icon={<AddCircle />}
-            margin="small"
-            alignSelf="center"
-            label="Complete"
-            onClick={() => { }}
-          />
-        </Link>
-        <Box align="center" pad="medium">
-          <Box direction="row" gap="small">
-            <SpeechRecognition exerciseList={props.workoutExercises}></SpeechRecognition>
-          </Box>
-        </Box>
       </Box>
     </Grommet>
   );

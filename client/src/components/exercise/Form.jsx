@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Box, Button, FormField, TextInput, Form, Heading } from 'grommet';
 import { Redirect, Link } from "react-router-dom";
+import { Save, Trash } from "grommet-icons";
 
 // displays form to update an individual exercise in editDisplay container
 function EditForm(props) {
-  const [ toWorkout, setToWorkout ] = useState(false)
+  const [toWorkout, setToWorkout] = useState(false)
   const formSubmit = (evt) => {
     setToWorkout(true)
     props.handleExerciseFormSubmit(evt)
@@ -12,11 +13,15 @@ function EditForm(props) {
   if (toWorkout === true) {
     return <Redirect to='/workout' />
   }
-  return(
+  return (
     <Form onSubmit={formSubmit}>
-      <Heading level="2" size="small" margin={{
-        "bottom": "0.8rem", top: "none"
-      }} pad="none"> Exercise: {props.exercise.name} </Heading>
+      <Heading
+        level="2"
+        margin={{
+          bottom: "0.8rem",
+          top: "none"
+        }}
+        pad="none"> Exercise: {props.exercise.name} </Heading>
       <FormField label="Sets:">
         <TextInput type="text" name="Sets" defaultValue={props.exercise.sets} />
       </FormField>
@@ -27,17 +32,25 @@ function EditForm(props) {
         <TextInput type="text" name="Rest" defaultValue={props.exercise.rest} />
         <TextInput type="hidden" name="ExName" value={props.exercise.name} />
       </FormField>
-      <Box align="center" pad="none">
-        <Box direction="row" gap="small">
-            <Button margin="medium" type="submit" primary label="Submit" />
-        </Box>
+      <Box align="center" pad="small">
         <Link to="/workout">
-            <Button
-              alignSelf="start"
-              label="Delete"
-              onClick={() => {props.deleteExercise(props.workout, props.exercise)}}
-            />
-          </Link>
+          <Button
+            alignSelf="start"
+            label="Delete"
+            icon={<Trash />}
+            onClick={() => {
+              props.deleteExercise(props.workout, props.exercise)
+            }}
+          />
+          <Button
+            primary
+            margin="medium"
+            type="submit"
+            label="Submit"
+            icon={<Save />}
+            onClick={(e) => { console.log(e.target.parent)}}
+          />
+        </Link>
       </Box>
     </Form>
   )

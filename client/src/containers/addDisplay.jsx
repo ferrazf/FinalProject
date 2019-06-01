@@ -12,7 +12,6 @@ function  addDisplay(props) {
       key={exercise.id}
       exercise={exercise}
       addExercise={props.addExercise}
-
     />
   ))
     return (
