@@ -23,7 +23,7 @@ Workout App
 
 ## ERD
 
-![Image of ERD](./resources/database_uml.png)
+![Image of ERD](./resources/database_UML.png)
 
 ## Upcoming Features
 
