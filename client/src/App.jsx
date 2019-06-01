@@ -237,6 +237,7 @@ function App(props) {
   const workoutRoute = workouts.length && (
       <Routes
         url={url}
+        user={user}
         setUser={setUser}
         workouts={workouts}
         handleViewRegister={handleViewRegister}

@@ -43,10 +43,12 @@ const Main = (props) => {
       <Switch>
         <Route exact path="/" component={() => (
           <Home
+            user={props.user}
             workouts={props.workouts}
             viewWorkout={props.viewWorkout}
             handleStartWorkout={props.handleStartWorkout}
             handleFinishWorkout={props.handleFinishWorkout}
+            isLoggedin={props.isLoggedin}
           />
         )}/>
         {profile}
