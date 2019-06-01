@@ -18,7 +18,7 @@ function Register(props) {
   //events
   const handleOnRegister = async (evt) => {
     evt.preventDefault();
-    
+
     if(evt.target.form.elements.password.value !== evt.target.form.elements.passwordverify.value){
       props.setError('Passwords do not match');
     }else{
@@ -40,10 +40,10 @@ function Register(props) {
         console.log("after")
         // please do NOT switch setToHome and props.setUser
         setToHome(true)
-        
+
         props.setUser(data);
         props.setOnLogin(data);
-        
+
       }catch (e){
         console.log("catch")
         props.setError(e);
@@ -67,7 +67,11 @@ function Register(props) {
           <FormField name="passwordverify" type="password" label="Verify Password" placeholder="Verify Your Desired Password" />
           <Box align="center" pad="medium">
             <Box direction="row" gap="small">
-              <Button alignSelf="start" onClick={handleOnRegister} primary label="Register" />
+              <Button
+                primary
+                alignSelf="start"
+                onClick={handleOnRegister}
+                label="Register" />
             </Box>
           </Box>
         </Form>

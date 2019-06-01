@@ -51,7 +51,11 @@ function Login(props) {
                     <FormField name="password" type="password" label="Password" placeholder="Your Password" />
                     <Box align="center" pad="medium">
                         <Box direction="row" gap="small">
-                            <Button alignSelf="end" onClick={handleOnLogin} primary label="Login" />
+                            <Button
+                                primary
+                                alignSelf="end"
+                                onClick={handleOnLogin}
+                                label="Login" />
                         </Box>
                     </Box>
                 </Form>
