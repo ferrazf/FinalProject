@@ -12,7 +12,7 @@ exports.up = function(knex, Promise) {
       .notNullable()
       .index();
     table.string("name");
-    table.string("descr");
+    table.text("descr");
     table.foreign("muscle_group_id").references("muscle_groups.id");
   });
 };
