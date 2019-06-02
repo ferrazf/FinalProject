@@ -1,18 +1,27 @@
 import React, { useState } from "react";
-import { Box, Grommet, Heading, Text } from "grommet";
+import { Box, Button, Grommet, Heading, Text } from "grommet";
 import { Link } from "react-router-dom";
 import { hpe } from "grommet-theme-hpe";
-import { BlockQuote, FastForward } from "grommet-icons";
+import { Logout, Menu } from "grommet-icons";
 import '../App.css'; // Tell Webpack that Button.js uses these styles
 
 function Nav(props) {
   const handleOnLogout = () => props.setUser({});
   const usrName = props.isLoggedin(props.user) && props.name.substr(0, props.name.indexOf(" "))
   const login = !props.isLoggedin(props.user) && <Link to="/login" />
-  const welcomemsg = props.isLoggedin(props.user) && `Welcome, ${usrName}`
+  const welcomemsg = props.isLoggedin(props.user) && `Welcome, ${usrName}!`
+  const menuButtonCss = !props.isLoggedin(props.user) ? '' : 'NavBar-btn'
+  const welcomeTxtCss = "welcome-txt"
   const menuTxtCss = {
     color: "#fff",
-    textDecoration: "none"
+    textDecoration: "none",
+    width: "100%"
+  }
+  const navLogoCss = {
+    display: "inline-block",
+    width: "3.6rem",
+    position: "relative",
+    top: "1.2rem"
   }
   const logoTxtCss = {
     marginRight: "auto",
@@ -20,24 +29,56 @@ function Nav(props) {
     display: "block",
     width: "50%"
   }
+  const menu = props.isLoggedin(props.user) && (
+    <Box width="100%">
+      <Box width="100%" align="center">
+        <Link style={menuTxtCss} to="/" >
+          <img alt="Logo" style={navLogoCss} src="/images/Logo192.png" />
 
-  const register = !props.isLoggedin(props.user) && (<Link to="/register"> Register</Link>);
-  const profile = props.isLoggedin(props.user) && (
-    <Link to="/profile">
-      <Heading level="3" margin="none">
-        {" "}
-      </Heading>
-    </Link>
-  );
-  const logout = props.isLoggedin(props.user) && (
-    <Link style={menuTxtCss} to="/login" onClick={handleOnLogout}>
-      {" "}
-      Logout
-    </Link>
-  );
-  const workouts = props.isLoggedin(props.user) && (
-    <Link to="/"
-      style={menuTxtCss}> Workouts</Link>
+        <Button icon={<Menu size="1rem" />}
+          plain
+          label="Workouts"
+            gap="xsmall"
+            align="left"
+            style={{
+            margin: "0.4rem",
+            border: "1px solid rgb(9, 181, 143)",
+            padding: "0.5rem 1rem",
+            color: "rgb(255, 255, 255)",
+            textDecoration: "none",
+            fontDize: "1rem",
+            borderRadius: "3px 3px 0px 0px",
+            backgroundColor: "rgb(0, 149, 115)"
+            }}>
+        </Button>
+          <Button icon={<Logout size="1rem" />}
+            href="/login"
+            plain
+            label="Logout"
+            gap="xsmall"
+            align="left"
+            onClick={handleOnLogout}
+            style={{
+            margin: "0.4rem 0.4rem",
+            border: "1px solid rgb(9, 181, 143)",
+            padding: "0.5rem 1rem",
+            color: "rgb(255, 255, 255)",
+            textDecoration: "none",
+            fontDize: "1rem",
+            borderRadius: "3px 3px 0px 0px",
+            backgroundColor: "rgb(0, 149, 115)"
+            }}>
+        </Button>
+        </Link>
+      </Box>
+      <Box alignSelf="right"
+        style={{
+        textAlign: "right",
+        marginRight: "0.4rem",
+        marginTop: "0.4rem",
+        marginBottom: "0.2rem"
+      }}>{welcomemsg}</Box>
+    </Box>
   );
   const logo = !props.isLoggedin(props.user) && (
     <Box
@@ -54,20 +95,15 @@ function Nav(props) {
     </Box>
   );
 
-  const menuButtonCss = !props.isLoggedin(props.user) ? '' : 'NavBar-btn';
-  const welcomeTxtCss = "welcome-txt";
-
   return (
     <Grommet theme={hpe}>
       <Box fill="horizontal">
         <AppBar>
           {logo}
           {login}
-          <span class={menuButtonCss}>{workouts}</span>
+          {menu}
           {/* {profile} */}
           {/* <span style={Object.assign(menuButtonSecondaryCss, menuButtonCss)}>{logout}</span> */}
-          <span class={menuButtonCss}>{logout}</span>
-          <span class={welcomeTxtCss}>{welcomemsg}</span>
         </AppBar>
       </Box>
     </Grommet>
