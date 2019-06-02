@@ -17,7 +17,7 @@ module.exports = (knex) => {
         .from("users")
         .where('email', email)
         .then((foundUser) => {
-          if(!foundUser.length){ return res.status(400).send({ error: "Username not found. Please enter valid username."}); }
+          if(!foundUser.length){ return res.status(400).send({ error: "Email not found. Please enter valid email."}); }
 
           if(bcrypt.compareSync( password, foundUser[0].password)){
             console.log(foundUser)

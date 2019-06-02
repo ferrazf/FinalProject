@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import Home from "./home.jsx";
-import Profile from "./profile.jsx";
 import WorkoutDisplay from "./workoutDisplay.jsx";
 import EditDisplay from "./editDisplay.jsx";
 import AddDisplay from "./addDisplay.jsx";
@@ -34,8 +33,6 @@ const Main = (props) => {
         setError={props.setError}
       />)}
     />)
-  const profile = props.isLoggedin(props.user) && (
-    <Route path='/profile' component={Profile}/>)
 
   //return
   return (
@@ -51,7 +48,6 @@ const Main = (props) => {
             isLoggedin={props.isLoggedin}
           />
         )}/>
-        {profile}
         <Route path='/workout' component={() => (<WorkoutDisplay workouts={props.workouts} updateExercise={props.updateExercise} workoutExercises={props.workoutExercises}/>)}/>
         <Route path='/edit' component={() => (<EditDisplay workout={props.currentWorkout} deleteExercise={props.deleteExercise} exercise={props.exercise} handleExerciseFormSubmit={props.handleExerciseFormSubmit} />)} />
         {login}
