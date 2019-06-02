@@ -40,6 +40,9 @@ function WorkoutDisplay(props) {
             primary
             icon={<Duplicate />}
             margin="small"
+            style={{
+              padding: "0.4rem 3.3rem"
+            }}
             alignSelf="center"
             label="Add Exercise"
             onClick={() => { }}

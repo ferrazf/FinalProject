@@ -108,7 +108,10 @@ const Dictaphone = ({
   return (
     <Box
       direction="row">
-      <Link to="/">
+      <Link to="/"
+        style={{
+          textAlign: "center"
+      }}>
         <Button
           primary
           href="/"
