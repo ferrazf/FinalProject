@@ -49,12 +49,13 @@ function Nav(props) {
     >
       <img alt="Logo" style={logoTxtCss} src="/images/Logo512.png" />
       <Heading alignSelf="center">
-        Pocket <span style={{ color: "rgb(178, 231, 13)" }}>Spotter</span>
+        Pocket <span class="logo-txt-secondary">Spotter</span>
       </Heading>
     </Box>
   );
 
   const menuButtonCss = !props.isLoggedin(props.user) ? '' : 'NavBar-btn';
+  const welcomeTxtCss = "welcome-txt";
 
   return (
     <Grommet theme={hpe}>
@@ -66,11 +67,7 @@ function Nav(props) {
           {/* {profile} */}
           {/* <span style={Object.assign(menuButtonSecondaryCss, menuButtonCss)}>{logout}</span> */}
           <span class={menuButtonCss}>{logout}</span>
-          <Text style={{
-            margin: "0px 1rem",
-            fontSize: "1rem",
-            textIndent: "0.5rem"
-          }}>{welcomemsg}</Text>
+          <span class={welcomeTxtCss}>{welcomemsg}</span>
         </AppBar>
       </Box>
     </Grommet>
