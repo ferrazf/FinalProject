@@ -9,7 +9,6 @@ import { Edit, PlayFill } from "grommet-icons";
 function exercise_display(props) {
   return (
     <Grommet theme={hpe}>
-      <img scr="/images/logo192.png"></img>
       <Box
         direction="column"
         margin="medium"
@@ -38,6 +37,7 @@ function exercise_display(props) {
           <Box direction="row">
             <Link to="/edit">
               <Button
+                primary
                 id={"edit" + props.exercise.id}
                 icon={<Edit />}
                 margin={{
