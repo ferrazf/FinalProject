@@ -12,6 +12,7 @@ function WorkoutDisplay(props) {
   const [ started, setStart ] = useState(false)
   const [ counter, setCounter ] = useState(1)
   const [ currentExercise, setCurrentExercise ] = useState('test')
+  const [ next, setNext ] = useState(true)
 
   const items = props.workoutExercises.map(exercise => (
     <DisplayExercise
@@ -60,6 +61,8 @@ function WorkoutDisplay(props) {
               setCounter={setCounter}
               currentExercise={currentExercise}
               setCurrentExercise={setCurrentExercise}
+              next={next}
+              setNext={setNext}
             />
           </Box>
         </Box>

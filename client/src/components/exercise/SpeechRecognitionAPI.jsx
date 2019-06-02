@@ -42,10 +42,14 @@ const propTypes = {
   counter: PropTypes.int,
   setCounter: PropTypes.func,
   currentExercise: PropTypes.object,
-  setCurrentExercise: PropTypes.func
+  setCurrentExercise: PropTypes.func,
+  next: PropTypes.bool,
+  setNext: PropTypes.func
 };
 
 const Dictaphone = ({
+  next,
+  setNext,
   counter,
   setCounter,
   currentExercise,
@@ -89,7 +93,6 @@ const Dictaphone = ({
   //If the user said the word start, listen for an exercise name in the same sentence
   // if (interimTranscript === "start")
   if (transcript.includes("start")) {
-    setStart(true)
     let speechTxt = interimTranscript;
     //Create an array with all said words, except key words
     let speechTxtExercise = speechTxt.trim().toLowerCase().replace("start", "");
@@ -122,75 +125,74 @@ const Dictaphone = ({
       }).catch(e => {
         console.error("An error occurred :", e)
       })
-      options.continuous = true
+
       
     }
     //Add Logic - Stop should only work if already started
   } 
-  
-    if (transcript.includes("done") ){
-    console.log(options.continuous)
-    options.continuous = false
+  console.log("outside: ",counter)
+    if (transcript.includes("done")  && started){
+    console.log(next)
     stopListening()
     resetTranscript()
     console.log("current counter: " ,counter)
-    if (counter > currentExercise.sets) {
-      
-      speech.speak({
-        queue: false,
-        text: `${currentExercise.name} is complete`,
-        listeners: {
-          onstart: (data) => {
-            console.log(data.currentTarget.text);
-            console.log("finished counter: ", counter)
-          },
-          onend: () => {
-            console.log("End utterance");
-            console.log("finished counter: ", counter)
-          }
-        }
-      }).catch(e => {
-        console.error("An error occurred :", e)
-      }) 
-      setStart(false)
-      setCounter(1)
-    } else  if (counter < currentExercise.sets){
-      speech.speak({
-        queue: false,
-        text: `Starting timer for ${currentExercise.rest} minute`,
-        listeners: {
-          onstart: (data) => {
-            console.log(data.currentTarget.text);
-          },
-          onend: () => {
-            console.log("End utterance");
-          }
-        }
-      }).catch(e => {
-        console.error("An error occurred :", e)
-      }) 
-      setTimeout(function(){ 
-        setCounter(counter + 1)
-       
+      if (counter > currentExercise.sets) {
         speech.speak({
           queue: false,
-          text: `Begin set ${counter} of ${currentExercise.name} `,
+          text: `${currentExercise.name} is complete`,
           listeners: {
             onstart: (data) => {
               console.log(data.currentTarget.text);
-              console.log("set counter: ", counter)
+              console.log("finished counter: ", counter)
+            },
+            onend: () => {
+              console.log("End utterance");
+              console.log("finished counter: ", counter)
+            }
+          }
+        }).catch(e => {
+          console.error("An error occurred :", e)
+        }) 
+        setStart(false)
+        setCounter(1)
+      } else  if (counter <= currentExercise.sets && next){
+        setNext(false)
+        setCounter(counter + 1)
+        speech.speak({
+          queue: false,
+          text: `Starting timer for ${currentExercise.rest} minute. enjoy your break!`,
+          listeners: {
+            onstart: (data) => {
+              console.log(data.currentTarget.text);
             },
             onend: () => {
               console.log("End utterance");
             }
           }
-        }).then(data => {
-          startListening()
         }).catch(e => {
           console.error("An error occurred :", e)
         }) 
-        
-      }, 5000 * Number(currentExercise.rest));
+        setTimeout(function(){ 
+          speech.speak({
+            queue: false,
+            text: `Begin set ${counter} of ${currentExercise.name}. say done when you are finished your set`, 
+            listeners: {
+              onstart: (data) => {
+                console.log(data.currentTarget.text);
+                console.log("set counter: ", counter)
+              },
+              onend: () => {
+                console.log("End utterance");
+              }
+            }
+          }).then(() => {
+            setNext(true)
+            startListening()
+          }).catch(e => {
+            console.error("An error occurred :", e)
+          }) 
+          
+        }, 15000 * Number(currentExercise.rest));
     }
   }
 
