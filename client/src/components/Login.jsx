@@ -7,6 +7,7 @@ import {
     Grommet,
 } from "grommet";
 import { hpe } from "grommet-theme-hpe";
+import { FormCheckmark } from "grommet-icons";
 import { Redirect } from "react-router-dom";
 import axios from 'axios';
 
@@ -57,12 +58,15 @@ function Login(props) {
                                 primary
                                 alignSelf="end"
                                 onClick={handleOnLogin}
-                                label="Login" />
+                                label="Submit"
+                                />
                             <Button
                                 primary
                                 alignSelf="start"
                                 href="/register"
-                                label="Register" />
+                                label="Register"
+                                // icon={<FormCheckmark />}
+                                />
                         </Box>
                     </Box>
                 </Form>

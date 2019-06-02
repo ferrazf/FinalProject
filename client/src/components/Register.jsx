@@ -7,6 +7,7 @@ import {
   Grommet
 } from "grommet";
 import { hpe } from "grommet-theme-hpe";
+import { FormCheckmark, FormPreviousLink } from "grommet-icons";
 
 import { Redirect } from "react-router-dom";
 import axios from 'axios';
@@ -68,15 +69,24 @@ function Register(props) {
           <Box align="center" pad="medium">
             <Box direction="row" gap="small">
               <Button
-                primary
-                alignSelf="start"
-                onClick={handleOnRegister}
-                label="Submit" />
+                  primary
+                  alignSelf="start"
+                  href="/"
+                  label="Back"
+                  // icon={<FormPreviousLink />}
+                  />
+                <Button
+                  primary
+                  alignSelf="start"
+                  onClick={handleOnRegister}
+                  label="Submit"
+                  // icon={<FormCheckmark />}
+                  />
+              </Box>
             </Box>
-          </Box>
-        </Form>
-      </Box>
-    </Grommet>
+          </Form>
+        </Box>
+      </Grommet>
   );
 }
 
