@@ -3,6 +3,7 @@ import { Box, Grommet, Heading, Text } from "grommet";
 import { Link } from "react-router-dom";
 import { hpe } from "grommet-theme-hpe";
 import { BlockQuote, FastForward } from "grommet-icons";
+import '../App.css'; // Tell Webpack that Button.js uses these styles
 
 function Nav(props) {
   const handleOnLogout = () => props.setUser({});
@@ -53,20 +54,7 @@ function Nav(props) {
     </Box>
   );
 
-  const menuButtonCss = !props.isLoggedin(props.user) ? {} : {
-    margin: "0.3rem 0.4rem",
-    border: "1px solid rgb(0, 118, 91)",
-    padding: "0.3rem 1rem",
-    color: "rgb(204, 204, 204)",
-    textDecoration: "none",
-    fontSize: "1rem",
-    borderRadius: "3px 3px 0 0",
-    border: "1px solid #00a982",
-    backgroundColor: "rgb(0, 101, 78)"
-  }
-
-  const menuButtonSecondaryCss = !props.isLoggedin(props.user) ? {} : {
-  }
+  const menuButtonCss = !props.isLoggedin(props.user) ? '' : 'NavBar-btn';
 
   return (
     <Grommet theme={hpe}>
@@ -74,13 +62,14 @@ function Nav(props) {
         <AppBar>
           {logo}
           {login}
-          <span style={menuButtonCss}>{workouts}</span>
+          <span class={menuButtonCss}>{workouts}</span>
           {/* {profile} */}
           {/* <span style={Object.assign(menuButtonSecondaryCss, menuButtonCss)}>{logout}</span> */}
-          <span style={menuButtonCss}>{logout}</span>
+          <span class={menuButtonCss}>{logout}</span>
           <Text style={{
             margin: "0px 1rem",
-            fontSize: "1rem"
+            fontSize: "1rem",
+            textIndent: "0.5rem"
           }}>{welcomemsg}</Text>
         </AppBar>
       </Box>
