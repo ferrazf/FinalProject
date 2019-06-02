@@ -32,7 +32,7 @@ function EditForm(props) {
         <TextInput type="text" name="Rest" defaultValue={props.exercise.rest} />
         <TextInput type="hidden" name="ExName" value={props.exercise.name} />
       </FormField>
-      <Box align="center" pad="small">
+      <Box align="center" pad="large">
         <div><Link to="/workout">
           <Button
             alignSelf="start"
