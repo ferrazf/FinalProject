@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import MuscleGroup from "../components/exercise/MuscleGroupSelect.jsx";
 import Add from "../components/exercise/Add.jsx";
 import { hpe } from "grommet-theme-hpe";
+import { FormPreviousLink } from "grommet-icons";
 //accepts selectMuscleGroup compenent and exercise add components
 
 function  addDisplay(props) {
@@ -12,7 +13,6 @@ function  addDisplay(props) {
       key={exercise.id}
       exercise={exercise}
       addExercise={props.addExercise}
-
     />
   ))
     return (
@@ -28,7 +28,11 @@ function  addDisplay(props) {
             </InfiniteScroll>
             <Link to="/workout">
               <Button
-                alignSelf="center"
+                margin={{
+                left: "1rem",
+                bottom: "1rem"
+                }}
+                icon={<FormPreviousLink />}
                 label="Back"
                 onClick={() => {}}
               />

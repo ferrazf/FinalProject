@@ -33,11 +33,17 @@ function exercise_display(props) {
         <Text>Reps: {props.exercise.reps}</Text>
         <Text>Rest: {props.exercise.rest}</Text>
         <Text>Description: {props.exercise.descr} </Text>
+        <Box align="left">
+          <Box direction="row">
             <Link to="/edit">
               <Button
+                primary
                 id={"edit" + props.exercise.id}
                 icon={<Edit />}
-                margin="small"
+                margin={{
+                  bottom: "0.8rem",
+                  top: "0.8rem"
+                }}
                 alignSelf="end"
                 label="Edit"
                 onClick={() => {
@@ -45,17 +51,8 @@ function exercise_display(props) {
                 }}
               />
             </Link>
-            <Button
-              primary
-              id={"start" + props.exercise.id}
-              icon={<PlayFill />}
-              margin="small"
-              alignSelf="end"
-              label="Start"
-              onClick={() => {
-                console.log(props);
-              }}
-            />
+          </Box>
+        </Box>
       </Box>
     </Grommet>
   );

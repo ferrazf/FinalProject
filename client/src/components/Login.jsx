@@ -7,6 +7,7 @@ import {
     Grommet,
 } from "grommet";
 import { hpe } from "grommet-theme-hpe";
+import { FormCheckmark } from "grommet-icons";
 import { Redirect } from "react-router-dom";
 import axios from 'axios';
 
@@ -32,8 +33,10 @@ function Login(props) {
             setToHome(true)
             props.setUser(data);
             props.setOnLogin(data);
-        }catch (e){
-            props.setError(e);
+        } catch (e) {
+            console.log(e);
+            console.log('props = ', props);
+            //props.setError(e);
         }
     }
 
@@ -51,7 +54,19 @@ function Login(props) {
                     <FormField name="password" type="password" label="Password" placeholder="Your Password" />
                     <Box align="center" pad="medium">
                         <Box direction="row" gap="small">
-                            <Button alignSelf="end" onClick={handleOnLogin} primary label="Login" />
+                            <Button
+                                primary
+                                alignSelf="end"
+                                onClick={handleOnLogin}
+                                label="Submit"
+                                />
+                            <Button
+                                primary
+                                alignSelf="start"
+                                href="/register"
+                                label="Register"
+                                // icon={<FormCheckmark />}
+                                />
                         </Box>
                     </Box>
                 </Form>

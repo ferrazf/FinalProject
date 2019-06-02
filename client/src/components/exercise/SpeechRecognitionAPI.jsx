@@ -3,8 +3,8 @@ import { Box, Button } from 'grommet';
 import PropTypes from "prop-types";
 import SpeechRecognition from "react-speech-recognition";
 import TextToSpeech from 'speak-tts'
-import { PlayFill } from "grommet-icons";
-import { Redirect } from 'react-router';
+import { FormPreviousLink, Microphone } from "grommet-icons";
+import { Link } from "react-router-dom";
 
 
 const speech = new TextToSpeech();
@@ -130,72 +130,113 @@ const Dictaphone = ({
     }
     //Add Logic - Stop should only work if already started
   } 
-  console.log("outside: ",counter)
-    if (transcript.includes("done")  && started){
+  if (transcript.includes("done")  && started){
     console.log(next)
     stopListening()
     resetTranscript()
-    console.log("current counter: " ,counter)
-      if (counter > currentExercise.sets) {
-        speech.speak({
-          queue: false,
-          text: `${currentExercise.name} is complete`,
-          listeners: {
-            onstart: (data) => {
-              console.log(data.currentTarget.text);
-              console.log("finished counter: ", counter)
-            },
-            onend: () => {
-              console.log("End utterance");
-              console.log("finished counter: ", counter)
-            }
+    
+    if (!listening && counter < currentExercise.sets && next){
+      
+      setNext(false)
+      
+      speech.speak({
+        queue: false,
+        text: `Starting timer for ${currentExercise.rest} minute. enjoy your break!`,
+        listeners: {
+          onstart: (data) => {
+            console.log(data.currentTarget.text);
+          },
+          onend: () => {
+            console.log("End utterance");
           }
-        }).catch(e => {
-          console.error("An error occurred :", e)
-        }) 
-        setStart(false)
-        setCounter(1)
-      } else  if (counter <= currentExercise.sets && next){
-        setNext(false)
+        }
+      }).catch(e => {
+        console.error("An error occurred :", e)
+      }) 
+      
+      
+      setTimeout(function(){ 
         setCounter(counter + 1)
         speech.speak({
           queue: false,
-          text: `Starting timer for ${currentExercise.rest} minute. enjoy your break!`,
+          text: `Begin set ${counter} of ${currentExercise.name}. say done when you are finished your set`, 
           listeners: {
             onstart: (data) => {
               console.log(data.currentTarget.text);
+              console.log("set counter: ", counter)
             },
             onend: () => {
               console.log("End utterance");
             }
           }
+        }).then(() => {
+          setNext(true)
+          startListening()
         }).catch(e => {
           console.error("An error occurred :", e)
         }) 
-        setTimeout(function(){ 
-          speech.speak({
-            queue: false,
-            text: `Begin set ${counter} of ${currentExercise.name}. say done when you are finished your set`, 
-            listeners: {
-              onstart: (data) => {
-                console.log(data.currentTarget.text);
-                console.log("set counter: ", counter)
-              },
-              onend: () => {
-                console.log("End utterance");
-              }
-            }
-          }).then(() => {
-            setNext(true)
-            startListening()
-          }).catch(e => {
-            console.error("An error occurred :", e)
-          }) 
-          
-        }, 15000 * Number(currentExercise.rest));
-    }
-  }
+      }, 15000 * Number(currentExercise.rest));
+    } else if  (!listening && counter === currentExercise.sets && next) {
+    setNext(false)
+    
+    speech.speak({
+      queue: false,
+      text: `Starting timer for ${currentExercise.rest} minute. enjoy your break!`,
+      listeners: {
+        onstart: (data) => {
+          console.log(data.currentTarget.text);
+        },
+        onend: () => {
+          console.log("End utterance");
+        }
+      }
+    }).catch(e => {
+      console.error("An error occurred :", e)
+    }) 
 
+    setTimeout(function(){ 
+      setCounter(counter + 1)
+      speech.speak({
+        queue: false,
+        text: `Begin final set of ${currentExercise.name}. say complete when you are finished your set`, 
+        listeners: {
+          onstart: (data) => {
+            console.log(data.currentTarget.text);
+            console.log("set counter: ", counter)
+          },
+          onend: () => {
+            console.log("End utterance");
+          }
+        }
+      }).then(() => {
+        startListening()
+      }).catch(e => {
+        console.error("An error occurred :", e)
+      }) 
+    }, 15000 * Number(currentExercise.rest));
+  }
+}
+
+if (transcript.includes("complete")  && started){
+  setCounter(2)
+  setNext(true)
+  setStart(false)
+
+  speech.speak({
+    queue: false,
+    text: `Congratulations! you have complete ${currentExercise.name}. press Hands-free to start another exercise`,
+    listeners: {
+      onstart: (data) => {
+        console.log(data.currentTarget.text);
+      },
+      onend: () => {
+        console.log("End utterance");
+      }
+    }
+  }).catch(e => {
+    console.error("An error occurred :", e)
+  }) 
+}
   // else if (listening && exerciseObj && startOrFinish === "finish") {
   //   stopListening()
   //   resetTranscript()
@@ -209,17 +250,32 @@ const Dictaphone = ({
 
   return (
     <Box
-      direction="row"
-      basis="1/2">
-      {/* <button onClick={resetTranscript}>Reset</button> */}
-      <Button
-        primary
-        fill="horizontal"
-        icon={<PlayFill />}
-        margin="small"
-        label="Start Workout"
-        onClick={startListening}></Button>
-      <span>{interimTranscript}</span>
+      direction="row">
+       
+      <Link to="/">
+        <Button
+          primary
+          href="/"
+          icon={<FormPreviousLink />}
+          margin="small"
+          alignSelf="center"
+          label="Main Menu"
+          onClick={() => { }}
+        />
+        <Button
+          primary
+          icon={<Microphone />}
+          margin="small"
+          alignSelf="center"
+          label="Hands-Free"
+          onClick={(e) => {
+            e.preventDefault();
+            startListening();
+          }}
+
+        />
+         <span>{transcript}</span>
+      </Link>
     </Box>
   );
 };

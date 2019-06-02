@@ -1,4 +1,4 @@
-import { Box, FormField, Select, Form } from 'grommet';
+import { Box, FormField, Heading, Select, Form } from 'grommet';
 import React, { useState } from 'react';
 
 //displays a form in the addDisplay container that allows a user to selet a muscle group
@@ -12,13 +12,21 @@ function MUscleGroupSelect(props) {
     }
 
     return (
-        
-        <Box>
+        <Box
+        direction="column"
+        alignContent="center"
+        pad="medium"
+      >
             <Form >
-                <FormField label="Muscle:">
+                <Heading level="4"
+          margin={{
+            top: "0",
+            bottom: "0"
+          }}>Muscle:</Heading>
+                <FormField>
                     <Select
                     name="muscle"
-                    options={options}               
+                    options={options}
                     value={muscleGroup}
                     onChange={handleClick}
                     />
@@ -29,4 +37,3 @@ function MUscleGroupSelect(props) {
 }
 
 export default MUscleGroupSelect
-  
