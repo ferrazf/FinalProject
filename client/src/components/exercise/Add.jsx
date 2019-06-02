@@ -22,7 +22,6 @@ function exercise_display_add(props) {
         }}
       >
         <Heading
-        alignSelf="left"
         level="4"
         margin={{
             top: "0",

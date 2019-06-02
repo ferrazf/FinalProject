@@ -19,9 +19,13 @@ function Nav(props) {
   }
   const navLogoCss = {
     display: "inline-block",
-    width: "3.6rem",
+    width: "2.9rem",
+    height: "2.9rem",
+    marginRight: "0rem",
     position: "relative",
-    top: "1.2rem"
+    top: "0.8rem",
+    background: "url('/images/Logo192.png')",
+    backgroundSize: "contain"
   }
   const logoTxtCss = {
     marginRight: "auto",
@@ -33,15 +37,14 @@ function Nav(props) {
     <Box width="100%">
       <Box width="100%" align="center">
         <Link style={menuTxtCss} to="/" >
-          <img alt="Logo" style={navLogoCss} src="/images/Logo192.png" />
+          <div alt="Logo" style={navLogoCss} />
 
         <Button icon={<Menu size="1rem" />}
           plain
           label="Workouts"
             gap="xsmall"
-            align="left"
             style={{
-            margin: "0.4rem",
+            margin: "0.4rem 0.4rem 0.4rem 1.6rem",
             border: "1px solid rgb(9, 181, 143)",
             padding: "0.5rem 1rem",
             color: "rgb(255, 255, 255)",
@@ -56,7 +59,6 @@ function Nav(props) {
             plain
             label="Logout"
             gap="xsmall"
-            align="left"
             onClick={handleOnLogout}
             style={{
             margin: "0.4rem 0.4rem",
@@ -71,8 +73,7 @@ function Nav(props) {
         </Button>
         </Link>
       </Box>
-      <Box alignSelf="right"
-        style={{
+      <Box style={{
         textAlign: "right",
         marginRight: "0.4rem",
         marginTop: "0.4rem",
