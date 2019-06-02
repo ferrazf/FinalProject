@@ -12,12 +12,13 @@ function Nav(props) {
     const profile = props.isLoggedin(props.user) && (<Link to="/profile"><Heading level='3' margin='none'> Profile</Heading></Link>)
     const logout = props.isLoggedin(props.user) && (<Link to="/login" onClick={handleOnLogout}> Logout</Link>)
     const workouts = props.isLoggedin(props.user) && (<Link to="/"> Workouts</Link>)
+    const logo = <img scr="/images/logo192.png"></img>
 
     return (
         <Grommet theme={hpe}>
             <Box fill="horizontal">
                 <AppBar >
-                    {/* {logo Image - Display Large version on login and register pages only} */}
+                    {logo}
                     {workouts}
                     {/* {profile} */}
                     {logout}

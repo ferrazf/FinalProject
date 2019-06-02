@@ -9,6 +9,7 @@ import { Edit, PlayFill } from "grommet-icons";
 function exercise_display(props) {
   return (
     <Grommet theme={hpe}>
+      <img scr="/images/logo192.png"></img>
       <Box
         direction="column"
         margin="medium"

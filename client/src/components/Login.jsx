@@ -32,8 +32,10 @@ function Login(props) {
             setToHome(true)
             props.setUser(data);
             props.setOnLogin(data);
-        }catch (e){
-            props.setError(e);
+        } catch (e) {
+            console.log(e);
+            console.log('props = ', props);
+            //props.setError(e);
         }
     }
 
