@@ -96,9 +96,6 @@ function App(props) {
     setWorkout(request.data)
 
   }
-  // const isEmpty = (object) => {
-  //   return Object.entries(object).length === 0 && object.constructor === Object;
-  // }
 
   //==========================================
   // Events
