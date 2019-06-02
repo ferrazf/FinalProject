@@ -27,7 +27,10 @@ function  addDisplay(props) {
             </InfiniteScroll>
             <Link to="/workout">
               <Button
-                alignSelf="center"
+                margin={{
+                left: "1rem",
+                bottom: "1rem"
+                }}
                 label="Back"
                 onClick={() => {}}
               />
