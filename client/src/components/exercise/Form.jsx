@@ -46,7 +46,7 @@ function EditForm(props) {
             primary
             margin="medium"
             type="submit"
-            label="Submit"
+            label="Save"
             icon={<Save />}
             onClick={(e) => { console.log(e.target.parent)}}
           />

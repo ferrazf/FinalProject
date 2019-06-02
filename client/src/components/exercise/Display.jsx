@@ -33,29 +33,20 @@ function exercise_display(props) {
         <Text>Reps: {props.exercise.reps}</Text>
         <Text>Rest: {props.exercise.rest}</Text>
         <Text>Description: {props.exercise.descr} </Text>
-        <Box align="center" pad="medium">
-          <Box direction="row" gap="small">
+        <Box align="left">
+          <Box direction="row">
             <Link to="/edit">
               <Button
                 id={"edit" + props.exercise.id}
                 icon={<Edit />}
-                margin="small"
+                margin={{
+                  bottom: "0.8rem",
+                  top: "0.8rem"
+                }}
                 alignSelf="end"
                 label="Edit"
                 onClick={() => {
                   props.updateExercise(props.exercise);
-                }}
-              />
-              <Button
-                primary
-                id={"start" + props.exercise.id}
-                icon={<PlayFill />}
-                margin="small"
-                alignSelf="end"
-                label="Start"
-                onClick={(e) => {
-                  e.preventDefault();
-                  console.log(props);
                 }}
               />
             </Link>
