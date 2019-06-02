@@ -33,10 +33,10 @@ function exercise_display_add(props) {
         <div style={{textAlign: "center"}}><Link to="/workout">
           <Button
             primary
-          margin={{
+            margin={{
             top: "1.2rem",
             bottom: "0.2rem"
-          }}
+            }}
             icon={<AddCircle />}
             alignSelf="center"
             label="Add"

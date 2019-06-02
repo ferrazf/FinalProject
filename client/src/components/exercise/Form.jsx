@@ -33,19 +33,26 @@ function EditForm(props) {
         <TextInput type="hidden" name="ExName" value={props.exercise.name} />
       </FormField>
       <Box align="center" pad="small">
-        <Link to="/workout">
+        <div><Link to="/workout">
           <Button
             alignSelf="start"
             label="Delete"
+            margin="xsmall"
+            style={{
+              padding: "0.4rem 3rem"
+            }}
             icon={<Trash />}
             onClick={() => {
               props.deleteExercise(props.workout, props.exercise)
             }}
           />
-        </Link>
+        </Link></div>
         <Button
           primary
-          margin="medium"
+          margin="small"
+          style={{
+            padding: "0.4rem 3.3rem"
+          }}
           type="submit"
           label="Save"
           icon={<Save />}

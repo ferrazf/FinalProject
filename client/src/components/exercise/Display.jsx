@@ -45,8 +45,11 @@ function exercise_display(props) {
                 id={"edit" + props.exercise.id}
                 icon={<Edit />}
                 margin={{
-                  bottom: "0.8rem",
-                  top: "0.8rem"
+                  bottom: "1.6rem",
+                  top: "1.6rem"
+                }}
+                style={{
+                  padding: "0.4rem 3.3rem"
                 }}
                 alignSelf="center"
                 label="Edit"
