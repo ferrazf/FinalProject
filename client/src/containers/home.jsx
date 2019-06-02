@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, InfiniteScroll } from 'grommet';
 
 import Workout from "../components/workout/Index.jsx";
-import FirstPage from "../components/FirstPage.jsx";
+import Login from "../components/Login.jsx";
 
 function Home(props) {
   const items = props.isLoggedin(props.user) && props.workouts.map(workout => (
@@ -15,7 +15,12 @@ function Home(props) {
       />
     ))
 
-  const firstPage = !props.isLoggedin(props.user) && (<FirstPage />);
+  const firstPage = !props.isLoggedin(props.user) && (<Login
+    url={props.url}
+    setUser={props.setUser}
+    setOnLogin={props.setOnLogin}
+    setError={props.setError}
+  />);
   const workouts = props.isLoggedin(props.user) && (
       <Box>
         <InfiniteScroll items={items}>

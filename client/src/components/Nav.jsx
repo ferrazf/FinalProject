@@ -11,16 +11,15 @@ function Nav(props) {
     const register = !props.isLoggedin(props.user) && (<Link to="/register"> Register</Link>)
     const profile = props.isLoggedin(props.user) && (<Link to="/profile"><Heading level='3' margin='none'> Profile</Heading></Link>)
     const logout = props.isLoggedin(props.user) && (<Link to="/login" onClick={handleOnLogout}> Logout</Link>)
+    const workouts = props.isLoggedin(props.user) && (<Link to="/"> Workouts</Link>)
 
     return (
         <Grommet theme={hpe}>
             <Box fill="horizontal">
                 <AppBar >
-                    <Link to="/" justify='start'> Pocket Spotter</Link>
-                    {profile}
-                    {/* Replace with logout if user logged in */}
-                    {register}
-                    {login}
+                    {/* {logo Image - Display Large version on login and register pages only} */}
+                    {workouts}
+                    {/* {profile} */}
                     {logout}
                     <Text>{props.name}</Text>
                 </AppBar>

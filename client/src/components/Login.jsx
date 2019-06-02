@@ -56,6 +56,11 @@ function Login(props) {
                                 alignSelf="end"
                                 onClick={handleOnLogin}
                                 label="Login" />
+                            <Button
+                                primary
+                                alignSelf="start"
+                                href="/register"
+                                label="Register" />
                         </Box>
                     </Box>
                 </Form>

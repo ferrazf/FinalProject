@@ -71,7 +71,7 @@ function Register(props) {
                 primary
                 alignSelf="start"
                 onClick={handleOnRegister}
-                label="Register" />
+                label="Submit" />
             </Box>
           </Box>
         </Form>
