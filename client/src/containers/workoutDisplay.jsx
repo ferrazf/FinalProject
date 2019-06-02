@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Button, Grommet, InfiniteScroll } from 'grommet';
 import { Link } from "react-router-dom";
 import { hpe } from "grommet-theme-hpe";
@@ -9,6 +9,10 @@ import SpeechRecognition from "../components/exercise/SpeechRecognitionAPI.jsx";
 
 //accepts exercise display components
 function WorkoutDisplay(props) {
+  const [ started, setStart ] = useState(false)
+  const [ counter, setCounter ] = useState(1)
+  const [ currentExercise, setCurrentExercise ] = useState('test')
+
   const items = props.workoutExercises.map(exercise => (
     <DisplayExercise
       key={exercise.id}
@@ -30,7 +34,7 @@ function WorkoutDisplay(props) {
           <Button
             primary
             icon={<AddCircle />}
-            margin="small"
+            margin="small" 
             alignSelf="center"
             label="Add"
             onClick={() => { }}
@@ -48,7 +52,15 @@ function WorkoutDisplay(props) {
         </Link>
         <Box align="center" pad="medium">
           <Box direction="row" gap="small">
-            <SpeechRecognition exerciseList={props.workoutExercises}></SpeechRecognition>
+            <SpeechRecognition 
+              exerciseList={props.workoutExercises}
+              started={started}
+              setStart={setStart}  
+              counter={counter}
+              setCounter={setCounter}
+              currentExercise={currentExercise}
+              setCurrentExercise={setCurrentExercise}
+            />
           </Box>
         </Box>
       </Box>

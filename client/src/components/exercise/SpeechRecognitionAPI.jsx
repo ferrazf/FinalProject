@@ -6,11 +6,12 @@ import TextToSpeech from 'speak-tts'
 import { PlayFill } from "grommet-icons";
 import { Redirect } from 'react-router';
 
+
 const speech = new TextToSpeech();
 speech.init({
   'volume': 1,
   'lang': 'en-GB',
-  'rate': 1,
+  'rate': 1, 
   'pitch': 1,
   'voice': 'Google UK English Female',
   'splitSentences': true,
@@ -21,20 +22,36 @@ speech.init({
   }
 })
 
+const options = {
+  autoStart: false,
+  continuous: false
+}
 const propTypes = {
   // Props injected by SpeechRecognition
   updateExercise: PropTypes.func,
-  exerciseList: PropTypes.func,
+  exerciseList: PropTypes.object,
   transcript: PropTypes.string,
   interimTranscript: PropTypes.string,
   resetTranscript: PropTypes.func,
   startListening: PropTypes.func,
   stopListening: PropTypes.func,
   toggleListen: PropTypes.func,
-  browserSupportsSpeechRecognition: PropTypes.bool
+  browserSupportsSpeechRecognition: PropTypes.bool,
+  started: PropTypes.bool,
+  setStart: PropTypes.func, 
+  counter: PropTypes.int,
+  setCounter: PropTypes.func,
+  currentExercise: PropTypes.object,
+  setCurrentExercise: PropTypes.func
 };
 
 const Dictaphone = ({
+  counter,
+  setCounter,
+  currentExercise,
+  setCurrentExercise,
+  started,
+  setStart,
   updateExercise,
   listening,
   exerciseList,
@@ -45,65 +62,148 @@ const Dictaphone = ({
   stopListening,
   abortListening,
   toggleListen,
-  browserSupportsSpeechRecognition
+  browserSupportsSpeechRecognition,
 }) => {
   if (!browserSupportsSpeechRecognition) {
     return null;
   }
 
+
   // Helper function - returns index of spoken word if exists in list
   function getObjByValueContains(ObjList, valueContains) {
     if (valueContains) {
       for (let obj of ObjList) {
-        console.log("current obj = ", obj.name.toLowerCase(), ", said word = ", valueContains);
-        if (obj.name.toLowerCase().includes(valueContains)) {
-          console.log("obj.name includes ", valueContains);
+        if (obj.name.trim().toLowerCase() === valueContains.trim().toLowerCase()) {
+          setCurrentExercise(obj)
           return obj;
         }
       }
     }
   }
+ 
 
+  
   //transcript = Set of words after being transcribed
   //interimTranscript - Set of words currently being transcribed
 
   //If the user said the word start, listen for an exercise name in the same sentence
   // if (interimTranscript === "start")
-  if (transcript.includes("start") || transcript.includes("finish")) {
-    let speechTxt = transcript;
-    let startOrFinish = transcript.includes("start") ? "start" : "finish";
+  if (transcript.includes("start")) {
+    setStart(true)
+    let speechTxt = interimTranscript;
     //Create an array with all said words, except key words
-    let speechTxtArr = speechTxt.trim().toLowerCase().replace("start", "").replace("finish", "").split(" ");
-    console.log("TCL: speechTxtArr", speechTxtArr)
+    let speechTxtExercise = speechTxt.trim().toLowerCase().replace("start", "");
     let exerciseObj = null;
 
-    for (let txt of speechTxtArr) {
-      if (getObjByValueContains(exerciseList, txt))
-        exerciseObj = getObjByValueContains(exerciseList, txt);
-    }
+  
+    if (getObjByValueContains(exerciseList, speechTxtExercise))
+      exerciseObj = getObjByValueContains(exerciseList, speechTxtExercise);
+    
+  
     //User has finished speaking, finish listening and reply if words match exercise name
-    if (listening && exerciseObj && startOrFinish === "start") {
+    if (listening && exerciseObj && speechTxt.includes("start")) {
       stopListening()
       resetTranscript()
+      
       speech.speak({
         queue: false,
-        text: `Beginning ${exerciseObj.name} exercise. ${exerciseObj.sets} sets of ${exerciseObj.reps} reps remaining. Rest time is ${exerciseObj.rest} minute.`,
+        text: `Beginning ${exerciseObj.name} exercise. ${exerciseObj.sets} sets of ${exerciseObj.reps} reps remaining. Rest time is ${exerciseObj.rest} minute. say done when you are finished your set`,
+        listeners: {
+          onstart: (data) => {
+            console.log(data.currentTarget.text);
+          },
+          onend: () => {
+            console.log("End utterance");
+          }
+        }
+      }).then(data => {
+        startListening()
+        setStart(true)
       }).catch(e => {
         console.error("An error occurred :", e)
       })
+      options.continuous = true
+      
     }
     //Add Logic - Stop should only work if already started
-    else if (listening && exerciseObj && startOrFinish === "finish") {
-      stopListening()
-      resetTranscript()
+  } 
+  
+    if (transcript.includes("done") ){
+    console.log(options.continuous)
+    options.continuous = false
+    stopListening()
+    resetTranscript()
+    console.log("current counter: " ,counter)
+    if (counter > currentExercise.sets) {
+      
       speech.speak({
         queue: false,
-        text: `Finished ${exerciseObj.name} exercise. Would you like to start the next exercise?`,
+        text: `${currentExercise.name} is complete`,
+        listeners: {
+          onstart: (data) => {
+            console.log(data.currentTarget.text);
+            console.log("finished counter: ", counter)
+          },
+          onend: () => {
+            console.log("End utterance");
+            console.log("finished counter: ", counter)
+          }
+        }
       }).catch(e => {
         console.error("An error occurred :", e)
-      })
+      }) 
+      setStart(false)
+      setCounter(1)
+    } else  if (counter < currentExercise.sets){
+      speech.speak({
+        queue: false,
+        text: `Starting timer for ${currentExercise.rest} minute`,
+        listeners: {
+          onstart: (data) => {
+            console.log(data.currentTarget.text);
+          },
+          onend: () => {
+            console.log("End utterance");
+          }
+        }
+      }).catch(e => {
+        console.error("An error occurred :", e)
+      }) 
+      setTimeout(function(){ 
+        setCounter(counter + 1)
+       
+        speech.speak({
+          queue: false,
+          text: `Begin set ${counter} of ${currentExercise.name} `,
+          listeners: {
+            onstart: (data) => {
+              console.log(data.currentTarget.text);
+              console.log("set counter: ", counter)
+            },
+            onend: () => {
+              console.log("End utterance");
+            }
+          }
+        }).then(data => {
+          startListening()
+        }).catch(e => {
+          console.error("An error occurred :", e)
+        }) 
+        
+      }, 5000 * Number(currentExercise.rest));
     }
   }
+
+  // else if (listening && exerciseObj && startOrFinish === "finish") {
+  //   stopListening()
+  //   resetTranscript()
+  //   speech.speak({
+  //     queue: false,
+  //     text: `Finished ${exerciseObj.name} exercise. Would you like to start the next exercise?`,
+  //   }).catch(e => {
+  //     console.error("An error occurred :", e)
+  //   })  
+  // }
 
   return (
     <Box
@@ -122,10 +222,7 @@ const Dictaphone = ({
   );
 };
 
-const options = {
-  autoStart: false,
-  continuous: false
-}
+
 
 Dictaphone.propTypes = propTypes;
 
