@@ -40,17 +40,29 @@ function App(props) {
   // Functions
   //==========================================
   const isLoggedin = (user) => (user && user.hasOwnProperty('name')) ? true : false;
-  const setError = (content) => {
-    setMessage({
-        type: 'error',
-        content: `😱 Axios request failed: ${content}`
-      });
+
+  const clearError = () => {
+    setMessage('');
   }
 
+  const setError = (content) => {
+    let error = content;
+    if(content.hasOwnProperty('response') && content.response.hasOwnProperty('data') &&
+      content.response.data.hasOwnProperty('error')){
+      error = content.response.data.error;
+    }
+
+    setMessage({
+        type: 'error',
+        content: `😱 ${error}`
+      });
+
+    setTimeout(() => clearError(), 3000);
+  }
   const setOnLogin = async ( user ) => {
     setUser(user);
+    clearError();
     try{
-      // user22@test.com
       const workoutUrl = `${url}/users/${user.id}/workouts`;
       const { data } = await axios.get(workoutUrl, workoutUrl)
       setWorkout(data)
@@ -85,9 +97,6 @@ function App(props) {
     setWorkout(request.data)
 
   }
-  // const isEmpty = (object) => {
-  //   return Object.entries(object).length === 0 && object.constructor === Object;
-  // }
 
   //==========================================
   // Events
