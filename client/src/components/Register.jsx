@@ -9,7 +9,7 @@ import {
 import { hpe } from "grommet-theme-hpe";
 import { FormCheckmark, FormPreviousLink } from "grommet-icons";
 
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import axios from 'axios';
 
 function Register(props) {
@@ -68,13 +68,14 @@ function Register(props) {
           <FormField name="passwordverify" type="password" label="Verify Password" placeholder="Verify Your Desired Password" />
           <Box align="center" pad="medium">
             <Box direction="row" gap="small">
+              <Link to="/">
               <Button
                   primary
                   alignSelf="start"
-                  href="/"
                   label="Home Page"
                   // icon={<FormPreviousLink />}
-                  />
+                />
+                </Link>
                 <Button
                   primary
                   alignSelf="start"

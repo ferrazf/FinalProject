@@ -19,13 +19,11 @@ function Nav(props) {
   }
   const navLogoCss = {
     display: "inline-block",
-    width: "2.9rem",
-    height: "2.9rem",
-    marginRight: "0rem",
+    width: "120px",
     position: "relative",
-    top: "0.8rem",
+    top: "0.3rem",
     background: "url('/images/Logo192.png')",
-    backgroundSize: "contain"
+    backgroundSize: "cover"
   }
   const logoTxtCss = {
     marginRight: "auto",
@@ -34,51 +32,55 @@ function Nav(props) {
     width: "50%"
   }
   const menu = props.isLoggedin(props.user) && (
-    <Box width="100%">
-      <Box width="100%" align="center">
-        <Link style={menuTxtCss} to="/" >
+    <Box>
+      <Box align="center" pad="small">
+        <Box direction="row" gap="small" margin="medium">
           <div alt="Logo" style={navLogoCss} />
-
-        <Button icon={<Menu size="1rem" />}
-          plain
-          label="Workouts"
-            gap="xsmall"
-            style={{
-            margin: "0.4rem 0.4rem 0.4rem 1.6rem",
-            border: "1px solid rgb(9, 181, 143)",
-            padding: "0.5rem 1rem",
-            color: "rgb(255, 255, 255)",
-            textDecoration: "none",
-            fontDize: "1rem",
-            borderRadius: "3px 3px 0px 0px",
-            backgroundColor: "rgb(0, 149, 115)"
-            }}>
-        </Button>
-          <Button icon={<Logout size="1rem" />}
-            href="/login"
-            plain
-            label="Logout"
-            gap="xsmall"
-            onClick={handleOnLogout}
-            style={{
-            margin: "0.4rem 0.4rem",
-            border: "1px solid rgb(9, 181, 143)",
-            padding: "0.5rem 1rem",
-            color: "rgb(255, 255, 255)",
-            textDecoration: "none",
-            fontDize: "1rem",
-            borderRadius: "3px 3px 0px 0px",
-            backgroundColor: "rgb(0, 149, 115)"
-            }}>
-        </Button>
-        </Link>
+          <Link style={menuTxtCss} to="/" >
+            <Button icon={<Menu size="1rem" />}
+              plain
+              label="Workouts"
+                gap="xsmall"
+                style={{
+                margin: "0.4rem 0rem 0.4rem 1rem",
+                border: "1px solid rgb(9, 181, 143)",
+                padding: "0.5rem 1rem",
+                color: "rgb(255, 255, 255)",
+                textDecoration: "none",
+                fontDize: "1rem",
+                borderRadius: "3px 3px 0px 0px",
+                backgroundColor: "rgb(0, 149, 115)"
+                }}>
+              </Button>
+            </Link>
+            <Link style={menuTxtCss} to="/login" >
+              <Button icon={<Logout size="1rem" />}
+                plain
+                label="Logout"
+                gap="xsmall"
+                onClick={handleOnLogout}
+                style={{
+                  float: "right",
+                  margin: "0.4rem 0.8rem 0.4rem 0rem",
+                  border: "1px solid rgb(9, 181, 143)",
+                  padding: "0.5rem 1rem",
+                  color: "rgb(255, 255, 255)",
+                  textDecoration: "none",
+                  fontDize: "1rem",
+                  borderRadius: "3px 3px 0px 0px",
+                  backgroundColor: "rgb(0, 149, 115)"
+                }}>
+              </Button>
+            </Link>
+          </Box>
+        <Box margin="medium"
+          style={{
+          textAlign: "right",
+          width: "100%",
+          margin: "0 2rem 0 0"
+          }}>{welcomemsg}
+        </Box>
       </Box>
-      <Box style={{
-        textAlign: "right",
-        marginRight: "0.4rem",
-        marginTop: "0.4rem",
-        marginBottom: "0.2rem"
-      }}>{welcomemsg}</Box>
     </Box>
   );
   const logo = !props.isLoggedin(props.user) && (

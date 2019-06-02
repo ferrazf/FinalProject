@@ -8,18 +8,20 @@ function FirstPage(props) {
   return (
     <Grommet theme={hpe}>
       <Box>
-        <Box align="center" pad="medium">
-          <Box direction="row" gap="small">
-            <Button
-              primary
-              alignSelf="start"
-              href="/register"
-              label="Register" />
-            <Button
-              primary
-              alignSelf="start"
-              href="/login"
-              label="Login" />
+        <Box align="center" pad="large">
+          <Box direction="row" gap="small" margin="medium">
+            <Link to="/register">
+              <Button
+                primary
+                alignSelf="start"
+                  label="Register" />
+              </Link>
+              <Link to="/login">
+                <Button
+                primary
+                alignSelf="start"
+                label="Login" />
+              </Link>
           </Box>
         </Box>
       </Box>
