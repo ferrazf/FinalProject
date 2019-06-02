@@ -2,15 +2,25 @@ import React, { useState } from "react";
 import { Box, Grommet, Heading, Text } from "grommet";
 import { Link } from "react-router-dom";
 import { hpe } from "grommet-theme-hpe";
-import { BlockQuote } from "grommet-icons";
+import { BlockQuote, FastForward } from "grommet-icons";
 
 function Nav(props) {
   const handleOnLogout = () => props.setUser({});
+  const usrName = props.isLoggedin(props.user) && props.name.substr(0, props.name.indexOf(" "))
+  const login = !props.isLoggedin(props.user) && <Link to="/login" />
+  const welcomemsg = props.isLoggedin(props.user) && `Welcome, ${usrName}`
+  const menuTxtCss = {
+    color: "#fff",
+    textDecoration: "none"
+  }
+  const logoTxtCss = {
+    marginRight: "auto",
+    marginLeft: "auto",
+    display: "block",
+    width: "50%"
+  }
 
-  const login = !props.isLoggedin(props.user) && <Link to="/login" />;
-  const register = !props.isLoggedin(props.user) && (
-    <Link to="/register"> Register</Link>
-  );
+  const register = !props.isLoggedin(props.user) && (<Link to="/register"> Register</Link>);
   const profile = props.isLoggedin(props.user) && (
     <Link to="/profile">
       <Heading level="3" margin="none">
@@ -19,13 +29,14 @@ function Nav(props) {
     </Link>
   );
   const logout = props.isLoggedin(props.user) && (
-    <Link to="/login" onClick={handleOnLogout}>
+    <Link style={menuTxtCss} to="/login" onClick={handleOnLogout}>
       {" "}
       Logout
     </Link>
   );
   const workouts = props.isLoggedin(props.user) && (
-    <Link to="/"> Workouts</Link>
+    <Link to="/"
+      style={menuTxtCss}> Workouts</Link>
   );
   const logo = !props.isLoggedin(props.user) && (
     <Box
@@ -35,12 +46,27 @@ function Nav(props) {
         top: "0.6rem"
       }}
     >
-          <img alt="Logo" style={{ marginRight: "auto", marginLeft: "auto", display: "block", width: "50%" }} src="/images/Logo512.png" />
+      <img alt="Logo" style={logoTxtCss} src="/images/Logo512.png" />
       <Heading alignSelf="center">
         Pocket <span style={{ color: "rgb(178, 231, 13)" }}>Spotter</span>
       </Heading>
     </Box>
   );
+
+  const menuButtonCss = !props.isLoggedin(props.user) ? {} : {
+    margin: "0.3rem 0.4rem",
+    border: "1px solid rgb(0, 118, 91)",
+    padding: "0.3rem 1rem",
+    color: "rgb(204, 204, 204)",
+    textDecoration: "none",
+    fontSize: "1rem",
+    borderRadius: "3px 3px 0 0",
+    border: "1px solid #00a982",
+    backgroundColor: "rgb(0, 101, 78)"
+  }
+
+  const menuButtonSecondaryCss = !props.isLoggedin(props.user) ? {} : {
+  }
 
   return (
     <Grommet theme={hpe}>
@@ -48,10 +74,14 @@ function Nav(props) {
         <AppBar>
           {logo}
           {login}
-          {workouts}
+          <span style={menuButtonCss}>{workouts}</span>
           {/* {profile} */}
-          {logout}
-          <Text>{props.name}</Text>
+          {/* <span style={Object.assign(menuButtonSecondaryCss, menuButtonCss)}>{logout}</span> */}
+          <span style={menuButtonCss}>{logout}</span>
+          <Text style={{
+            margin: "0px 1rem",
+            fontSize: "1rem"
+          }}>{welcomemsg}</Text>
         </AppBar>
       </Box>
     </Grommet>

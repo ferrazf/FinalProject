@@ -34,8 +34,12 @@ function exercise_display(props) {
         <Text>Rest: {props.exercise.rest}</Text>
         <Text>Description: {props.exercise.descr} </Text>
         <Box align="left">
-          <Box direction="row">
-            <Link to="/edit">
+          <Box
+            direction="row">
+            <Link to="/edit"
+              style={{
+                margin: "0 auto"
+              }}>
               <Button
                 primary
                 id={"edit" + props.exercise.id}
@@ -44,7 +48,7 @@ function exercise_display(props) {
                   bottom: "0.8rem",
                   top: "0.8rem"
                 }}
-                alignSelf="end"
+                alignSelf="center"
                 label="Edit"
                 onClick={() => {
                   props.updateExercise(props.exercise);

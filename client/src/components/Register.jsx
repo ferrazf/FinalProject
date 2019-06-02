@@ -72,7 +72,7 @@ function Register(props) {
                   primary
                   alignSelf="start"
                   href="/"
-                  label="Back"
+                  label="Home Page"
                   // icon={<FormPreviousLink />}
                   />
                 <Button

@@ -42,15 +42,15 @@ function EditForm(props) {
               props.deleteExercise(props.workout, props.exercise)
             }}
           />
-          <Button
-            primary
-            margin="medium"
-            type="submit"
-            label="Save"
-            icon={<Save />}
-            onClick={(e) => { console.log(e.target.parent)}}
-          />
         </Link>
+        <Button
+          primary
+          margin="medium"
+          type="submit"
+          label="Save"
+          icon={<Save />}
+          onClick={(e) => { console.log(e.target.parent) }}
+        />
       </Box>
     </Form>
   )
