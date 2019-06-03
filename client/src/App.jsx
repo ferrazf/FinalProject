@@ -228,15 +228,19 @@ function App(props) {
   const handleStartWorkout = (evt) => {
     evt.preventDefault();
     const id = Number(evt.target.name);
-    const workout = { started_at: new Date() }
-    updateWorkout(id, workout);
+    if(!isNaN(id)){
+      const workout = { started_at: new Date() }
+      updateWorkout(id, workout);
+    }
   }
 
   const handleFinishWorkout = (evt) => {
     evt.preventDefault();
     const id = Number(evt.target.name);
-    const workout = { finished_at: new Date() }
-    updateWorkout(id, workout);
+    if(!isNaN(id)){
+      const workout = { finished_at: new Date() }
+      updateWorkout(id, workout);
+    }
   }
 
   //==========================================

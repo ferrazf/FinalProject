@@ -16,7 +16,7 @@ function WorkoutDisplay(props) {
   const [ startTimer, setStartTimer ]  = useState(false)
 
 
-  
+
   const items = props.workoutExercises.map(exercise => (
     <DisplayExercise
       key={exercise.id}
@@ -37,10 +37,10 @@ function WorkoutDisplay(props) {
             color: "border",
             side: "bottom"
           }}>
-          <SpeechRecognition 
+          <SpeechRecognition
             exerciseList={props.workoutExercises}
             started={started}
-            setStart={setStart}  
+            setStart={setStart}
             counter={counter}
             setCounter={setCounter}
             currentExercise={currentExercise}
@@ -66,16 +66,6 @@ function WorkoutDisplay(props) {
             }}
             alignSelf="center"
             label="Add Exercise"
-            onClick={() => { }}
-          />
-        </Link>
-        <Link to="/" >
-          <Button
-            primary
-            icon={<Duplicate />}
-            margin="small"
-            alignSelf="center"
-            label="Complete"
             onClick={() => { }}
           />
         </Link>
