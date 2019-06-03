@@ -21,13 +21,13 @@ Workout App
   - Dependencies
   - Routes
 
-## ERD
-
-![Image of ERD](./resources/database_UML.png)
-
 ## Network Diagram
 
 ![Image of ERD](./resources/network_diagram.png)
+
+## ERD
+
+![Image of ERD](./resources/database_UML.png)
 
 ## Upcoming Features
 
