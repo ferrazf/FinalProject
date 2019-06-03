@@ -7,7 +7,9 @@ import '../App.css'; // Tell Webpack that Button.js uses these styles
 
 function Nav(props) {
   const handleOnLogout = () => props.setUser({});
-  const usrName = props.isLoggedin(props.user) && props.name.substr(0, props.name.indexOf(" "))
+  let userNames = [];
+  if(props.name){ userNames = props.name.split(' '); }
+  const usrName = props.isLoggedin(props.user) && userNames.length && userNames[0];
   const login = !props.isLoggedin(props.user) && <Link to="/login" />
   const welcomemsg = props.isLoggedin(props.user) && `Welcome, ${usrName}!`
   const menuButtonCss = !props.isLoggedin(props.user) ? '' : 'NavBar-btn'

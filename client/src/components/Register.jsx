@@ -36,9 +36,7 @@ function Register(props) {
       evt.target.form.elements.passwordverify.value = '';
 
       try{
-        console.log("before")
         const { data } = await axios.post(`${props.url}/register`, user);
-        console.log("after")
         // please do NOT switch setToHome and props.setUser
         setToHome(true)
 
