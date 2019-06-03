@@ -12,7 +12,7 @@ function Workout(props) {
       icon={<PlayFill />}
       name={props.workout.workout_id}
       alignSelf="end"
-      label="Start"
+      label="Mark as 'Started'"
       onClick={props.handleStart}
     />
   );
@@ -22,7 +22,7 @@ function Workout(props) {
       icon={<CheckboxSelected />}
       name={props.workout.workout_id}
       alignSelf="end"
-      label="Finish"
+      label="Mark as 'Finished'"
       onClick={props.handleFinish}
     />
   );
