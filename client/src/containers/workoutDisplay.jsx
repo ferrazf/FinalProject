@@ -5,14 +5,18 @@ import { hpe } from "grommet-theme-hpe";
 import { Duplicate } from "grommet-icons";
 import DisplayExercise from "../components/exercise/Display.jsx";
 import SpeechRecognition from "../components/exercise/SpeechRecognitionAPI.jsx";
+import Timer from "../components/exercise/Timer.jsx";
 
 //accepts exercise display components
 function WorkoutDisplay(props) {
   const [ started, setStart ] = useState(false)
   const [ counter, setCounter ] = useState(2)
-  const [ currentExercise, setCurrentExercise ] = useState('test')
+  const [ currentExercise, setCurrentExercise ] = useState('')
   const [ next, setNext ] = useState(true)
+  const [ startTimer, setStartTimer ]  = useState(false)
 
+
+  
   const items = props.workoutExercises.map(exercise => (
     <DisplayExercise
       key={exercise.id}
@@ -43,8 +47,10 @@ function WorkoutDisplay(props) {
             setCurrentExercise={setCurrentExercise}
             next={next}
             setNext={setNext}
+            setStartTimer={setStartTimer}
           />
         </Box>
+        <Timer currentExercise={currentExercise} startTimer={startTimer}/>
         <InfiniteScroll items={items}>
           {(item) => (item)}
         </InfiniteScroll>

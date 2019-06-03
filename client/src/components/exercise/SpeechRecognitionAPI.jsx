@@ -29,7 +29,7 @@ const options = {
 const propTypes = {
   // Props injected by SpeechRecognition
   updateExercise: PropTypes.func,
-  exerciseList: PropTypes.object,
+  exerciseList: PropTypes.array,
   transcript: PropTypes.string,
   interimTranscript: PropTypes.string,
   resetTranscript: PropTypes.func,
@@ -39,15 +39,17 @@ const propTypes = {
   browserSupportsSpeechRecognition: PropTypes.bool,
   started: PropTypes.bool,
   setStart: PropTypes.func, 
-  counter: PropTypes.int,
+  counter: PropTypes.integer,
   setCounter: PropTypes.func,
   currentExercise: PropTypes.object,
   setCurrentExercise: PropTypes.func,
   next: PropTypes.bool,
-  setNext: PropTypes.func
+  setNext: PropTypes.func,
+  setStartTimer: PropTypes.func
 };
 
 const Dictaphone = ({
+  setStartTimer,
   next,
   setNext,
   counter,
@@ -193,7 +195,7 @@ const Dictaphone = ({
     }).catch(e => {
       console.error("An error occurred :", e)
     }) 
-
+    setStartTimer(true)
     setTimeout(function(){ 
       setCounter(counter + 1)
       speech.speak({
@@ -221,10 +223,10 @@ if (transcript.includes("complete")  && started){
   setCounter(2)
   setNext(true)
   setStart(false)
-
+  
   speech.speak({
     queue: false,
-    text: `Congratulations! you have complete ${currentExercise.name}. press Hands-free to start another exercise`,
+    text: `Congratulations! you have completed ${currentExercise.name}. press Hands-free to start another exercise`,
     listeners: {
       onstart: (data) => {
         console.log(data.currentTarget.text);
@@ -236,6 +238,7 @@ if (transcript.includes("complete")  && started){
   }).catch(e => {
     console.error("An error occurred :", e)
   }) 
+  setCurrentExercise('')
 }
   // else if (listening && exerciseObj && startOrFinish === "finish") {
   //   stopListening()
@@ -262,7 +265,11 @@ if (transcript.includes("complete")  && started){
           label="Main Menu"
           onClick={() => { }}
         />
-        <Button
+       
+         <span>{transcript}</span>
+  
+      </Link>
+      <Button
           primary
           icon={<Microphone />}
           margin="small"
@@ -274,8 +281,6 @@ if (transcript.includes("complete")  && started){
           }}
 
         />
-         <span>{transcript}</span>
-      </Link>
     </Box>
   );
 };
