@@ -17,12 +17,7 @@ function Nav(props) {
   const menuBtnCss = {
     color: "#fff",
     textDecoration: "none",
-    width: "124px"
-  }
-  const menuBtnCssSm = {
-    color: "#fff",
-    textDecoration: "none",
-    width: "144px"
+    width: "125px"
   }
   const navLogoCss = {
     display: "inline-block",
@@ -77,7 +72,7 @@ function Nav(props) {
                 }}>
               </Button>
             </Link>
-            <Link style={menuBtnCssSm} to="/login" >
+            <Link style={menuBtnCss} to="/login" >
               <Button icon={<Logout size="1rem" />}
                 plain
                 label="Logout"
