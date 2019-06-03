@@ -11,7 +11,7 @@ const speech = new TextToSpeech();
 speech.init({
   'volume': 1,
   'lang': 'en-GB',
-  'rate': 1, 
+  'rate': 1,
   'pitch': 1,
   'voice': 'Google UK English Female',
   'splitSentences': true,
@@ -38,7 +38,7 @@ const propTypes = {
   toggleListen: PropTypes.func,
   browserSupportsSpeechRecognition: PropTypes.bool,
   started: PropTypes.bool,
-  setStart: PropTypes.func, 
+  setStart: PropTypes.func,
   counter: PropTypes.integer,
   setCounter: PropTypes.func,
   currentExercise: PropTypes.object,
@@ -86,7 +86,7 @@ const Dictaphone = ({
       }
     }
   }
- 
+
 function starExercise() {
   speech.speak({
     queue: false,
@@ -105,7 +105,7 @@ function starExercise() {
     console.error("An error occurred :", e)
   })
 }
-  
+
   //transcript = Set of words after being transcribed
   //interimTranscript - Set of words currently being transcribed
 
@@ -117,16 +117,16 @@ function starExercise() {
     let speechTxtExercise = speechTxt.trim().toLowerCase().replace("start", "");
     let exerciseObj = null;
 
-  
+
     if (getObjByValueContains(exerciseList, speechTxtExercise))
       exerciseObj = getObjByValueContains(exerciseList, speechTxtExercise);
-    
-  
+
+
     //User has finished speaking, finish listening and reply if words match exercise name
     if (listening && exerciseObj && speechTxt.includes("start")) {
       stopListening()
       resetTranscript()
-      
+
       speech.speak({
         queue: false,
         text: `Beginning ${exerciseObj.name} exercise. ${exerciseObj.sets} sets of ${exerciseObj.reps} reps remaining. Rest time is ${exerciseObj.rest} minute. say done when you are finished your set`,
@@ -145,19 +145,19 @@ function starExercise() {
         console.error("An error occurred :", e)
       })
 
-      
+
     }
     //Add Logic - Stop should only work if already started
-  } 
+  }
   if (transcript.includes("done")  && started){
     console.log(next)
     stopListening()
     resetTranscript()
-    
+
     if (!listening && counter < currentExercise.sets && next){
-      
+
       setNext(false)
-      
+
       speech.speak({
         queue: false,
         text: `Starting timer for ${currentExercise.rest} minute. enjoy your break!`,
@@ -171,14 +171,14 @@ function starExercise() {
         }
       }).catch(e => {
         console.error("An error occurred :", e)
-      }) 
-      
-      
-      setTimeout(function(){ 
+      })
+
+
+      setTimeout(function(){
         setCounter(counter + 1)
         speech.speak({
           queue: false,
-          text: `Begin set ${counter} of ${currentExercise.name}. say done when you are finished your set`, 
+          text: `Begin set ${counter} of ${currentExercise.name}. say done when you are finished your set`,
           listeners: {
             onstart: (data) => {
               console.log(data.currentTarget.text);
@@ -193,11 +193,11 @@ function starExercise() {
           startListening()
         }).catch(e => {
           console.error("An error occurred :", e)
-        }) 
+        })
       }, 15000 * Number(currentExercise.rest));
     } else if  (!listening && counter === currentExercise.sets && next) {
     setNext(false)
-    
+
     speech.speak({
       queue: false,
       text: `Starting timer for ${currentExercise.rest} minute. enjoy your break!`,
@@ -211,13 +211,13 @@ function starExercise() {
       }
     }).catch(e => {
       console.error("An error occurred :", e)
-    }) 
+    })
     setStartTimer(true)
-    setTimeout(function(){ 
+    setTimeout(function(){
       setCounter(counter + 1)
       speech.speak({
         queue: false,
-        text: `Begin final set of ${currentExercise.name}. say complete when you are finished your set`, 
+        text: `Begin final set of ${currentExercise.name}. say complete when you are finished your set`,
         listeners: {
           onstart: (data) => {
             console.log(data.currentTarget.text);
@@ -231,7 +231,7 @@ function starExercise() {
         startListening()
       }).catch(e => {
         console.error("An error occurred :", e)
-      }) 
+      })
     }, 15000 * Number(currentExercise.rest));
   }
 }
@@ -240,7 +240,7 @@ if (transcript.includes("complete")  && started){
   setCounter(2)
   setNext(true)
   setStart(false)
-  
+
   speech.speak({
     queue: false,
     text: `Congratulations! you have completed ${currentExercise.name}. press Hands-free to start another exercise`,
@@ -254,7 +254,7 @@ if (transcript.includes("complete")  && started){
     }
   }).catch(e => {
     console.error("An error occurred :", e)
-  }) 
+  })
   setCurrentExercise('')
 }
   // else if (listening && exerciseObj && startOrFinish === "finish") {
@@ -265,7 +265,7 @@ if (transcript.includes("complete")  && started){
   //     text: `Finished ${exerciseObj.name} exercise. Would you like to start the next exercise?`,
   //   }).catch(e => {
   //     console.error("An error occurred :", e)
-  //   })  
+  //   })
   // }
 
   return (
@@ -284,9 +284,7 @@ if (transcript.includes("complete")  && started){
           label="Main Menu"
           onClick={() => { }}
         />
-       
-         <span>{transcript}</span>
-  
+
       </Link>
       <Button
           primary
