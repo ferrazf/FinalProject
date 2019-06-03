@@ -13,9 +13,5 @@ module.exports = (knex) => {
   router.route('/register')
     .post( helpers.register );
 
-  router.route('/profile')
-    .all( middleware.verifyToken )
-    .get( helpers.getUserByToken );
-
   return router;
 }
