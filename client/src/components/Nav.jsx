@@ -48,11 +48,15 @@ function Nav(props) {
           gap="small"
           margin="none"
           style={{
-            width: "100%"
+            width: "100%",
+            justifyContent: "space-between"
           }}>
         <div alt="Logo" style={navLogoCss}></div>
         <Box align="center"
-          pad="none">
+          pad="none"
+          style={{
+            textAlign: "right"
+          }}>
           <Box direction="row"
             gap="small"
             margin="none">
@@ -62,7 +66,7 @@ function Nav(props) {
               label="Workouts"
                 gap="xsmall"
                 style={{
-                  margin: "0.4rem 0rem 0.4rem 1rem",
+                  margin: "0.4rem 0rem",
                   border: "1px solid rgb(9, 181, 143)",
                   padding: "0.5rem 1rem",
                   color: "rgb(255, 255, 255)",
