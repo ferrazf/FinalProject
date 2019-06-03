@@ -25,6 +25,10 @@ Workout App
 
 ![Image of ERD](./resources/database_UML.png)
 
+## Network Diagram
+
+![Image of ERD](./resources/network_diagram.png)
+
 ## Upcoming Features
 
 1. Profile page
