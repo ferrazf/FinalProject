@@ -87,7 +87,24 @@ const Dictaphone = ({
     }
   }
  
-
+function starExercise() {
+  speech.speak({
+    queue: false,
+    text: `To begin say "start" and the name an exercise`,
+    listeners: {
+      onstart: (data) => {
+        console.log(data.currentTarget.text);
+      },
+      onend: () => {
+        console.log("End utterance");
+      }
+    }
+  }).then(data => {
+    startListening()
+  }).catch(e => {
+    console.error("An error occurred :", e)
+  })
+}
   
   //transcript = Set of words after being transcribed
   //interimTranscript - Set of words currently being transcribed
@@ -279,7 +296,7 @@ if (transcript.includes("complete")  && started){
           label="Hands-Free"
           onClick={(e) => {
             e.preventDefault();
-            startListening();
+            starExercise()
           }}
 
         />
