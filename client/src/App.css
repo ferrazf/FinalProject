@@ -23,6 +23,36 @@
   color: #61dafb;
 }
 
+.App-btn-padded {
+  padding: "0.4rem 3rem";
+}
+
+.NavBar-btn {
+  margin: 0.4rem 0.4rem;
+  border: 1px solid rgb(0, 169, 130);
+  padding: 0.3rem 1rem;
+  color: rgb(204, 204, 204);
+  text-decoration: none;
+  font-size: 1rem;
+  border-radius: 3px 3px 0px 0px;
+  background-color: rgb(0, 101, 78);
+  transition: 0.2s;
+}
+
+.NavBar-btn:hover {
+  background-color: rgb(0, 101, 78);
+}
+
+.welcome-txt {
+  margin: 0px 1rem;
+  font-size: 1rem;
+  text-indent: 0.5rem;
+}
+
+.logo-txt-secondary {
+  color: rgb(178, 231, 13);
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

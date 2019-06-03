@@ -1,31 +1,107 @@
 import React, { useState } from "react";
-import { Box, Grommet, Heading, Text } from "grommet";
+import { Box, Button, Grommet, Heading, Text } from "grommet";
 import { Link } from "react-router-dom";
 import { hpe } from "grommet-theme-hpe";
-import { BlockQuote } from "grommet-icons";
+import { Logout, Menu } from "grommet-icons";
+import '../App.css'; // Tell Webpack that Button.js uses these styles
 
 function Nav(props) {
   const handleOnLogout = () => props.setUser({});
-
-  const login = !props.isLoggedin(props.user) && <Link to="/login" />;
-  const register = !props.isLoggedin(props.user) && (
-    <Link to="/register"> Register</Link>
-  );
-  const profile = props.isLoggedin(props.user) && (
-    <Link to="/profile">
-      <Heading level="3" margin="none">
-        {" "}
-      </Heading>
-    </Link>
-  );
-  const logout = props.isLoggedin(props.user) && (
-    <Link to="/login" onClick={handleOnLogout}>
-      {" "}
-      Logout
-    </Link>
-  );
-  const workouts = props.isLoggedin(props.user) && (
-    <Link to="/"> Workouts</Link>
+  let userNames = [];
+  if(props.name){ userNames = props.name.split(' '); }
+  const usrName = props.isLoggedin(props.user) && userNames.length && userNames[0];
+  const login = !props.isLoggedin(props.user) && <Link to="/login" />
+  const welcomemsg = props.isLoggedin(props.user) && `Welcome, ${usrName}!`
+  const menuButtonCss = !props.isLoggedin(props.user) ? '' : 'NavBar-btn'
+  const welcomeTxtCss = "welcome-txt"
+  const menuBtnCss = {
+    color: "#fff",
+    textDecoration: "none",
+    width: "125px"
+  }
+  const navLogoCss = {
+    display: "inline-block",
+    width: "3rem",
+    position: "relative",
+    top: "0.3rem",
+    background: "url('/images/Logo192.png')",
+    backgroundSize: "cover"
+  }
+  const logoTxtCss = {
+    marginRight: "auto",
+    marginLeft: "auto",
+    display: "block",
+    width: "50%"
+  }
+  const menu = props.isLoggedin(props.user) && (
+      <Box align="center"
+        pad="none"
+        style={{
+          width: "100%"
+        }}>
+        <Box direction="row"
+          gap="small"
+          margin="none"
+          style={{
+            width: "100%",
+            justifyContent: "space-between"
+          }}>
+        <div alt="Logo" style={navLogoCss}></div>
+        <Box align="center"
+          pad="none"
+          style={{
+            textAlign: "right"
+          }}>
+          <Box direction="row"
+            gap="small"
+            margin="none">
+          <Link style={menuBtnCss} to="/" >
+            <Button icon={<Menu size="1rem" />}
+              plain
+              label="Workouts"
+                gap="xsmall"
+                style={{
+                  margin: "0.4rem 0rem",
+                  border: "1px solid rgb(9, 181, 143)",
+                  padding: "0.5rem 1rem",
+                  color: "rgb(255, 255, 255)",
+                  textDecoration: "none",
+                  fontDize: "1rem",
+                  borderRadius: "3px 3px 0px 0px",
+                  backgroundColor: "rgb(0, 149, 115)"
+                }}>
+              </Button>
+            </Link>
+            <Link style={menuBtnCss} to="/login" >
+              <Button icon={<Logout size="1rem" />}
+                plain
+                label="Logout"
+                gap="xsmall"
+                onClick={handleOnLogout}
+                style={{
+                  float: "right",
+                  margin: "0.4rem 0.8rem 0.4rem 0rem",
+                  border: "1px solid rgb(9, 181, 143)",
+                  padding: "0.5rem 1rem",
+                  color: "rgb(255, 255, 255)",
+                  textDecoration: "none",
+                  fontDize: "1rem",
+                  borderRadius: "3px 3px 0px 0px",
+                  backgroundColor: "rgb(0, 149, 115)"
+                }}>
+              </Button>
+          </Link>
+          </Box>
+        </Box>
+          </Box>
+        <Box margin="medium"
+          style={{
+          textAlign: "right",
+          width: "100%",
+          margin: "0 2rem 0 0"
+          }}>{welcomemsg}
+        </Box>
+      </Box>
   );
   const logo = !props.isLoggedin(props.user) && (
     <Box
@@ -35,9 +111,9 @@ function Nav(props) {
         top: "0.6rem"
       }}
     >
-          <img alt="Logo" style={{ marginRight: "auto", marginLeft: "auto", display: "block", width: "50%" }} src="/images/Logo512.png" />
+      <img alt="Logo" style={logoTxtCss} src="/images/Logo512.png" />
       <Heading alignSelf="center">
-        Pocket <span style={{ color: "rgb(178, 231, 13)" }}>Spotter</span>
+        Pocket <span class="logo-txt-secondary">Spotter</span>
       </Heading>
     </Box>
   );
@@ -48,10 +124,9 @@ function Nav(props) {
         <AppBar>
           {logo}
           {login}
-          {workouts}
+          {menu}
           {/* {profile} */}
-          {logout}
-          <Text>{props.name}</Text>
+          {/* <span style={Object.assign(menuButtonSecondaryCss, menuButtonCss)}>{logout}</span> */}
         </AppBar>
       </Box>
     </Grommet>

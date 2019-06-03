@@ -50,7 +50,7 @@ function WorkoutDisplay(props) {
             setStartTimer={setStartTimer}
           />
         </Box>
-        <Timer currentExercise={currentExercise} startTimer={startTimer}/>
+        {/* <Timer currentExercise={currentExercise} startTimer={startTimer}/> */}
         <InfiniteScroll items={items}>
           {(item) => (item)}
         </InfiniteScroll>
@@ -61,6 +61,9 @@ function WorkoutDisplay(props) {
             primary
             icon={<Duplicate />}
             margin="small"
+            style={{
+              padding: "0.4rem 3.3rem"
+            }}
             alignSelf="center"
             label="Add Exercise"
             onClick={() => { }}

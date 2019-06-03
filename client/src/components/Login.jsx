@@ -7,8 +7,7 @@ import {
     Grommet,
 } from "grommet";
 import { hpe } from "grommet-theme-hpe";
-import { FormCheckmark } from "grommet-icons";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import axios from 'axios';
 
 function Login(props) {
@@ -34,9 +33,9 @@ function Login(props) {
             props.setUser(data);
             props.setOnLogin(data);
         } catch (e) {
-            console.log(e);
-            console.log('props = ', props);
-            //props.setError(e);
+            //console.log(e);
+            //console.log('props = ', props);
+            props.setError(e);
         }
     }
 
@@ -59,14 +58,13 @@ function Login(props) {
                                 alignSelf="end"
                                 onClick={handleOnLogin}
                                 label="Submit"
-                                />
-                            <Button
-                                primary
-                                alignSelf="start"
-                                href="/register"
-                                label="Register"
-                                // icon={<FormCheckmark />}
-                                />
+                            />
+                            <Link to="/register">
+                                <Button
+                                    primary
+                                    alignSelf="start"
+                                    label="Register" />
+                            </Link>
                         </Box>
                     </Box>
                 </Form>

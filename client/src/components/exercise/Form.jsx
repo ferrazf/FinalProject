@@ -32,20 +32,32 @@ function EditForm(props) {
         <TextInput type="text" name="Rest" defaultValue={props.exercise.rest} />
         <TextInput type="hidden" name="ExName" value={props.exercise.name} />
       </FormField>
-      <Box align="center" pad="small">
-        <Link to="/workout">
+      <Box align="center" pad="large">
+        <div><Link to="/workout">
           <Button
             alignSelf="start"
             label="Delete"
+            margin="xsmall"
+            style={{
+              padding: "0.4rem 3rem"
+            }}
             icon={<Trash />}
             onClick={() => {
               props.deleteExercise(props.workout, props.exercise)
             }}
           />
-        </Link>
-        <Box direction="row" gap="small">
-            <Button margin="medium" type="submit" primary label="Submit" />
-        </Box>
+        </Link></div>
+        <Button
+          primary
+          margin="small"
+          style={{
+            padding: "0.4rem 3.3rem"
+          }}
+          type="submit"
+          label="Save"
+          icon={<Save />}
+          onClick={(e) => { console.log(e.target.parent) }}
+        />
       </Box>
     </Form>
   )
