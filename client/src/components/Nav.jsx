@@ -113,7 +113,7 @@ function Nav(props) {
     >
       <img alt="Logo" style={logoTxtCss} src="/images/Logo512.png" />
       <Heading alignSelf="center">
-        Pocket <span class="logo-txt-secondary">Spotter</span>
+        Pocket <span className="logo-txt-secondary">Spotter</span>
       </Heading>
     </Box>
   );
