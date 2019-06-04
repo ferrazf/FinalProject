@@ -44,7 +44,7 @@ Workout App
 ## Screenshots
 
 ![Register Page](./resources/Register.png)
-![Login Page](./resources/Register.png)
+![Login Page](./resources/Login.png)
 ![View Workouts](./resources/ViewWorkouts.png)
 ![View Exercises](./resources/ViewExercises.png)
 ![Edit Exercise](./resources/EditExercise.png)
