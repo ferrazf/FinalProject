@@ -6,8 +6,8 @@ Workout App
 
 ## Tech Stack
 
-  Front-ent: Grommet, React, Voice APIs
-  Back-end: Node.js, Express, PostgresSQL
+  - Front-ent: Grommet, React, Voice APIs
+   - Back-end: Node.js, Express, PostgresSQL
 
 ## Client
 
