@@ -24,11 +24,11 @@ Workout App
 
 ## Network Diagram
 
-![Image of ERD](./resources/network_diagram.png)
+![Network Diagram](./resources/network_diagram.png)
 
 ## ERD
 
-![Image of ERD](./resources/database_UML.png)
+![ERD](./resources/database_UML.png)
 
 ## Upcoming Features
 
@@ -41,6 +41,14 @@ Workout App
 7. View someone else's workout
 8. Like and comment on someone else's workout
 9. Display workout schedule (calendar)
+
+## Screenshots
+
+![Register Page](./resources/Register.png)
+![Login Page](./resources/Login.png)
+![View Workouts](./resources/ViewWorkouts.png)
+![View Exercises](./resources/ViewExercises.png)
+![Edit Exercise](./resources/EditExercise.png)
 
 ## Known Issues
 
