@@ -2,12 +2,12 @@
 
 ## About
 
-Workout App
+Voice-controlled Workout App
 
 ## Tech Stack
 
   - Front-ent: Grommet, React, Voice APIs
-   - Back-end: Node.js, Express, PostgresSQL
+  - Back-end: Node.js, Express, PostgresSQL
 
 ## Client
 
