@@ -52,5 +52,5 @@ Workout App
 
 ## Known Issues
 
-Since it is deployed, the free apps get “idled” after a while (if not being used) and then take a while to reboot. Sometimes, it requires that you refresh the page 5 times.
-The speech recognition *only* works for **Android** phones.
+- Since it is deployed, the free apps get “idled” after a while (if not being used) and then take a while to reboot. Sometimes, it requires that you refresh the page 5 times.
+- The speech recognition *only* works for **Android** phones.
