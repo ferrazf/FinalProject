@@ -4,9 +4,10 @@
 
 Workout App
 
-## User's workouts
+## Tech Stack
 
-## Workout's exercises
+  Front-ent: Grommet, React, Voice APIs
+  Back-end: Node.js, Express, PostgresSQL
 
 ## Client
 
@@ -42,3 +43,6 @@ Workout App
 9. Display workout schedule (calendar)
 
 ## Known Issues
+
+Since it is deployed, the free apps get “idled” after a while (if not being used) and then take a while to reboot. Sometimes, it requires that you refresh the page 5 times.
+The speech recognition *only* works for **Android** phones.
