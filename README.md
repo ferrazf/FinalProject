@@ -52,5 +52,5 @@ Voice-controlled Workout App
 
 ## Known Issues
 
-- Since it is deployed, the free apps get “idled” after a while (if not being used) and then take a while to reboot. Sometimes, it requires that you refresh the page 5 times.
-- The speech recognition *only* works for **Android** phones.
+- When accessing the deployed app, it may become idle after a several hours of not being used, which may slow down response time upon first accessing the app.
+- Speech recognition is currently only supported on Android phones.
