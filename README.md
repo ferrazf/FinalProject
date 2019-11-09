@@ -2,7 +2,7 @@
 
 ## About
 
-Voice-controlled Workout App
+Pocket Spotter is a voice-controlled workout App for the mobile phone, featuring workout routines accessible usig voice commands.
 
 ## Tech Stack
 
